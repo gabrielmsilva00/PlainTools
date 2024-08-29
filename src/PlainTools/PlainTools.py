@@ -2713,6 +2713,12 @@ class Container(dict):
     A flexible dictionary-like container class that supports various
     operations and transformations. Unlike a standard dictionary,
     a `Container` is unpacked by its values rather than by its keys.
+    
+    Note: Containers can't have numeric keys due to how their keys are 
+    directly associated to its instance attributes. However, any String 
+    type is a valid key type. Attempting to update a Container instance 
+    with enumerated dictionaries will raise a TypeError.
+
 
     The Container supports basic arithmetic operations on a per-key basis,
     meaning that you can operate an iterable to a Container, where each
