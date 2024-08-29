@@ -1,0 +1,152 @@
+/* Bits and parts taken from:
+ * CSS hacks and small modification for my Sphinx website
+ * :copyright: Copyright 2013-2016 Lilian Besson
+ * :license: GPLv3, see LICENSE for details.
+ */
+
+
+/* Colors and text decoration.
+ For example, :black:`text in black` or :blink:`text blinking` in rST. */
+
+@import url(https://fonts.googleapis.com/css?family=JetBrains+Mono);
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 200;
+  src: url(https://fonts.gstatic.com/s/jetbrainsmono/v18/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxTOlOV.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+* {
+  font-family: 'JetBrains Mono' !important;
+  font-weight: 200;
+}
+
+body {
+  background: black;
+}
+
+div {
+  background: black;
+}
+
+label {
+  color: #528FE4;
+  text-decoration: underline;
+}
+
+blockquote {
+  display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: white !important;
+  background : black !important;
+}
+
+p {
+  font-size: 98% !important;
+}
+
+dt {
+  font-size: 99% !important;
+}
+
+dd {
+  font-size: 98% !important;
+}
+
+blockquote {
+  color: white;
+  background: black;
+}
+
+.bd-sidebar {
+  display: none !important;
+}
+
+.bd-header-article {
+  display: none !important;
+}
+
+.theme-switch-button {
+  display: none !important;
+}
+
+.sig-object {
+  background: #28323c;
+}
+
+.sig-prename {
+  color: #a5a9b0;
+}
+
+.sig-name {
+  color: #cc7a7a;
+}
+
+.sig-param {
+  color: #528fe4 !important;
+}
+
+.o {
+  color: white !important;
+}
+
+.sig-return-icon {
+  color: white;
+}
+
+.sig-return-typehint {
+  color: #e69017 !important;
+}
+
+.default_value {
+  color: #96e696 !important;
+}
+
+.black {
+  color: black;
+  font-family: 'JetBrains Mono' !important;
+  font-weight: 200;
+}
+
+.gray {
+  color: gray;
+  font-family: 'JetBrains Mono' !important;
+  font-weight: 200;
+}
+
+.silver {
+  color: silver;
+  font-family: 'JetBrains Mono' !important;
+  font-weight: 200;
+}
+
+.white {
+  color: white;
+  font-family: 'JetBrains Mono' !important;
+  font-weight: 200;
+}
+
+.red {
+  color: red;
+  font-family: 'JetBrains Mono' !important;
+  font-weight: 200;
+}
+.magenta {
+  color: magenta;
+  font-family: 'JetBrains Mono' !important;
+  font-weight: 200;
+}
+.fuchsia {
+  color: fuchsia;
+  font-family: 'JetBrains Mono' !important;
+  font-weight: 200;
+}
+.orange {
+  color: orange;
+  font-family: 'JetBrains Mono' !important;
+  font-weight: 200;
+}
