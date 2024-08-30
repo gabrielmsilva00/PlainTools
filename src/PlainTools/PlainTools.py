@@ -2012,18 +2012,43 @@ class MAIN:
             cls.args = args or None
         if cls.kwargs is None:
             cls.kwargs = kwargs or None
-        frame = pframe(outer=True).f_locals
-        if 'main' in frame and isinstance(frame['main'], Callable):
-            match cls.args, cls.kwargs:
-                case None, None:
-                    exec("with Main: main()", frame)
-                case Z, None:
-                    exec(f"with Main: main(*{cls.args})", frame)
-                case None, Z:
-                    exec(f"with Main: main(**{cls.kwargs})", frame)
-                case X, Z:
-                    exec(f"with Main: main(*{cls.args}, **{cls.kwargs})",
-                         frame)
+        ns = pframe(outer=True).f_locals
+        if 'main' in ns and isinstance(ns['main'], Callable):
+            if 'Main' in ns and ns['Main'] is cls:
+                match cls.args, cls.kwargs:
+                    case None, None:
+                        exec("with Main: main()", ns)
+                    case Z, None:
+                        exec(f"with Main: main(*{cls.args})", ns)
+                    case None, Z:
+                        exec(f"with Main: main(**{cls.kwargs})", ns)
+                    case X, Z:
+                        exec(f"with Main: main(*{cls.args}, **{cls.kwargs})",
+                            ns)
+
+            else:
+                pt = __import__(__name__)
+                
+                for k, v in ns.items():
+                    if v == pt:
+                        pt = k
+                        break
+                    
+                else: # No break
+                    return cls
+                
+                match cls.args, cls.kwargs:
+                    case None, None:
+                        exec(f"with {pt}.Main: main()", ns)
+                    case Z, None:
+                        exec(f"with {pt}.Main: main(*{cls.args})", ns)
+                    case None, Z:
+                        exec(f"with {pt}.Main: main(**{cls.kwargs})", ns)
+                    case X, Z:
+                        exec(
+                            f"with {pt}.Main: main(*{cls.args},**{cls.kwargs})",
+                            ns)
+                        
         return cls
 
     def __enter__(cls: Self,
@@ -2538,7 +2563,7 @@ class SEVAL:
         pass
 
     def __init__(cls):
-        cls.namespace = pframe(2).f_locals
+        cls.namespace = pframe(outer=True).f_locals
         cls.operators = {ast.Add: operator.add,
                          ast.Sub: operator.sub,
                          ast.Mult: operator.mul,
