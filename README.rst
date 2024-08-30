@@ -2,7 +2,7 @@
     :scale: 100%
     :height: 252px
 
-    Version\: 1.0.240830b (As in: Main.sub.YYMMDDbranch)
+    Version\: 1.0.240830 beta (As in: Main.sub.YYMMDD branch)
 
 
 - `Library's Documentation <https://gabrielmsilva00.github.io/PlainTools/>`_
@@ -33,6 +33,36 @@ Simple, right?
 You might be thinking "Oh well, a simple rounding function, how quaint..." (\\s),
 but that is far from it!
 
-You see, :emphasis:`round()` itself is *black-&-white*, in the sense that it 
-does what its :emphasis:`ndigits` argument asks it to: round for `n` digits.
+You see, **round()** itself is *black-&-white*, in the sense that it 
+does what its **ndigits** argument asks it to: round for **n digits**. 
+So consider the following case:
+
+.. code-block:: python
+
+    >>> def sround(num):
+            return round(num, 3)
+    
+    >>> print(sround(0.1 * 3))
+    0.3
+
+Great! Crisis averted. All is well, and we no longer have to deal with pesky 
+**float imprecision** anymore!
+
+Hold on, what if you are dealing with small, high precision operations?
+
+"Add more 'ndigits' to round()"
+
+But what about really small, precise float number operat--
+
+"More 'ndigits'!"
+
+But what if--
+
+"MOAR!"
+
+
+Well, you see, **float imprecision cases** tends to appear more and more the 
+smaller the numbers you are dealing with. And sometimes, when you have to do 
+a large chain of operations on these small numbers, you will end up with a 
+much less precise end result than what y
 
