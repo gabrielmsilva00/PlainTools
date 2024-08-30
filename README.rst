@@ -1,8 +1,8 @@
 .. figure:: pthead.png
     :scale: 100%
     :height: 252px
-    
-    :subscript: Version\: 1.0.240830b (As in: Main.sub.YYMMDDbranch)
+
+    Version\: 1.0.240830b (As in: Main.sub.YYMMDDbranch)
 
 
 - `Library's Documentation <https://gabrielmsilva00.github.io/PlainTools/>`_
