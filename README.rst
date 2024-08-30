@@ -33,6 +33,6 @@ Simple, right?
 You might be thinking "Oh well, a simple rounding function, how quaint..." (\\s),
 but that is far from it!
 
-You see, :py:function:`round()` itself is *black-&-white*, in the sense that it 
-does what its `ndigits` argument asks it to: round for `n` digits.
+You see, :emphasis:`round()` itself is *black-&-white*, in the sense that it 
+does what its :emphasis:`ndigits` argument asks it to: round for `n` digits.
 
