@@ -201,6 +201,7 @@ def punit(*its: Iterable[Any],
 
 def pnumber(*vals: Real | Iterable[Real | String],
             tol: String | Integer = 'auto',
+            dcm: String | Integer = 'auto',
             ) -> Real | Iterable[Real] | None:
     """
     Plain Number.
@@ -238,6 +239,13 @@ def pnumber(*vals: Real | Iterable[Real | String],
             | Precision of the output;
             | It is recommended to follow the lowest decimal place.
             | i.e. tol=64 for a precision of up to 1e-64.
+        
+        dcm: String | Integer = 'auto'
+            | Decimal places of the output;
+            | It is involved in the rounding phase of the function.
+            | 'auto' round repeating decimals up to 4 repetitions;
+            | i.e. pnumber(1/3, dcm='auto') == 0.3333
+            | dcm = ('all'|16|None) all end up with the same result.
 
     :Return:
         R: Real | Iterable[Real] | None
@@ -254,13 +262,13 @@ def pnumber(*vals: Real | Iterable[Real | String],
             '.') + 1:].rstrip('9').count('9') // 4))
 
     def RT(x): return max(4, 16 - math.ceil(math.log(
-        x, 128 if x < 1e-15 else
-        64 if x < 1e-12 else
-        32 if x < 1e-9 else
-        16 if x < 1e-6 else
-        8 if x < 1e-3 else
-        4)))
-
+        x, 96 if x < 1e-15 else
+        48 if x < 1e-12 else
+        24 if x < 1e-9 else
+        12 if x < 1e-6 else
+        6 if x < 1e-3 else
+        3)))
+    
     for val in plist(vals):
 
         with Try:
@@ -282,22 +290,24 @@ def pnumber(*vals: Real | Iterable[Real | String],
             num = RS(num, tol)
 
             # https://stackoverflow.com/a/38847691/26469850
-            dcm = format(decimal.Context(prec=32).create_decimal(
+            dnum = format(decimal.Context(prec=32).create_decimal(
                 repr(num)), 'f')
 
             # CHECK 2: Float imprecision
-            while re.compile(
-                    r'^-?\d+\.\d*?[1-9](0{5,})([1-9]{1,2})$').search(dcm):
-                dcm = dcm[:-1]
+            while re.compile( # re is some black magic, I swear. LLM used.
+                    r'^-?\d+\.\d*?[1-9](0{5,})([1-9]{1,2})$').search(dnum):
+                dnum = dnum[:-1]
                 I = True
 
-            for length in range(1, len(dcm) // 4 + 1):
-                for start in range(len(dcm) - length * 4):
-                    period = dcm[start:start + length]
-                    if period * 4 == dcm[start:start + length * 4] and (
+            for length in range(1, len(dnum) // 4 + 1):
+                for start in range(len(dnum) - length * 4):
+                    period = dnum[start:start + length]
+                    if period * 4 == dnum[start:start + length * 4] and (
                             period != '0' * length):
-                        S = round(float(dcm), len(
-                            dcm[:start] or '') + (len(period) * 3) - 1)
+                        S = round(float(dnum), len(
+                            dnum[:start] or '') + (len(period) * 3) - 1) if (
+                                dcm == 'auto') else float(dnum) if (
+                                    dcm == 'all') else round(float(dnum), dcm)
                         if not math.isclose(S, int(S),
                                             rel_tol=1e-15,
                                             abs_tol=1e-15):
@@ -309,15 +319,15 @@ def pnumber(*vals: Real | Iterable[Real | String],
                     continue
                 break
             else:  # nobreak
-                S = float(dcm)
+                S = float(dnum)
                 if S.is_integer():
                     S = int(S)
 
             if not math.isclose(
-                    Decimal(S), Decimal(dcm), rel_tol=1e-15,
+                    Decimal(S), Decimal(dnum), rel_tol=1e-15,
                     abs_tol=1e-15) and not I and not P:
                 S = float(num)
-
+            
             R.append(S)
 
     return punit(R)
