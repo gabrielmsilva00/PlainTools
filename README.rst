@@ -10,7 +10,7 @@
     .. image:: ptqr.png
         :scale: 100%
         :height: 64
-        :target: `<https://gabrielmsilva00.github.io/PlainTools/>`_
+        :target: `Docs <https://gabrielmsilva00.github.io/PlainTools/>`_
 
 - `Author's Github <https://github.com/gabrielmsilva00>`_
 
