@@ -7,7 +7,7 @@
 
 - `Library's Documentation <https://gabrielmsilva00.github.io/PlainTools/>`_
 
-    .. image:: ptqr.png
+    .. image:: https://github.com/gabrielmsilva00/PlainTools/blob/main
         :scale: 100%
         :height: 64
         :target: gabrielmsilva00.github.io/PlainTools
