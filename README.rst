@@ -6,10 +6,12 @@
 
 
 - `Library's Documentation <https://gabrielmsilva00.github.io/PlainTools/>`_
-    .. figure:: ptqr.png
+
+    .. image:: ptqr.png
         :scale: 100%
-        :height: 128
-        
+        :height: 64
+        :target: `<https://gabrielmsilva00.github.io/PlainTools/>`
+
 - `Author's Github <https://github.com/gabrielmsilva00>`_
 
 Introduction
