@@ -1,8 +1,5 @@
 .. PlainTools documentation master file, created by
    sphinx-quickstart on Fri Jul 12 13:32:04 2024.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 
 **PlainTools' Docs**
 ---------------------
@@ -18,7 +15,6 @@ loops and contexts with easy to handle classes and functions.
 (Click below onto each [Section] to expand | collapse it.)
 
 .. collapse:: [Table of Contents]
-    :open:
 
     - :ref:`Formatter Functions`
         Formatted data in an easy way.
@@ -82,7 +78,6 @@ loops and contexts with easy to handle classes and functions.
 ⠀
 
 .. collapse:: [Introduction]
-    :open:
 
     The following needs to be considered when reading these docs:
 
@@ -120,7 +115,6 @@ loops and contexts with easy to handle classes and functions.
 ⠀
 
 .. collapse:: [Resources & Credits]
-    :open:
 
     - Disclaimer\: :orange:`LLM (AI)` Use\:
         - `ChatGPT <https://chat.openai.com>`_, `Codeium <https://codeium.com>`_ and `Gemini <https://gemini.google.com>`_ (The later not credited as it did not "contribute" directly to the codebase) were used in this project development.
