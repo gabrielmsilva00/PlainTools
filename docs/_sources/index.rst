@@ -7,7 +7,7 @@
 **PlainTools' Docs**
 ---------------------
 
-**Welcome to PlainTools' docs!**
+**Welcome to PlainTools' documentation!**
 
 PlainTools is a Python 3 library designed to streamline simple operations, 
 loops and contexts with easy to handle classes and functions.
@@ -127,7 +127,7 @@ loops and contexts with easy to handle classes and functions.
         - If you, your university or your company (in general, if the target for this library's use) does have any restrictions, implicit or explicit, against the use of LLMs in production | academic coding, please avert from using this library.
         - Any code "contributed" by or taken from any LLM (AI) use, prompted directly or indirectly, was heavily debugged and tested (to the best of my personal capacity).
         - If any code comes across as sluggish, unnoptimized or just bad, please let me know by raising an issue or DMing me at GitHub (`@gabrielmsilva00 <https://github.com/gabrielmsilva00>`_), or email me at `@gabrielmaia.silva00@gmail.com <mailto:gabrielmaia.silva00@gmail.com?subject=PlainTools%20Python%20Library%20Feedback>`_.
-        - For a more clear understanding of the above, you will probably find 50~90% "AI Code" whenever the following libraries were used:
+        - For a more clear understanding of the above, you will probably find 40~80% LLM-made code wherever attributes from the following libraries were used:
             - re
             - ast
             - itertools
@@ -230,7 +230,7 @@ output data in a formatted, previsible way.
             - A single item or a tuple of items.
 
 
-.. py:function:: pt.pnumber(*vals, tol='auto') -> Number | Iterable[Number] | None:
+.. py:function:: pt.pnumber(*vals, tol='auto', dcm='auto', prd=4) -> Number | Iterable[Number] | None:
 
     Plain Number.
 
@@ -240,7 +240,12 @@ output data in a formatted, previsible way.
     
     The 'tol' argument is used roughly for the precision of the output.
     It is designed to work 99.9% of the time, figuratively speaking, 
-    with a standard precision of up to 1e-24 when set to 'auto', as default.
+    with a standard precision of up to 1e-12 when set to 'auto', as default.
+
+    The 'dcm' argument works similarly to the 'ndigits' argument found in 
+    the 'round()' built-in function, and in fact, is used into it along 
+    the works. The default setting of 'auto' will round the number if 
+    any repeating decimals are found, up to 4 repetitions.
 
     :Examples:
         pnumber([8.0, '0.1 * 3', '355/113', 'math.e'])
@@ -267,6 +272,13 @@ output data in a formatted, previsible way.
             - Precision of the output;
             - It is recommended to follow the lowest decimal place.
             - i.e. tol=64 for a precision of up to 1e-64.
+
+        dcm: String | Integer = 'auto'
+            - Decimal places of the output;
+            - It is involved in the rounding phase of the function.
+            - 'auto' rounds repeating decimals up to 4 repetitions;
+            - i.e. pnumber(1/3, dcm='auto') == 0.3333
+            - (dcm=16 | dcm=None) end up with the same result.
 
     :|Returns|:
         R: Real | Iterable[Real] | None
@@ -1462,6 +1474,11 @@ each's documentation below.
 
     Container Class; dict Subclass.
 
+    Note: Containers can't have numeric keys due to how their keys are 
+    directly associated to its instance attributes. However, any String 
+    type is a valid key type. Attempting to update a Container instance 
+    with enumerated dictionaries will raise a TypeError.
+
     A flexible dictionary-like container class that supports various 
     operations and transformations. Unlike a standard dictionary, 
     a `Container` is unpacked by its values rather than by its keys.
@@ -1612,5 +1629,5 @@ each's documentation below.
 
 
 
-**BETA RELEASE V1.0.24828b, WORK IN PROGRESS!**
------------------------------------------------
+**BETA RELEASE V1.0.240829b, WORK IN PROGRESS!**
+---------------------------------------------------
