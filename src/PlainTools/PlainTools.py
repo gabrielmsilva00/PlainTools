@@ -212,7 +212,7 @@ def pnumber(*vals: Real | Iterable[Real | String],
 
     The 'tol' argument is used roughly for the precision of the output.
     It is designed to work 99.9% of the time, figuratively speaking,
-    with a standard precision of up to 1e-24 when set to 'auto', as default.
+    with a standard precision of up to 1e-12 when set to 'auto', as default.
 
     :Examples:
         pnumber([8.0, '0.1 * 3', '355/113', 'math.e'])
@@ -243,7 +243,7 @@ def pnumber(*vals: Real | Iterable[Real | String],
         dcm: String | Integer = 'auto'
             | Decimal places of the output;
             | It is involved in the rounding phase of the function.
-            | 'auto' round repeating decimals up to 4 repetitions;
+            | 'auto' rounds repeating decimals up to 4 repetitions;
             | i.e. pnumber(1/3, dcm='auto') == 0.3333
             | dcm = ('all'|16|None) all end up with the same result.
 
