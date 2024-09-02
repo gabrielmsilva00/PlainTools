@@ -6,9 +6,9 @@ class NewFloat(float):
     def inverse(self):
         return OldFloat(-self)
 
-@arithmetic(repr="{value}", strict=True)
+@arithmetic(repr="{value}")
 class RealNumber:
-    value: Real = lambda n: pnumber(n)
+    value = lambda n: pnumber(n)
     
 x = RealNumber(4.2)
 
