@@ -2,7 +2,7 @@
     :scale: 100%
     :height: 252px
 
-    Version\: 1.0.240830 beta (As in: Main.sub.YYMMDD branch)
+    Version\: 1.0.240902 beta (As in: Main.sub.YYMMDD branch)
 
 
 - `Library's Documentation <https://gabrielmsilva00.github.io/PlainTools/>`_

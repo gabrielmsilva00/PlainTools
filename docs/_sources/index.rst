@@ -1623,5 +1623,5 @@ each's documentation below.
 
 
 
-**BETA RELEASE V1.0.240829b, WORK IN PROGRESS!**
+**BETA RELEASE V1.0.240902b, WORK IN PROGRESS!**
 ---------------------------------------------------
