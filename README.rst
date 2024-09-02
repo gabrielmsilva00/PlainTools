@@ -14,6 +14,8 @@
 
 - `Author's Github <https://github.com/gabrielmsilva00>`_
 
+- `Currently Working on: '@arithmetic' decorator <https://github.com/gabrielmsilva00/PlainTools/deployments>`_
+
 Introduction
 ************
 
