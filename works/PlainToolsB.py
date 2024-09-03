@@ -56,6 +56,7 @@ import copy
 # TYPES ──► Special aliases to denote typing annotations; Redundant cases.
 Type = type
 String = str
+Bytes = bytes
 Integer = int
 Float = float
 Complex = complex  # Unused
@@ -201,7 +202,7 @@ def punit(*its: Iterable[Any],
 
 def pnumber(*vals: Real | Iterable[Real | String],
             tol: String | Integer = 'auto',
-            dcm: String | Integer = 'auto',
+            dcm: String | Integer = 20,
             ) -> Real | Iterable[Real] | None:
     """
     Plain Number.
@@ -251,86 +252,14 @@ def pnumber(*vals: Real | Iterable[Real | String],
         R: Real | Iterable[Real] | None
             | Formatted numbers, None if NaN.
     """
+
     R: List[Real] = []
-    S: Real
-    P: Bool
-    I: Bool
 
-    def RS(x, y): return round(x, y - max(repr(x)[
-        repr(x).find('.') + 1:].rstrip('0').count(
-        '0') // 4, repr(x)[repr(x).find(
-            '.') + 1:].rstrip('9').count('9') // 4))
-
-    def RT(x): return max(4, 16 - math.ceil(math.log(
-        x, 96 if x < 1e-15 else
-        48 if x < 1e-12 else
-        24 if x < 1e-9 else
-        12 if x < 1e-6 else
-        6 if x < 1e-3 else
-        3)))
-    
-    for val in plist(vals):
-
-        with Try:
-            P = False
-            I = False
-            num = Seval(str(val))
-
-            if float(num).is_integer():
-                R.append(int(num))
-                continue
-
-            if tol == 'auto':
-                tol = RT(abs(num))
-
-            else:
-                tol += 3  # Account for rounding
-
-            # CHECK 1: Float imprecision
-            num = RS(num, tol)
-
-            # https://stackoverflow.com/a/38847691/26469850
-            dnum = format(decimal.Context(prec=32).create_decimal(
-                repr(num)), 'f')
-
-            # CHECK 2: Float imprecision
-            while re.compile( # re is some black magic, I swear. LLM used.
-                    r'^-?\d+\.\d*?[1-9](0{5,})([1-9]{1,2})$').search(dnum):
-                dnum = dnum[:-1]
-                I = True
-
-            # V1
-            for length in range(1, len(dnum) // 4 + 1):
-                for start in range(len(dnum) - length * 4):
-                    period = dnum[start:start + length]
-                    if period * 4 == dnum[start:start + length * 4] and (
-                            period != '0' * length):
-                        S = round(float(dnum), len(
-                            dnum[:start] or '') + (len(period) * (
-                                prd - 1)) - 1) if (dcm == 'auto') else round(
-                                    float(dnum), dcm) if isinstance(
-                                        dcm, Integer) else float(dnum)
-                        if not math.isclose(S, int(S),
-                                            rel_tol=1e-15,
-                                            abs_tol=1e-15):
-                            P = True
-                        else:
-                            S = int(S)
-                        break
-                else:  # nobreak
-                    continue
-                break
-            else:  # nobreak
-                S = float(dnum)
-                if S.is_integer():
-                    S = int(S)
-
-            if not math.isclose(
-                    Decimal(S), Decimal(dnum), rel_tol=1e-15,
-                    abs_tol=1e-15) and not I and not P:
-                S = float(num)
-            
-            R.append(S)
+    for num in plist(vals):
+        try:
+            R.append(round(Number(Seval(str(num)), tol=tol), dcm))
+        except:
+            R.append(Number(num, tol=tol))
 
     return punit(R)
 
@@ -721,11 +650,11 @@ def psequence(*nums: Real | Iterable[Real],
                          )
 
     if abs_lim is not None:
-        limit = pnumber(abs_lim)
+        limit = Number(abs_lim)
 
     else:
         if rel_lim is not None:
-            limit = pnumber(N[-2] * rel_lim) if N[-1] == ... else pnumber(
+            limit = Number(N[-2] * rel_lim) if N[-1] == ... else Number(
                 N[-1] * rel_lim) if N[-1] == ... else N[-1]
 
         else:
@@ -744,7 +673,7 @@ def psequence(*nums: Real | Iterable[Real],
             if i == len(N) - 1:
                 if S is None:
                     S = start
-                L.append(pnumber(x) for x in itertools.takewhile(
+                L.append(Number(eval(str(x))) for x in itertools.takewhile(
                     lambda x: x >= limit if S < 0 else (
                         x <= limit or abs(x - limit) < S / 10),
                     itertools.count(start + S, S)))
@@ -752,12 +681,12 @@ def psequence(*nums: Real | Iterable[Real],
                 end = N[i + 1]
                 if S is None:
                     S = end - start
-                L.append(pnumber(x) for x in itertools.takewhile(
+                L.append(Number(eval(str(x))) for x in itertools.takewhile(
                     lambda x: x <= limit if S < 0 else (
                         x >= limit or abs(x - limit) < S / 10),
                     itertools.count(start + S, S)))
         else:
-            L.append([pnumber(num)])
+            L.append([Number(num)])
 
     return itertools.chain.from_iterable(L)
 
@@ -1498,144 +1427,96 @@ def loop(times: Integer = 0,
     return decorator
 
 
-def arithmetic(cls=None, repr=None, strict=False):
-    if cls is None:
-        return lambda cls: arithmetic(cls, repr=repr, strict=strict)
-    
-    annot = cls.__annotations__ if hasattr(cls, '__annotations__') else {}
-    attrs = {k: v for k, v in cls.__dict__.items() if not k.startswith('__')}
-    altts = {**annot, **attrs}
-
-    def convert(value, typ):
-        if isinstance(value, typ):
-            return value
-        else:
-            try:
-                value = typ(value)
-            finally:
-                return value
-
-    # Automatically create __init__ method based on type annotations
-    def __init__(self, *args, **kwargs):
-        for i, key in enumerate(altts):
-            if i < len(args):
-                value = args[i]
-            elif key in kwargs:
-                value = kwargs[key]
-            else:
-                raise ValueError(f"Missing value for {key}")
-
-            if callable(altts[key]) and isinstance(altts[key], Function):
-                value = altts[key](value)
-                
-            if key in annot:
-                typ = annot[key]
-                if typ is not typing.Any and not strict:
-                    value = convert(value, typ)
-                if not isinstance(value, typ):
-                    raise TypeError(
-                        f"Expected type {typ} for '{key}', " + (
-                            f"got {type(value)} instead."))
+def arithmetic(cls):
+    def operate(op):
+        @functools.wraps(op)
+        def wrapper(self, other=None):
+            value = self.value
             
-            setattr(self, key, value)
+            if isinstance(other, cls):
+                other = other.value
 
-    def __getattr__(self, name):
-        value = getattr(self, 'value', None)
-        if value is None:
-            raise AttributeError(
-                f"'{cls.__name__}' object has no attribute '{name}'")
+            if isinstance(value, Iterable) and not isinstance(value, (
+                String, Bytes)):
+                value = type(value)(op(v, other) for v in value)
+            else:
+                if other is not None:
+                    value = op(value, other)
+                else:
+                    value = op(value)
+            
+            return cls(value)
         
-        attr = getattr(value, name)
-        
-        if callable(attr):
-            @functools.wraps(attr)
-            def method(*args, **kwargs):
-                result = attr(*args, **kwargs)
-                if strict and not all(pistype(
-                    result, typ) for typ in annot.values()):
-                    return result
-                try:
-                    return cls(result) if isinstance(
-                        result, type(value)) else result
-                except TypeError:
-                    return result
-            return method
-        return attr
-
-    # Automatically create a __repr__ method based on the provided format string
-    if repr:
-        def __repr__(self):
-            return repr.format(
-                **{k: getattr(self, k) for k in altts})
-    else:
-        def __repr__(self):
-            return f"{cls.__name__}" + (
-                f"({', '.join(f'{k}={getattr(self, k)!r}' for k in altts)})")
-
-    setattr(cls, '__init__', __init__)
-    setattr(cls, '__repr__', __repr__)
-    setattr(cls, '__getattr__', __getattr__)
-
+        return wrapper
+    
     for opn, opf in {
         '__add__': operator.add,
         '__radd__': operator.add,
-        
         '__sub__': operator.sub,
         '__rsub__': operator.sub,
-        
         '__mul__': operator.mul,
         '__rmul__': operator.mul,
-        
         '__truediv__': operator.truediv,
         '__rtruediv__': operator.truediv,
         '__floordiv__': operator.floordiv,
         '__rfloordiv__': operator.floordiv,
-        
         '__mod__': operator.mod,
         '__rmod__': operator.mod,
-        
         '__pow__': operator.pow,
         '__rpow__': operator.pow,
-        
         '__eq__': operator.eq,
         '__ne__': operator.ne,
         '__lt__': operator.lt,
         '__le__': operator.le,
         '__gt__': operator.gt,
         '__ge__': operator.ge,
-        
         '__and__': operator.and_,
         '__or__': operator.or_,
         '__xor__': operator.xor,
-        
         '__rshift__': operator.rshift,
         '__lshift__': operator.lshift,
-        
         '__neg__': operator.neg,
         '__pos__': operator.pos,
         '__abs__': operator.abs,
-        
         '__invert__': operator.invert,
     }.items():
-        def operate(op):
-            @functools.wraps(op)
-            def opm(self, other=None):
-                RK = {}
-                for k in annot:
-                    sval = getattr(self, k)
-                    if isinstance(other, cls):
-                        otval = getattr(other, k)
-                    elif other is not None:
-                        otval = other
-                    else:
-                        RK[k] = op(sval)
-                        continue
-                    RK[k] = op(sval, otval)
-                return cls(**RK)
-            return opm
-        
         setattr(cls, opn, operate(opf))
+    
+    def __getattr__(cls, item):
+        if item in dir(cls):
+            return getattr(cls, item)
+        if item in dir(cls.value):
+            return getattr(cls.value, item)
+        for typ in (Decimal, Fraction, float, int):
+            if item in dir(typ):
+                return getattr(typ(cls.value), item)
+        raise AttributeError(
+            f"'{cls.__class__.__name__}' | '{cls.value.__class__.__name__}'"+(
+            f" objects have no attribute '{item}'"))
 
+    setattr(cls, '__getattr__', __getattr__)
+    
+    def __getattribute__(self, name):
+        try:
+            return super(cls, self).__getattribute__(name)
+        except (TypeError, ValueError) as e:
+            value = super(cls, self).__getattribute__('value')
+            return getattr(value, name)
+    
+    setattr(cls, '__getattribute__', __getattribute__)
+        
+    setattr(cls, '__complex__', lambda cls: complex(cls.value))
+    
+    setattr(cls, '__float__', lambda cls: float(cls.value))
+    
+    setattr(cls, '__int__', lambda cls: int(cls.value))
+        
+    setattr(cls, '__index__', lambda cls: int(cls.value))
+    
+    setattr(cls, '__iter__', lambda cls: iter(plist(cls.value)))
+    
+    setattr(cls, '__round__', lambda cls, n: round(cls.value, n))
+    
     return cls
 
 
@@ -2621,7 +2502,7 @@ class TRY:
         if args[0] is not None:
             cls.err = debug()
             cls.exitcode = str(cls.err[-1])
-            cls.exitline = str(cls.err[-4])
+            cls.exitline = str(cls.err[-2])
             cls.result = f'[!-FAIL-!] -> {cls.exitline} -> {cls.exitcode}'
 
         else:
@@ -2884,7 +2765,7 @@ Seval = SEVAL()
 
 
 # CONSTRUCTOR CLASSES ──► Custom objects:
-class Container(dict):
+class Container(Dict):
     """
     Container Class; dict Subclass.
 
@@ -3263,6 +3144,128 @@ class Container(dict):
     def __pow__(cls, other):
         return cls.operate(other, lambda x, y: cls.convert(
             x, y, lambda a, b: a ** b))
+
+
+@arithmetic
+class Number(Float):
+    def __init__(cls,
+                 val: Real | String,
+                 tol: String | Integer = 'auto',
+                 ) -> Real | None:
+        cls.value, cls.period = cls.number(val, tol)
+        if cls.period:
+            sprd = (cls.period * 3) [::-1]
+            sval = str(cls.value)[::-1]
+            for i in range(3):
+                if sval[0:len(sprd)] == sprd:
+                    break
+                else:
+                    sval = sval[1:]
+            else: # Nobreak
+                cls.period = None
+        cls.fraction = cls.value.as_integer_ratio()
+        cls.denominator, cls.numerator = cls.fraction
+    
+    def __str__(cls):
+        return str(cls.value)
+        
+    def __repr__(cls):
+        if cls.period:
+            strval = str(cls.value)
+            pstart = strval.find(cls.period)
+            if pstart == -1:
+                return strval + f"{cls.period * 2}..."
+            return strval[:pstart + len(cls.period)] + f"{cls.period * 2}..."
+        return str(cls.value)
+
+    @staticmethod
+    def number(num: Real | String,
+               tol: String | Integer = 'auto',
+               ) -> Real | None:
+        R: Real = None
+        Q: String = None
+        S: Real
+        P: Bool
+        I: Bool
+
+        def RS(x, y): return round(x, y - max(repr(x)[
+            repr(x).find('.') + 1:].rstrip('0').count(
+            '0') // 4, repr(x)[repr(x).find(
+                '.') + 1:].rstrip('9').count('9') // 4))
+
+        def RT(x): return max(4, 16 - math.ceil(math.log(
+            x, 64 if x < 1e-15 else
+            32 if x < 1e-12 else
+            16 if x < 1e-9 else
+            8 if x < 1e-6 else
+            4 if x < 1e-3 else
+            2)))
+        
+        for i in [1]:
+
+            with Try:
+                P = False
+                I = False
+                num = Seval(str(num))
+
+                if float(num).is_integer():
+                    R = int(num)
+                    continue
+
+                if tol == 'auto':
+                    tol = RT(abs(num))
+
+                else:
+                    tol += 3  # Account for rounding
+
+                # CHECK 1: Float imprecision
+                snum = RS(num, tol)
+
+                # https://stackoverflow.com/a/38847691/26469850
+                dnum = format(decimal.Context(prec=32).create_decimal(
+                    repr(snum)), 'f')
+
+                # CHECK 2: Float imprecision
+                while (re.compile( # re is some black magic, I swear. LLM used.
+                        r'^-?\d+\.\d*?[1-9](0{5,})([1-9]{1,2})$'
+                        ).search(dnum) or (
+                            (dnum[-1] == '0' or dnum[-1] == '9') and
+                            not re.compile(r'[1-9]').search(dnum[-2:])
+                            and not math.isclose(float(dnum), RS(
+                                dnum, tol + 1)))):
+                    dnum = dnum[:-1]
+
+                # V1
+                for length in range(1, len(dnum) // 4 + 1):
+                    for start in range(len(dnum) - length * 4):
+                        period = dnum[start:start + length]
+                        if period * 4 == dnum[start:start + length * 4] and (
+                                period != '0' * length):
+                            S = float(dnum)
+                            Q = period
+                            if not math.isclose(S, int(S),
+                                                rel_tol=1e-15,
+                                                abs_tol=1e-15):
+                                P = True
+                            else:
+                                S = int(S)
+                            break
+                    else:  # nobreak
+                        continue
+                    break
+                else:  # nobreak
+                    S = float(dnum)
+                    if S.is_integer():
+                        S = int(S)
+
+                if not math.isclose(
+                        Decimal(S), Decimal(dnum), rel_tol=1e-15,
+                        abs_tol=1e-15) and not I and not P:
+                    S = float(num)
+                
+                R = S
+
+        return R, Q
 
 
 class Constant:

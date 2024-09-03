@@ -9,12 +9,11 @@
 
     .. image:: ptqrdoc.png
         :scale: 100%
-        :height: 64
         :target: https://gabrielmsilva00.github.io/PlainTools/
 
 - `Author's Github <https://github.com/gabrielmsilva00>`_
 
-- `Currently Working on: '@arithmetic' decorator <https://github.com/gabrielmsilva00/PlainTools/deployments>`_
+- `Currently Working on: '@arithmetic' decorator; 'Number' class <https://github.com/gabrielmsilva00/PlainTools/deployments>`_
 
 Introduction
 ************

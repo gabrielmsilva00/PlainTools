@@ -1,15 +1,17 @@
-from PlainTools import *
+from PlainToolsB import *
 
 def test(k: Float = 10e-2) -> None:
     c = 0
     w = 0
-    x = psequence(pnumber(k),
-                  ...,
-                  pnumber(k * 20e3))
+    #x = psequence(pnumber(k),...,pnumber(k * 20e3))
+    x = psequence(Number(k), ..., Number(k * 20e3))
     y = []
     z = ''
     with Time:
         for i in x:
+            if i is None:
+                raise ArithmeticError(
+                    "NaN | None is present in the sequence.")
             c += 1
             if len(str(i)) > 10:
                 w += 1
@@ -26,9 +28,13 @@ def test(k: Float = 10e-2) -> None:
 
 def main() -> None:
     printc("[!-PNUMBER-&-PSEQUENCE-!]", fill="-")
-    ip = evinput("\n[N]: ")
+    #ip = evinput("\n[N]: ")
+    ip = None
     
     with Try:
-        test(ip)
+        if ip:
+            test(ip)
+        else:
+            test()
 
-Main.loop()
+Main()

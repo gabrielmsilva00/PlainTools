@@ -1,0 +1,398 @@
+|‼ LOG•DATA	pnum.log
+|! System	Windows-10-10.0.19045-SP0
+|! Python	3.12.4 (tags/v3.12.4:8e8a4ba, Jun  6 2024, 19:30:16)
+|! Platform	[MSC v.1940 64 bit (AMD64)]
+
+|= 03/09/2024 18:11:17:687
+|> Traceback (most recent call last): → test()
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\pnum.py", line 35, in main
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\pnum.py", line 8, in test
+|>       x = psequence(Number(k), ..., Number(k * 20e3))
+|>           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 719, in psequence
+|>       return psequence(N[:-1],
+|>              ^^^^^^^^^^^^^^^^^
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 738, in psequence
+|>       raise ValueError(
+|> Er ValueError: Ellipsis cannot be the first element of a sequence.
+
+|= 03/09/2024 18:30:03:260
+|> Traceback (most recent call last): → tree = ast.parse(expression, mode='eval')
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 2753, in __call__
+|>            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "C:\Program Files\Python312\Lib\ast.py", line 52, in parse
+|>       return compile(source, filename, mode, flags,
+|>              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "<unknown>", line 1
+|>       0.7999...
+|>             ^^^
+|>   SyntaxError: invalid syntax
+|>   
+|>   During handling of the above exception, another exception occurred:
+|>   
+|>   Traceback (most recent call last):
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 278, in pnumber
+|>       num = Seval(str(val))
+|>             ^^^^^^^^^^^^^^^
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 2755, in __call__
+|>       raise cls.UnsafeError("Invalid syntax in expression")
+|> Er PlainToolsB.SEVAL.UnsafeError: Invalid syntax in expression
+|> Traceback (most recent call last): → tree = ast.parse(expression, mode='eval')
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 2753, in __call__
+|>            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "C:\Program Files\Python312\Lib\ast.py", line 52, in parse
+|>       return compile(source, filename, mode, flags,
+|>              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "<unknown>", line 1
+|>       0.8999...
+|>             ^^^
+|>   SyntaxError: invalid syntax
+|>   
+|>   During handling of the above exception, another exception occurred:
+|>   
+|>   Traceback (most recent call last):
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 278, in pnumber
+|>       num = Seval(str(val))
+|>             ^^^^^^^^^^^^^^^
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 2755, in __call__
+|>       raise cls.UnsafeError("Invalid syntax in expression")
+|> Er PlainToolsB.SEVAL.UnsafeError: Invalid syntax in expression
+|> Traceback (most recent call last): → tree = ast.parse(expression, mode='eval')
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 2753, in __call__
+|>            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "C:\Program Files\Python312\Lib\ast.py", line 52, in parse
+|>       return compile(source, filename, mode, flags,
+|>              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "<unknown>", line 1
+|>       0.999...
+|>            ^^^
+|>   SyntaxError: invalid syntax
+|>   
+|>   During handling of the above exception, another exception occurred:
+|>   
+|>   Traceback (most recent call last):
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 278, in pnumber
+|>       num = Seval(str(val))
+|>             ^^^^^^^^^^^^^^^
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 2755, in __call__
+|>       raise cls.UnsafeError("Invalid syntax in expression")
+|> Er PlainToolsB.SEVAL.UnsafeError: Invalid syntax in expression
+|> Traceback (most recent call last): → tree = ast.parse(expression, mode='eval')
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 2753, in __call__
+|>            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "C:\Program Files\Python312\Lib\ast.py", line 52, in parse
+|>       return compile(source, filename, mode, flags,
+|>              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "<unknown>", line 1
+|>       111...
+|>            ^
+|>   SyntaxError: invalid syntax
+|>   
+|>   During handling of the above exception, another exception occurred:
+|>   
+|>   Traceback (most recent call last):
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 278, in pnumber
+|>       num = Seval(str(val))
+|>             ^^^^^^^^^^^^^^^
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 2755, in __call__
+|>       raise cls.UnsafeError("Invalid syntax in expression")
+|> Er PlainToolsB.SEVAL.UnsafeError: Invalid syntax in expression
+|> Traceback (most recent call last): → tree = ast.parse(expression, mode='eval')
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 2753, in __call__
+|>            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "C:\Program Files\Python312\Lib\ast.py", line 52, in parse
+|>       return compile(source, filename, mode, flags,
+|>              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "<unknown>", line 1
+|>       111...
+|>            ^
+|>   SyntaxError: invalid syntax
+|>   
+|>   During handling of the above exception, another exception occurred:
+|>   
+|>   Traceback (most recent call last):
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 278, in pnumber
+|>       num = Seval(str(val))
+|>             ^^^^^^^^^^^^^^^
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 2755, in __call__
+|>       raise cls.UnsafeError("Invalid syntax in expression")
+|> Er PlainToolsB.SEVAL.UnsafeError: Invalid syntax in expression
+|> Traceback (most recent call last): → tree = ast.parse(expression, mode='eval')
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 2753, in __call__
+|>            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "C:\Program Files\Python312\Lib\ast.py", line 52, in parse
+|>       return compile(source, filename, mode, flags,
+|>              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "<unknown>", line 1
+|>       111...
+|>            ^
+|>   SyntaxError: invalid syntax
+|>   
+|>   During handling of the above exception, another exception occurred:
+|>   
+|>   Traceback (most recent call last):
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 278, in pnumber
+|>       num = Seval(str(val))
+|>             ^^^^^^^^^^^^^^^
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 2755, in __call__
+|>       raise cls.UnsafeError("Invalid syntax in expression")
+|> Er PlainToolsB.SEVAL.UnsafeError: Invalid syntax in expression
+|> Traceback (most recent call last): → tree = ast.parse(expression, mode='eval')
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 2753, in __call__
+|>            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "C:\Program Files\Python312\Lib\ast.py", line 52, in parse
+|>       return compile(source, filename, mode, flags,
+|>              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "<unknown>", line 1
+|>       111...
+|>            ^
+|>   SyntaxError: invalid syntax
+|>   
+|>   During handling of the above exception, another exception occurred:
+|>   
+|>   Traceback (most recent call last):
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 278, in pnumber
+|>       num = Seval(str(val))
+|>             ^^^^^^^^^^^^^^^
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 2755, in __call__
+|>       raise cls.UnsafeError("Invalid syntax in expression")
+|> Er PlainToolsB.SEVAL.UnsafeError: Invalid syntax in expression
+|> Traceback (most recent call last): → tree = ast.parse(expression, mode='eval')
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 2753, in __call__
+|>            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "C:\Program Files\Python312\Lib\ast.py", line 52, in parse
+|>       return compile(source, filename, mode, flags,
+|>              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "<unknown>", line 1
+|>       111...
+|>            ^
+|>   SyntaxError: invalid syntax
+|>   
+|>   During handling of the above exception, another exception occurred:
+|>   
+|>   Traceback (most recent call last):
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 278, in pnumber
+|>       num = Seval(str(val))
+|>             ^^^^^^^^^^^^^^^
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 2755, in __call__
+|>       raise cls.UnsafeError("Invalid syntax in expression")
+|> Er PlainToolsB.SEVAL.UnsafeError: Invalid syntax in expression
+|> Traceback (most recent call last): → tree = ast.parse(expression, mode='eval')
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 2753, in __call__
+|>            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "C:\Program Files\Python312\Lib\ast.py", line 52, in parse
+|>       return compile(source, filename, mode, flags,
+|>              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "<unknown>", line 1
+|>       111...
+|>            ^
+|>   SyntaxError: invalid syntax
+|>   
+|>   During handling of the above exception, another exception occurred:
+|>   
+|>   Traceback (most recent call last):
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 278, in pnumber
+|>       num = Seval(str(val))
+|>             ^^^^^^^^^^^^^^^
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 2755, in __call__
+|>       raise cls.UnsafeError("Invalid syntax in expression")
+|> Er PlainToolsB.SEVAL.UnsafeError: Invalid syntax in expression
+|> Traceback (most recent call last): → tree = ast.parse(expression, mode='eval')
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 2753, in __call__
+|>            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "C:\Program Files\Python312\Lib\ast.py", line 52, in parse
+|>       return compile(source, filename, mode, flags,
+|>              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "<unknown>", line 1
+|>       111...
+|>            ^
+|>   SyntaxError: invalid syntax
+|>   
+|>   During handling of the above exception, another exception occurred:
+|>   
+|>   Traceback (most recent call last):
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 278, in pnumber
+|>       num = Seval(str(val))
+|>             ^^^^^^^^^^^^^^^
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 2755, in __call__
+|>       raise cls.UnsafeError("Invalid syntax in expression")
+|> Er PlainToolsB.SEVAL.UnsafeError: Invalid syntax in expression
+|> Traceback (most recent call last): → tree = ast.parse(expression, mode='eval')
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 2753, in __call__
+|>            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "C:\Program Files\Python312\Lib\ast.py", line 52, in parse
+|>       return compile(source, filename, mode, flags,
+|>              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "<unknown>", line 1
+|>       111...
+|>            ^
+|>   SyntaxError: invalid syntax
+|>   
+|>   During handling of the above exception, another exception occurred:
+|>   
+|>   Traceback (most recent call last):
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 278, in pnumber
+|>       num = Seval(str(val))
+|>             ^^^^^^^^^^^^^^^
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 2755, in __call__
+|>       raise cls.UnsafeError("Invalid syntax in expression")
+|> Er PlainToolsB.SEVAL.UnsafeError: Invalid syntax in expression
+|> Traceback (most recent call last): → tree = ast.parse(expression, mode='eval')
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 2753, in __call__
+|>            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "C:\Program Files\Python312\Lib\ast.py", line 52, in parse
+|>       return compile(source, filename, mode, flags,
+|>              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "<unknown>", line 1
+|>       111...
+|>            ^
+|>   SyntaxError: invalid syntax
+|>   
+|>   During handling of the above exception, another exception occurred:
+|>   
+|>   Traceback (most recent call last):
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 278, in pnumber
+|>       num = Seval(str(val))
+|>             ^^^^^^^^^^^^^^^
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 2755, in __call__
+|>       raise cls.UnsafeError("Invalid syntax in expression")
+|> Er PlainToolsB.SEVAL.UnsafeError: Invalid syntax in expression
+|> Traceback (most recent call last): → for i in x:
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\pnum.py", line 12, in test
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 748, in <genexpr>
+|>       L.append(pnumber(x) for x in itertools.takewhile(
+|>               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 750, in <lambda>
+|>       x <= limit or abs(x - limit) < S / 10),
+|>                     ^^^^^^^^^^^^^^
+|> Er TypeError: abs() missing 1 required positional argument: 'other'
+
+|= 03/09/2024 18:52:07:560
+|> Traceback (most recent call last): → psequence(1, 2, 3, ..., 10)
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\pnum.py", line 33, in main
+|>         ^^^^^^^^
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\pnum.py", line 8, in test
+|>       """
+|>           
+|> Er ValueError: could not convert string to float: 'python -u "c:\\Users\\Gabriel\\Documents\\GitHub\\PlainTools\\works\\Block.py"'
+
+|= 03/09/2024 18:59:53:171
+|> Traceback (most recent call last): → tree = ast.parse(expression, mode='eval')
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 2680, in __call__
+|>            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "C:\Program Files\Python312\Lib\ast.py", line 52, in parse
+|>       return compile(source, filename, mode, flags,
+|>              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "<unknown>", line 1
+|>       0.7999...
+|>             ^^^
+|>   SyntaxError: invalid syntax
+|>   
+|>   During handling of the above exception, another exception occurred:
+|>   
+|>   Traceback (most recent call last):
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\pnum.py", line 11, in test
+|>       for i in x:
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 673, in <genexpr>
+|>       L.append(pnumber(x) for x in itertools.takewhile(
+|>                ^^^^^^^^^^
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 259, in pnumber
+|>       R.append(round(Number(Seval(str(num)), tol=tol), dcm))
+|>                             ^^^^^^^^^^^^^^^
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 2682, in __call__
+|>       raise cls.UnsafeError("Invalid syntax in expression")
+|> Er PlainToolsB.SEVAL.UnsafeError: Invalid syntax in expression
+
+|= 03/09/2024 19:01:15:104
+|> Traceback (most recent call last): → test(ip)
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\pnum.py", line 35, in main
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\pnum.py", line 7, in test
+|>       x = psequence(Number(k), ..., Number(k * 20e3))
+|>                     ^^^^^^^^^
+|> Er ValueError: could not convert string to float: 'python -u "c:\\Users\\Gabriel\\Documents\\GitHub\\PlainTools\\works\\pnum.py"'
+
+|= 03/09/2024 19:03:03:830
+|> Traceback (most recent call last): → for i in x:
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\pnum.py", line 11, in test
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 673, in <genexpr>
+|>       L.append(pnumber(x) for x in itertools.takewhile(
+|>               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 675, in <lambda>
+|>       x <= limit or abs(x - limit) < S / 10),
+|>                     ^^^^^^^^^^^^^^
+|> Er TypeError: abs() missing 1 required positional argument: 'other'
+
+|= 03/09/2024 19:07:25:532
+|> Traceback (most recent call last): → test(ip)
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\pnum.py", line 35, in main
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\pnum.py", line 7, in test
+|>       x = psequence(Number(k), ..., Number(k * 20e3))
+|>                     ^^^^^^^^^
+|> Er ValueError: could not convert string to float: 'python -u "c:\\Users\\Gabriel\\Documents\\GitHub\\PlainTools\\works\\pnum.py"'
+
+|= 03/09/2024 19:14:02:210
+|> Traceback (most recent call last): → tol = RT(abs(num))
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 3210, in number
+|>           ^^^^^^^^^^^^
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 3190, in RT
+|>       def RT(x): return max(4, 16 - math.ceil(math.log(
+|>                                               ^^^^^^^^^
+|> Er ZeroDivisionError: float division by zero
+|> Traceback (most recent call last): → test()
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\pnum.py", line 38, in main
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\pnum.py", line 7, in test
+|>       x = psequence(Number(k), ..., Number(k * 20e3))
+|>                     ^^^^^^^^^
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 3160, in __init__
+|>       cls.fraction = cls.value.as_integer_ratio()
+|>                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+|> Er AttributeError: 'NoneType' object has no attribute 'as_integer_ratio'
+
+|= 03/09/2024 19:14:08:122
+|> Traceback (most recent call last): → tol = RT(abs(num))
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 3210, in number
+|>           ^^^^^^^^^^^^
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 3190, in RT
+|>       def RT(x): return max(4, 16 - math.ceil(math.log(
+|>                                               ^^^^^^^^^
+|> Er ZeroDivisionError: float division by zero
+|> Traceback (most recent call last): → test()
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\pnum.py", line 38, in main
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\pnum.py", line 7, in test
+|>       x = psequence(Number(k), ..., Number(k * 20e3))
+|>                     ^^^^^^^^^
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 3160, in __init__
+|>       cls.fraction = cls.value.as_integer_ratio()
+|>                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+|> Er AttributeError: 'NoneType' object has no attribute 'as_integer_ratio'
+
+|= 03/09/2024 19:18:54:658
+|> Traceback (most recent call last): → for length in range(1, len(dnum) // 4 + 1):
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 3233, in number
+|>                            ^^^^^^^^^
+|> Er TypeError: object of type 'float' has no len()
+|> Traceback (most recent call last): → test()
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\pnum.py", line 38, in main
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\pnum.py", line 7, in test
+|>       x = psequence(Number(k), ..., Number(k * 20e3))
+|>                     ^^^^^^^^^
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 3160, in __init__
+|>       cls.fraction = cls.value.as_integer_ratio()
+|>                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+|> Er AttributeError: 'NoneType' object has no attribute 'as_integer_ratio'
+
+|= 03/09/2024 19:18:56:692
+|> Traceback (most recent call last): → for length in range(1, len(dnum) // 4 + 1):
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 3233, in number
+|>                            ^^^^^^^^^
+|> Er TypeError: object of type 'float' has no len()
+|> Traceback (most recent call last): → test()
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\pnum.py", line 38, in main
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\pnum.py", line 7, in test
+|>       x = psequence(Number(k), ..., Number(k * 20e3))
+|>                     ^^^^^^^^^
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\works\PlainToolsB.py", line 3160, in __init__
+|>       cls.fraction = cls.value.as_integer_ratio()
+|>                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+|> Er AttributeError: 'NoneType' object has no attribute 'as_integer_ratio'
+
