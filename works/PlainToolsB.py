@@ -228,25 +228,12 @@ def pnumber(*vals: Real | Iterable[Real | String],
         pnumber(0.1 ** 32) # Fails with 'auto' precision tolerance.
             | 0 # float(0.1 ** 32) is 1.0000000000000018e-32
 
-        pnumber(0.1 ** 32, tol=32)
+        pnumber(0.1 ** 32)
             | 1e-32
 
     :Args:
         *vals: Real | Iterable[Real | String]
             | Numbers to be formatted.
-
-    :Kwargs:
-        tol: String | Integer = 'auto'
-            | Precision of the output;
-            | It is recommended to follow the lowest decimal place.
-            | i.e. tol=64 for a precision of up to 1e-64.
-        
-        dcm: String | Integer = 'auto'
-            | Decimal places of the output;
-            | It is involved in the rounding phase of the function.
-            | 'auto' rounds repeating decimals up to 4 repetitions;
-            | i.e. pnumber(1/3, dcm='auto') == 0.3333
-            | (dcm=16 | dcm=None) end up with the same result.
 
     :Return:
         R: Real | Iterable[Real] | None
@@ -257,7 +244,7 @@ def pnumber(*vals: Real | Iterable[Real | String],
 
     for num in plist(vals):
         try:
-            R.append(round(Number(Seval(str(num)), tol=tol), dcm))
+            R.append(round(Number(Seval(str(num))), dcm))
         except:
             R.append(Number(num, tol=tol))
 
@@ -309,7 +296,7 @@ def pstring(*objs: Any | Iterable[Any],
 
     :Examples:
         pstring({0: 'a', 1: 'b', 2: 'c'})
-            | '0 : a, 1 : b, 2 : c'
+            | '0: a, 1: b, 2: c'
 
         pstring([1, 2, 3], (4, 5), {6, 7})
             | '1, 2, 3, 4, 5, 6, 7'
@@ -340,7 +327,7 @@ def pstring(*objs: Any | Iterable[Any],
                     )
 
         if T[0]:
-            R.extend(f'{k} : {v}' for k, v in obj.items())
+            R.extend(f'{k}: {v}' for k, v in obj.items())
 
         elif T[1]:
             R.extend(map(str, obj))
@@ -659,6 +646,9 @@ def psequence(*nums: Real | Iterable[Real],
 
         else:
             limit = float('inf')
+    
+    N = [Number(n) for n in N if n != ...]
+    print(N)
 
     for i, num in enumerate(N):
         if num == ...:
@@ -673,7 +663,7 @@ def psequence(*nums: Real | Iterable[Real],
             if i == len(N) - 1:
                 if S is None:
                     S = start
-                L.append(Number(eval(str(x))) for x in itertools.takewhile(
+                L.append(Number(x) for x in itertools.takewhile(
                     lambda x: x >= limit if S < 0 else (
                         x <= limit or abs(x - limit) < S / 10),
                     itertools.count(start + S, S)))
@@ -681,7 +671,7 @@ def psequence(*nums: Real | Iterable[Real],
                 end = N[i + 1]
                 if S is None:
                     S = end - start
-                L.append(Number(eval(str(x))) for x in itertools.takewhile(
+                L.append(Number(x) for x in itertools.takewhile(
                     lambda x: x <= limit if S < 0 else (
                         x >= limit or abs(x - limit) < S / 10),
                     itertools.count(start + S, S)))
@@ -2683,7 +2673,7 @@ class SEVAL:
 
     def __call__(cls, expression):
         try:
-            tree = ast.parse(expression, mode='eval')
+            tree = ast.parse(str(expression), mode='eval')
         except SyntaxError:
             raise cls.UnsafeError("Invalid syntax in expression")
 
@@ -3147,125 +3137,114 @@ class Container(Dict):
 
 
 @arithmetic
-class Number(Float):
+class Number:
     def __init__(cls,
                  val: Real | String,
-                 tol: String | Integer = 'auto',
                  ) -> Real | None:
-        cls.value, cls.period = cls.number(val, tol)
-        if cls.period:
-            sprd = (cls.period * 3) [::-1]
-            sval = str(cls.value)[::-1]
-            for i in range(3):
-                if sval[0:len(sprd)] == sprd:
-                    break
-                else:
-                    sval = sval[1:]
-            else: # Nobreak
-                cls.period = None
-        cls.fraction = cls.value.as_integer_ratio()
-        cls.denominator, cls.numerator = cls.fraction
+        cls.value = cls.number(val)
+        cls.period = cls.periodic(val)
+        try:
+            cls.fraction = cls.value.as_integer_ratio()
+        except ValueError:
+            cls.fraction = (float('NaN'), float('NaN'))
+        finally:
+            cls.denominator, cls.numerator = cls.fraction
     
-    def __str__(cls):
-        return str(cls.value)
-        
-    def __repr__(cls):
+    def __str__(cls): # for 'print's & 'str'
         if cls.period:
-            strval = str(cls.value)
+            strval = repr(cls.value)
             pstart = strval.find(cls.period)
             if pstart == -1:
                 return strval + f"{cls.period * 2}..."
             return strval[:pstart + len(cls.period)] + f"{cls.period * 2}..."
         return str(cls.value)
+        
+    def __repr__(cls): # for 'repr'
+        return repr(cls.value)
 
     @staticmethod
     def number(num: Real | String,
-               tol: String | Integer = 'auto',
                ) -> Real | None:
-        R: Real = None
-        Q: String = None
+        R: Real = float('NaN')
         S: Real
         P: Bool
         I: Bool
-
-        def RS(x, y): return round(x, y - max(repr(x)[
-            repr(x).find('.') + 1:].rstrip('0').count(
-            '0') // 4, repr(x)[repr(x).find(
-                '.') + 1:].rstrip('9').count('9') // 4))
-
-        def RT(x): return max(4, 16 - math.ceil(math.log(
-            x, 64 if x < 1e-15 else
-            32 if x < 1e-12 else
-            16 if x < 1e-9 else
-            8 if x < 1e-6 else
-            4 if x < 1e-3 else
-            2)))
         
-        for i in [1]:
+        with Try:
+            R = float(Seval(num))
+            if R.is_integer():
+                return int(R), None
+            
+            # V2
+            SR = format(R,'f')
+            E = 0
+            
+            if 'e' in SR:
+                SR, E = NS.split('e')[0], int(NS.split('e')[1])
+                R = float(SR)
+            
+            DP = SR.split('.')[1]
 
-            with Try:
-                P = False
-                I = False
-                num = Seval(str(num))
+            R0 = re.search(r'0{5,}', DP)
+            R9 = re.search(r'9{5,}', DP)
 
-                if float(num).is_integer():
-                    R = int(num)
-                    continue
+            if R9 or R0:
+                RP = max(len(
+                    R0.group(0)) if R0 else 0, len(
+                        R9.group(0)) if R9 else 0)
+                FSI = re.search(
+                    r'[1-9]', DP).start() if re.search(
+                        r'[1-9]', DP) else len(DP)
+                if FSI < RP:
+                    R = round(R, 16 - RP)
+            
+            if E:
+                R = Seval(f'{R}e{E}')
+            else:
+                R = float(str(R).split('.')[0] + '.' + 
+                          str(R).split('.')[1][:16])
 
-                if tol == 'auto':
-                    tol = RT(abs(num))
+        return R
+    
+    @staticmethod
+    def periodic(num):
+        num = float(Seval(num))
+        if float(num).is_integer():
+            return None
+        
+        num_str = repr(num)
+        if 'e' in num_str:
+            num_str = format(float(
+                num_str), f".{abs(int(num_str.split('e')[1])) + 15}f")
 
-                else:
-                    tol += 3  # Account for rounding
+        # Extract decimal part
+        decimal_part = num_str.split('.')[1][:15]
+        
+        # Check for repeating patterns starting from any position in the decimal part
+        for start_idx in range(len(decimal_part)):
+            sub_decimal_part = decimal_part[start_idx:]
+            for pattern_length in range(1, 7):  # Extend pattern length for longer sequences
+                regex = re.compile(rf"(\d{{{pattern_length}}})\1+")
+                match = regex.search(sub_decimal_part)
+                if match:
+                    repeat_str = match.group(1)
+                    repeat_count = len(match.group(0)) // len(repeat_str)
+                    remaining_digits = sub_decimal_part[match.end():]
 
-                # CHECK 1: Float imprecision
-                snum = RS(num, tol)
+                    # Allow one insignificant digit at the end
+                    if len(remaining_digits) <= 1:
+                        if (pattern_length == 1 and repeat_count >= 6) or \
+                        (pattern_length == 2 and repeat_count >= 5) or \
+                        (pattern_length == 3 and repeat_count >= 4) or \
+                        (pattern_length == 4 and repeat_count >= 3) or \
+                        (pattern_length == 5 and repeat_count >= 2) or \
+                        (pattern_length == 6 and repeat_count >= 1):  # For longer patterns
+                            # Exclude '0' and '9' as repeating periods
+                                return repeat_str if all(
+                                    rp!=0 for rp in repeat_str) and (
+                                repeat_str!='0') else None
 
-                # https://stackoverflow.com/a/38847691/26469850
-                dnum = format(decimal.Context(prec=32).create_decimal(
-                    repr(snum)), 'f')
-
-                # CHECK 2: Float imprecision
-                while (re.compile( # re is some black magic, I swear. LLM used.
-                        r'^-?\d+\.\d*?[1-9](0{5,})([1-9]{1,2})$'
-                        ).search(dnum) or (
-                            (dnum[-1] == '0' or dnum[-1] == '9') and
-                            not re.compile(r'[1-9]').search(dnum[-2:])
-                            and not math.isclose(float(dnum), RS(
-                                dnum, tol + 1)))):
-                    dnum = dnum[:-1]
-
-                # V1
-                for length in range(1, len(dnum) // 4 + 1):
-                    for start in range(len(dnum) - length * 4):
-                        period = dnum[start:start + length]
-                        if period * 4 == dnum[start:start + length * 4] and (
-                                period != '0' * length):
-                            S = float(dnum)
-                            Q = period
-                            if not math.isclose(S, int(S),
-                                                rel_tol=1e-15,
-                                                abs_tol=1e-15):
-                                P = True
-                            else:
-                                S = int(S)
-                            break
-                    else:  # nobreak
-                        continue
-                    break
-                else:  # nobreak
-                    S = float(dnum)
-                    if S.is_integer():
-                        S = int(S)
-
-                if not math.isclose(
-                        Decimal(S), Decimal(dnum), rel_tol=1e-15,
-                        abs_tol=1e-15) and not I and not P:
-                    S = float(num)
-                
-                R = S
-
-        return R, Q
+        return None
 
 
 class Constant:

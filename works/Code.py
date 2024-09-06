@@ -1,6 +1,16 @@
 from decimal import Decimal
 import copy
 
+def getformat(n):
+    
+    n = str(n)
+    e = 0 # This will be useful later
+    if n.find('e') > 0: # where 'n' is the input of the function
+        e = int(n.split('e')[1])
+        n = format(float(n), f".{abs(e) + 15}f").rstrip('0')
+
+    return n
+
 ##################
 # from PlainTools import *
 # import itertools
