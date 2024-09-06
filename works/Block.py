@@ -1,49 +1,4 @@
 import PlainToolsB as pt
-import re
-
-def REP(num):
-    """
-    Detect repeating decimal patterns in a given number.
-
-    :param num: The number to detect repeating decimals in.
-    :return: The repeating decimal pattern, or None if no valid pattern is found.
-    """
-    if float(num).is_integer():
-        return None
-    
-    num_str = repr(num)
-    if 'e' in num_str:
-        num_str = format(float(
-            num_str), f".{abs(int(num_str.split('e')[1])) + 15}f")
-
-    # Extract decimal part
-    decimal_part = num_str.split('.')[1].rstrip('0')[:15]
-    
-    # Check for repeating patterns starting from any position in the decimal part
-    for start_idx in range(len(decimal_part)):
-        sub_decimal_part = decimal_part[start_idx:]
-        for pattern_length in range(1, 7):  # Extend pattern length for longer sequences
-            regex = re.compile(rf"(\d{{{pattern_length}}})\1+")
-            match = regex.search(sub_decimal_part)
-            if match:
-                repeat_str = match.group(1)
-                repeat_count = len(match.group(0)) // len(repeat_str)
-                remaining_digits = sub_decimal_part[match.end():]
-
-                # Allow one insignificant digit at the end
-                if len(remaining_digits) <= 1:
-                    if (pattern_length == 1 and repeat_count >= 6) or \
-                       (pattern_length == 2 and repeat_count >= 5) or \
-                       (pattern_length == 3 and repeat_count >= 4) or \
-                       (pattern_length == 4 and repeat_count >= 3) or \
-                       (pattern_length == 5 and repeat_count >= 2) or \
-                       (pattern_length == 6 and repeat_count >= 1):  # For longer patterns
-                        # Exclude '0' and '9' as repeating periods
-                            return repeat_str if all(
-                                rp!=0 or rp!=9 for rp in repeat_str) and (
-                            repeat_str!='0' and repeat_str!='9') else None
-
-    return None
 
 # Test cases for detect_repeating_decimal
 test_cases = [
