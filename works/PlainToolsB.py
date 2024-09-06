@@ -1421,21 +1421,21 @@ def arithmetic(cls):
     def operate(op):
         @functools.wraps(op)
         def wrapper(self, other=None):
-            value = self.value
+            val = self.value
             
             if isinstance(other, cls):
                 other = other.value
 
-            if isinstance(value, Iterable) and not isinstance(value, (
+            if isinstance(val, Iterable) and not isinstance(val, (
                 String, Bytes)):
-                value = type(value)(op(v, other) for v in value)
+                val = type(val)(op(v, other) for v in val)
             else:
                 if other is not None:
-                    value = op(value, other)
+                    val = op(val, other)
                 else:
-                    value = op(value)
+                    val = op(val)
             
-            return cls(value)
+            return cls(val)
         
         return wrapper
     
@@ -1500,10 +1500,6 @@ def arithmetic(cls):
     setattr(cls, '__float__', lambda cls: float(cls.value))
     
     setattr(cls, '__int__', lambda cls: int(cls.value))
-        
-    setattr(cls, '__index__', lambda cls: int(cls.value))
-    
-    setattr(cls, '__iter__', lambda cls: iter(plist(cls.value)))
     
     setattr(cls, '__round__', lambda cls, n: round(cls.value, n))
     
@@ -3145,7 +3141,7 @@ class Number:
         cls.period = cls.periodic(val)
         try:
             cls.fraction = cls.value.as_integer_ratio()
-        except ValueError:
+        except Exception:
             cls.fraction = (float('NaN'), float('NaN'))
         finally:
             cls.denominator, cls.numerator = cls.fraction
@@ -3164,7 +3160,7 @@ class Number:
 
     @staticmethod
     def number(num: Real | String,
-               ) -> Real | None:
+               ) -> Real:
         R: Real = float('NaN')
         S: Real
         P: Bool
@@ -3173,7 +3169,7 @@ class Number:
         with Try:
             R = float(Seval(num))
             if R.is_integer():
-                return int(R), None
+                return int(R)
             
             # V2
             SR = format(R,'f')
@@ -3210,7 +3206,7 @@ class Number:
     def periodic(num):
         num = float(Seval(num))
         if float(num).is_integer():
-            return None
+            return Null
         
         num_str = repr(num)
         if 'e' in num_str:
@@ -3240,11 +3236,11 @@ class Number:
                         (pattern_length == 5 and repeat_count >= 2) or \
                         (pattern_length == 6 and repeat_count >= 1):  # For longer patterns
                             # Exclude '0' and '9' as repeating periods
-                                return repeat_str if all(
-                                    rp!=0 for rp in repeat_str) and (
-                                repeat_str!='0') else None
+                                if all(rp!=0 for rp in repeat_str) and (
+                                repeat_str!='0'):
+                                    return repeat_str
 
-        return None
+        return Null
 
 
 class Constant:
