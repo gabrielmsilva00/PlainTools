@@ -17,8 +17,6 @@
 ∙∙∙ w3schools.com/python/
 ••• OpenAI ChatGPT, definitions and debugging;
 ∙∙∙ chat.openai.com
-••• Claude AI, additional debugging;
-∙∙∙ claude.ai
 ••• Codeium AI, autocompletion and code refactoring|cleaning;
 ∙∙∙ codeium.ai
 ••• SingleFile extension, HTML factoring;
@@ -58,10 +56,9 @@ import copy
 # TYPES ──► Special aliases to denote typing annotations; Redundant cases.
 Type = type
 String = str
-Bytes = bytes
 Integer = int
 Float = float
-Complex = complex
+Complex = complex  # Unused
 Decimal = decimal.Decimal
 Fraction = fractions.Fraction
 Real = numbers.Real | decimal.Decimal
@@ -109,166 +106,6 @@ Or = lambda *args: any(bool(arg) for arg in args)
 Nor = lambda *args: not any(bool(arg) for arg in args)
 Xor = lambda *args: sum(bool(arg) for arg in args) % 2 == 1
 Xnor = lambda *args: sum(bool(arg) for arg in args) % 2 == 0
-
-
-# NUMBER ──► Numeric structure:
-def number(obj: Any) -> Number:
-    obj = Seval(obj)
-    if isinstance(obj, Fraction):
-        obj = float(obj)
-    class TypeChecker(type):
-        def __new__(mcls, classname, bases, classdict):
-            iname = '%s_%s_ID%s' % (
-                classname, type(obj).__name__, id(obj))
-            try:
-                R = type.__new__(mcls, iname, (
-                    type(obj),)+bases, classdict)
-            except TypeError as e:
-                R = type.__new__(mcls, classname, bases, classdict)
-            finally:
-                return R
-    
-    @arithmetic
-    class Number(metaclass=TypeChecker):
-        def __init__(cls,
-                     val: Real | String,
-                     ):
-            cls.object = obj
-            cls.value = cls.number(val)
-            cls.period = cls.periodic(cls.value)
-            cls.id = id(obj)
-            try:
-                cls.fraction = Fraction(cls.value).limit_denominator(
-                    math.ceil(cls.value) * 10e3).as_integer_ratio()
-            except Exception:
-                cls.fraction = (float('NaN'), float('NaN'))
-        
-        def __str__(cls): # for 'print's & 'str'
-            if cls.period:
-                strval = repr(cls.value)
-                pstart = strval.find(cls.period)
-                if pstart == -1:
-                    return strval + f"{cls.period * 2}..."
-                return strval[
-                    :pstart + len(cls.period)] + f"{cls.period * 2}..."
-            return str(cls.value)
-            
-        def __repr__(cls): # for 'repr'
-            return repr(cls.value)
-        
-        def number(cls,
-                   num: Real | String,
-                   ) -> Real:
-            R: Real = float('NaN')
-            J: Complex = None
-            S: Integer = 1
-            
-            with Try:
-            #try:
-                R = Seval(num)
-                if isinstance(R, Complex):
-                    R, J = R.real, R.imag
-                    S += 1
-                
-                elif isinstance(R, Bool):
-                    return bool(R)
-                    
-                elif isinstance(R, (int, float)) and R.is_integer():
-                    return int(R)
-                
-                elif isinstance(R, (Decimal, Fraction)):
-                    R = float(R)
-                
-                while True:
-                    SR = repr(R)
-                    E = 0
-                    
-                    if 'e' in SR:
-                        SR, E = SR.split('e')[0], int(SR.split('e')[-1])
-                        R = float(SR)
-                    
-                    DP = SR.split('.')[-1][::-1]
-                    
-                    if len(DP) >= 15:
-                        M9 = re.match(r'9+|[0-8]9+', DP)
-                        M0 = re.match(r'0+|[1-9]0+', DP)
-                        
-                        # Check for chains of 9s
-                        if M9:
-                            C9 = len(M9.group(0))
-                            if C9 > 4:
-                                R = round(R, len(DP) - 1)
-                        
-                        # Check for chains of 0s
-                        if M0:
-                            C0 = len(M0.group(0))
-                            if C0 > 4:
-                                R = round(R, len(DP) - 1)
-
-                    if E != 0:
-                        R = Seval(f'{R}e{E}')
-
-                    else:
-                        R = round(float(str(R).split('.')[0] + '.' + 
-                                str(R).split('.')[-1]), 16)
-                    
-                    if R.is_integer():
-                        R = int(R)
-                    
-                    S -= 1
-                    if S: # Complex
-                        R1 = R
-                        R = Seval(repr(J).strip('j'))
-                    
-                    else:
-                        break
-            
-            #except BaseException as e:
-            #    print(e)
-                
-            if J is not None:
-                R = complex(R1, R)
-            
-            if isinstance(cls.object, Decimal):
-                R = Decimal(str(R))
-        
-            return R
-        
-        def periodic(cls, num):
-            with Try:
-                if float(num).is_integer():
-                    return Null
-                
-                NS = repr(num)
-                if 'e' in NS:
-                    return Null
-
-                DP = NS.split('.')[-1][:16]
-                
-                for SIDX in range(len(DP)):
-                    SDP = DP[SIDX:]
-                    for PL in range(1, 9):
-                        regex = re.compile(rf"(\d{{{PL}}})\1+")
-                        match = regex.search(SDP)
-                        if match:
-                            RS = match.group(1)
-                            RC = len(
-                                match.group(0)) // len(RS)
-                            RD = SDP[match.end():]
-
-                            if len(RD) <= 1:
-                                if Or((PL == 1 and RC >= 6),
-                                      (PL == 2 and RC >= 5),
-                                      (PL == 3 and RC >= 4),
-                                      (PL == 4 and RC >= 3),
-                                      (PL == 5 and RC >= 2),
-                                      (PL >= 6 and RC >= 1)):
-                                        if not RS.strip('0') == '':
-                                            return RS
-
-            return Null
-    
-    return Number(obj)
 
 
 # FORMATTERS ──► Conformity Operators:
@@ -363,6 +200,8 @@ def punit(*its: Iterable[Any],
 
 
 def pnumber(*vals: Real | Iterable[Real | String],
+            tol: String | Integer = 'auto',
+            dcm: String | Integer = 'auto',
             ) -> Real | Iterable[Real] | None:
     """
     Plain Number.
@@ -380,7 +219,7 @@ def pnumber(*vals: Real | Iterable[Real | String],
             | [8, 0.3, 3.1415929203539825, 2.718281828459045]
 
         pnumber(1/3, 10/33, 100/333, 1000/3333)
-            | [0.3333, 0.3030303, 0.3003003003, 0.3000300030003]
+            | [0.333, 0.30303, 0.3003003003, 0.3000300030003]
 
         pnumber(0.1 ** 1e-12)
             | 0.9999999999977
@@ -388,23 +227,108 @@ def pnumber(*vals: Real | Iterable[Real | String],
         pnumber(0.1 ** 32) # Fails with 'auto' precision tolerance.
             | 0 # float(0.1 ** 32) is 1.0000000000000018e-32
 
-        pnumber(0.1 ** 32)
+        pnumber(0.1 ** 32, tol=32)
             | 1e-32
 
     :Args:
         *vals: Real | Iterable[Real | String]
             | Numbers to be formatted.
 
+    :Kwargs:
+        tol: String | Integer = 'auto'
+            | Precision of the output;
+            | It is recommended to follow the lowest decimal place.
+            | i.e. tol=64 for a precision of up to 1e-64.
+        
+        dcm: String | Integer = 'auto'
+            | Decimal places of the output;
+            | It is involved in the rounding phase of the function.
+            | 'auto' rounds repeating decimals up to 4 repetitions;
+            | i.e. pnumber(1/3, dcm='auto') == 0.3333
+            | dcm = ('all'|16|None) all end up with the same result.
+
     :Return:
         R: Real | Iterable[Real] | None
             | Formatted numbers, None if NaN.
     """
-
     R: List[Real] = []
+    S: Real
+    P: Bool
+    I: Bool
 
-    for num in plist(vals):
-        R.append(number(num))
+    def RS(x, y): return round(x, y - max(repr(x)[
+        repr(x).find('.') + 1:].rstrip('0').count(
+        '0') // 4, repr(x)[repr(x).find(
+            '.') + 1:].rstrip('9').count('9') // 4))
 
+    def RT(x): return max(4, 16 - math.ceil(math.log(
+        x, 96 if x < 1e-15 else
+        48 if x < 1e-12 else
+        24 if x < 1e-9 else
+        12 if x < 1e-6 else
+        6 if x < 1e-3 else
+        3)))
+    
+    for val in plist(vals):
+
+        with Try:
+            P = False
+            I = False
+            num = Seval(str(val))
+
+            if float(num).is_integer():
+                R.append(int(num))
+                continue
+
+            if tol == 'auto':
+                tol = RT(abs(num))
+
+            else:
+                tol += 3  # Account for rounding
+
+            # CHECK 1: Float imprecision
+            num = RS(num, tol)
+
+            # https://stackoverflow.com/a/38847691/26469850
+            dnum = format(decimal.Context(prec=32).create_decimal(
+                repr(num)), 'f')
+
+            # CHECK 2: Float imprecision
+            while re.compile( # re is some black magic, I swear. LLM used.
+                    r'^-?\d+\.\d*?[1-9](0{5,})([1-9]{1,2})$').search(dnum):
+                dnum = dnum[:-1]
+                I = True
+
+            for length in range(1, len(dnum) // 4 + 1):
+                for start in range(len(dnum) - length * 4):
+                    period = dnum[start:start + length]
+                    if period * 4 == dnum[start:start + length * 4] and (
+                            period != '0' * length):
+                        S = round(float(dnum), len(
+                            dnum[:start] or '') + (len(period) * 3) - 1) if (
+                                dcm == 'auto') else float(dnum) if (
+                                    dcm == 'all') else round(float(dnum), dcm)
+                        if not math.isclose(S, int(S),
+                                            rel_tol=1e-15,
+                                            abs_tol=1e-15):
+                            P = True
+                        else:
+                            S = int(S)
+                        break
+                else:  # nobreak
+                    continue
+                break
+            else:  # nobreak
+                S = float(dnum)
+                if S.is_integer():
+                    S = int(S)
+
+            if not math.isclose(
+                    Decimal(S), Decimal(dnum), rel_tol=1e-15,
+                    abs_tol=1e-15) and not I and not P:
+                S = float(num)
+            
+            R.append(S)
 
     return punit(R)
 
@@ -454,7 +378,7 @@ def pstring(*objs: Any | Iterable[Any],
 
     :Examples:
         pstring({0: 'a', 1: 'b', 2: 'c'})
-            | '0: a, 1: b, 2: c'
+            | '0 : a, 1 : b, 2 : c'
 
         pstring([1, 2, 3], (4, 5), {6, 7})
             | '1, 2, 3, 4, 5, 6, 7'
@@ -485,7 +409,7 @@ def pstring(*objs: Any | Iterable[Any],
                     )
 
         if T[0]:
-            R.extend(f'{k}: {v}' for k, v in obj.items())
+            R.extend(f'{k} : {v}' for k, v in obj.items())
 
         elif T[1]:
             R.extend(map(str, obj))
@@ -795,17 +719,15 @@ def psequence(*nums: Real | Iterable[Real],
                          )
 
     if abs_lim is not None:
-        limit = number(abs_lim)
+        limit = pnumber(abs_lim)
 
     else:
         if rel_lim is not None:
-            limit = number(N[-2] * rel_lim) if N[-1] == ... else number(
+            limit = pnumber(N[-2] * rel_lim) if N[-1] == ... else pnumber(
                 N[-1] * rel_lim) if N[-1] == ... else N[-1]
 
         else:
             limit = float('inf')
-    
-    N = [number(n) for n in N if n != ...]
 
     for i, num in enumerate(N):
         if num == ...:
@@ -820,7 +742,7 @@ def psequence(*nums: Real | Iterable[Real],
             if i == len(N) - 1:
                 if S is None:
                     S = start
-                L.append(number(x) for x in itertools.takewhile(
+                L.append(pnumber(x) for x in itertools.takewhile(
                     lambda x: x >= limit if S < 0 else (
                         x <= limit or abs(x - limit) < S / 10),
                     itertools.count(start + S, S)))
@@ -828,12 +750,12 @@ def psequence(*nums: Real | Iterable[Real],
                 end = N[i + 1]
                 if S is None:
                     S = end - start
-                L.append(number(x) for x in itertools.takewhile(
+                L.append(pnumber(x) for x in itertools.takewhile(
                     lambda x: x <= limit if S < 0 else (
                         x >= limit or abs(x - limit) < S / 10),
                     itertools.count(start + S, S)))
         else:
-            L.append([number(num)])
+            L.append([pnumber(num)])
 
     return itertools.chain.from_iterable(L)
 
@@ -1572,88 +1494,6 @@ def loop(times: Integer = 0,
         return wrapper
 
     return decorator
-
-
-def arithmetic(cls):
-    def operate(op):
-        @functools.wraps(op)
-        def wrapper(self, other=None):
-            val = self.value
-            
-            if isinstance(other, cls):
-                other = other.value
-
-            if isinstance(val, Iterable) and not isinstance(val, (
-                String, Bytes)):
-                val = type(val)(op(v, other) for v in val)
-            else:
-                if other is not None:
-                    val = op(val, other)
-                else:
-                    val = op(val, Null)
-            
-            return cls(val)
-        
-        return wrapper
-    
-    for opn, opf in {
-        '__add__': operator.add,
-        '__sub__': operator.sub,
-        '__mul__': operator.mul,
-        '__truediv__': operator.truediv,
-        '__floordiv__': operator.floordiv,
-        '__mod__': operator.mod,
-        '__pow__': operator.pow,
-        '__eq__': operator.eq,
-        '__ne__': operator.ne,
-        '__lt__': operator.lt,
-        '__le__': operator.le,
-        '__gt__': operator.gt,
-        '__ge__': operator.ge,
-        '__and__': operator.and_,
-        '__or__': operator.or_,
-        '__xor__': operator.xor,
-        '__rshift__': operator.rshift,
-        '__lshift__': operator.lshift,
-        '__neg__': operator.neg,
-        '__pos__': operator.pos,
-        '__abs__': operator.abs,
-        '__invert__': operator.invert,
-    }.items():
-        setattr(cls, opn, operate(opf))
-    
-    def __getattr__(cls, item):
-        if item in dir(cls):
-            return getattr(cls, item)
-        if item in dir(cls.value):
-            return getattr(cls.value, item)
-        for typ in (Decimal, Fraction, float, int):
-            if item in dir(typ):
-                return getattr(typ(cls.value), item)
-        raise AttributeError(
-            f"'{cls.__class__.__name__}' | '{cls.value.__class__.__name__}'"+(
-            f" objects have no attribute '{item}'"))
-
-    setattr(cls, '__getattr__', __getattr__)
-    
-    def __getattribute__(self, name):
-        try:
-            return super(cls, self).__getattribute__(name)
-        except (TypeError, ValueError) as e:
-            value = super(cls, self).__getattribute__('value')
-            return getattr(value, name)
-    
-    setattr(cls, '__getattribute__', __getattribute__)
-        
-    setattr(cls, '__complex__', lambda cls: complex(cls.value))
-    
-    setattr(cls, '__float__', lambda cls: float(cls.value))
-    
-    setattr(cls, '__int__', lambda cls: int(cls.value))
-    
-    setattr(cls, '__round__', lambda cls, n: round(cls.value, n))
-    
-    return cls
 
 
 def showcall(func: Function) -> Function:
@@ -2638,7 +2478,7 @@ class TRY:
         if args[0] is not None:
             cls.err = debug()
             cls.exitcode = str(cls.err[-1])
-            cls.exitline = str(cls.err[-2])
+            cls.exitline = str(cls.err[-4])
             cls.result = f'[!-FAIL-!] -> {cls.exitline} -> {cls.exitcode}'
 
         else:
@@ -2733,9 +2573,7 @@ class SEVAL:
         pass
 
     def __init__(cls):
-        cls.namespace = collections.ChainMap(pframe(2).f_locals, # PlainTools'
-                                             pframe(outer=True).f_locals,
-                                             )
+        cls.namespace = pframe(outer=True).f_locals
         cls.operators = {ast.Add: operator.add,
                          ast.Sub: operator.sub,
                          ast.Mult: operator.mul,
@@ -2820,8 +2658,6 @@ class SEVAL:
                          }
 
     def __call__(cls, expression):
-        if not isinstance(expression, str):
-            expression = repr(expression)
         try:
             tree = ast.parse(expression, mode='eval')
         except SyntaxError:
@@ -2905,7 +2741,7 @@ Seval = SEVAL()
 
 
 # CONSTRUCTOR CLASSES ──► Custom objects:
-class Container(Dict):
+class Container(dict):
     """
     Container Class; dict Subclass.
 
@@ -3466,7 +3302,7 @@ class Constant:
     def __release_buffer__(cls, view): return None
 
 
-# DOCUMENT ──► Docstring printer:
+# DOCUMENT ──► Docstring printer.
 def doc(*objs: callable,
         ) -> List[String] | Null:
     """
