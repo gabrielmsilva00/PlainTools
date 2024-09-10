@@ -75,7 +75,7 @@ loops and contexts with easy to handle classes and functions.
             - :py:class:`pt.Container`
             - :py:class:`pt.Constant`
 
-ㅤ
+؜
 
 .. collapse:: [Introduction]
 
@@ -112,7 +112,7 @@ loops and contexts with easy to handle classes and functions.
     This will print the target's documentation, if any, to the current `console` 
     or `stdout` in general.
 
-ㅤ
+؜
 
 .. collapse:: [Resources & Credits]
 
@@ -144,7 +144,7 @@ loops and contexts with easy to handle classes and functions.
         - Thanks to my beloved girlfriend :fuchsia:`Ana Caroline`, who tirelessly heard me babble about Python through hours in these past few months where I was still learning and improving much of my understanding of the language. I love you!
         - Thanks to :orange:`all my friends` who helped me debug the documentation itself (this HTML file) when I had zero `Sphinx` knowledge. I hope I did well enough and hope to do much more in the future!
 
-ㅤ
+؜
 
 Formatter Functions
 -------------------
@@ -914,7 +914,7 @@ standard syntax and built-in functions.
 
         def my_function(x, y):
 
-        ㅤㅤㅤㅤreturn x + y
+        ؜؜؜؜return x + y
 
         - my_function(3, 4)
             - [!-CALL-!]
@@ -925,7 +925,7 @@ standard syntax and built-in functions.
             - R* 7
             - Tm 0.0001s
         
-        ㅤ
+        ؜
 
         @showcall
 
