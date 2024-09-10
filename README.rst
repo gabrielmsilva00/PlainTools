@@ -23,7 +23,7 @@ Welcome to the PlainTools library's GitHub repo!
 PlainTools is a Python 3 library designed to introduce new features and 
 fix awkward common interactions present in the Python 3 native ecosystem.
 
-The simplest, yet most relevant example can be:
+Some simple, yet relevant examples are:
 
 .. code-block:: python
 
@@ -32,8 +32,22 @@ The simplest, yet most relevant example can be:
     >>> print(0.1 * 3)
     0.30000000000000004
 
-    >>> print(pt.pnumber(0.1 * 3))
+    >>> print(pt.number(0.1 * 3))
     0.3
+
+    >>> print(5 / 3)
+    1.6666666666666667
+
+    >>> print(pt.number("5 / 3"))
+    1.666... # '...' present only in string format; The true value is still float(5/3).
+
+    >>> print(pt.number("math.pi")) # A safe variation of 'eval()' is used, as shown below!
+    3.141592653589793
+
+    # https://stackoverflow.com/a/1933463/26469850
+    >>> print(pt.number("import shutil; shutil.rmtree('/.')")) # Example of malicious use.
+    PlainTools.SEVAL.UnsafeError: Invalid syntax in expression
+    # More about Seval (Safe Eval) can be read at: gabrielmsilva00.github.io/PlainTools/#pt.SEVAL
 
 Simple, right?
 
