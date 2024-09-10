@@ -1450,6 +1450,75 @@ Are all instance examples of the operator class 'TIME()'
 
         blacklist: dict
             - Defines disallowed functions and modules that are prohibited.
+              The default blacklist prohibits the following:
+              
+                - :orange:`Functions:`
+                    - encode
+                    - decode
+                    - exit
+                    - base64
+                    - main
+                    - Main
+                    - compile
+                    - open
+                    - eval
+                    - print
+                    - __import__
+                    - input
+                    - bytearray
+                    - bytes
+                    - exec
+                    - getattr
+
+                - :orange:`Modules:`
+                    - re
+                    - getpass
+                    - builtins
+                    - crypt
+                    - ftplib
+                    - uuid
+                    - turtle
+                    - ctypes
+                    - atexit
+                    - tk
+                    - mmap
+                    - pathlib
+                    - compileall
+                    - tempfile
+                    - multiprocessing
+                    - faulthandler
+                    - stat
+                    - urllib
+                    - ssl
+                    - json
+                    - threading
+                    - resource
+                    - signal
+                    - shutils
+                    - hashlib
+                    - unittest
+                    - os
+                    - secrets
+                    - platform
+                    - grp
+                    - dbm
+                    - glob
+                    - asyncio
+                    - pwd
+                    - gc
+                    - base64
+                    - http
+                    - pdb
+                    - webbrowser
+                    - subprocess
+                    - codeop
+                    - sqlite3
+                    - smtlib
+                    - xmlrpc
+                    - sysconfig
+                    - code
+                    - sys
+                    - socket
 
 ؜
 

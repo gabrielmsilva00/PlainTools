@@ -380,7 +380,7 @@ loops and contexts with easy to handle classes and functions.</p>
 </ul>
 <p>(Click below onto each [Section] to expand | collapse it.)</p>
 <div class="sphinx_collapse docutils container">
-<input class="sphinx_collapse__input" id="44d467d9-70f8-4f82-b0ad-938c7d238121" name="44d467d9-70f8-4f82-b0ad-938c7d238121" type="checkbox"><label class="sphinx_collapse__label" for="44d467d9-70f8-4f82-b0ad-938c7d238121"><i class="sphinx_collapse__icon"></i>[Table of Contents]</label><div class="sphinx_collapse__content docutils container">
+<input class="sphinx_collapse__input" id="f8462fd2-d7b6-4d25-9214-09d7ae45b0e9" name="f8462fd2-d7b6-4d25-9214-09d7ae45b0e9" type="checkbox"><label class="sphinx_collapse__label" for="f8462fd2-d7b6-4d25-9214-09d7ae45b0e9"><i class="sphinx_collapse__icon"></i>[Table of Contents]</label><div class="sphinx_collapse__content docutils container">
 <ul class="simple">
 <li><dl class="simple">
 <dt><a class="reference internal" href="#formatter-functions"><span class="std std-ref">Formatter Functions</span></a></dt><dd><dl class="simple">
@@ -474,7 +474,7 @@ loops and contexts with easy to handle classes and functions.</p>
 </div>
 <p>؜</p>
 <div class="sphinx_collapse docutils container">
-<input class="sphinx_collapse__input" id="4e598764-561f-4ac8-9966-3088df365978" name="4e598764-561f-4ac8-9966-3088df365978" type="checkbox"><label class="sphinx_collapse__label" for="4e598764-561f-4ac8-9966-3088df365978"><i class="sphinx_collapse__icon"></i>[Introduction]</label><div class="sphinx_collapse__content docutils container">
+<input class="sphinx_collapse__input" id="ccb98c2e-0f58-416a-9acb-fe3f43a706cf" name="ccb98c2e-0f58-416a-9acb-fe3f43a706cf" type="checkbox"><label class="sphinx_collapse__label" for="ccb98c2e-0f58-416a-9acb-fe3f43a706cf"><i class="sphinx_collapse__icon"></i>[Introduction]</label><div class="sphinx_collapse__content docutils container">
 <p>The following needs to be considered when reading these docs:</p>
 <ul>
 <li><dl class="simple">
@@ -532,7 +532,7 @@ or <cite>stdout</cite> in general.</p>
 </div>
 <p>؜</p>
 <div class="sphinx_collapse docutils container">
-<input class="sphinx_collapse__input" id="9b10cb74-f0bd-42cc-bf27-52d85e3bb5d4" name="9b10cb74-f0bd-42cc-bf27-52d85e3bb5d4" type="checkbox"><label class="sphinx_collapse__label" for="9b10cb74-f0bd-42cc-bf27-52d85e3bb5d4"><i class="sphinx_collapse__icon"></i>[Resources &amp; Credits]</label><div class="sphinx_collapse__content docutils container">
+<input class="sphinx_collapse__input" id="f6cd9ee5-d084-4394-a9d5-165ef6929276" name="f6cd9ee5-d084-4394-a9d5-165ef6929276" type="checkbox"><label class="sphinx_collapse__label" for="f6cd9ee5-d084-4394-a9d5-165ef6929276"><i class="sphinx_collapse__icon"></i>[Resources &amp; Credits]</label><div class="sphinx_collapse__content docutils container">
 <ul class="simple">
 <li><dl class="simple">
 <dt>Disclaimer: <span class="orange">LLM (AI)</span> Use:</dt><dd><ul>
@@ -2458,7 +2458,7 @@ Writes them to a (filename).log file.</p>
 <p>A secure alternative to Python’s <cite>eval()</cite> function, designed to evaluate
 mathematical and basic expressions while preventing access to unsafe
 operations and functions.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Examples<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt>Seval(“2 + 2”)</dt><dd><ul class="simple">
@@ -2479,13 +2479,95 @@ operations and functions.</p>
 <dd class="field-even"><p>UnsafeError: Raised when tries unsafe operation, function, or module.</p>
 </dd>
 <dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
+<dd class="field-odd"><dl>
 <dt>UnsafeError: TypeError</dt><dd><ul class="simple">
 <li><p>Custom error for handling unsafe operations.</p></li>
 </ul>
 </dd>
-<dt>blacklist: dict</dt><dd><ul class="simple">
-<li><p>Defines disallowed functions and modules that are prohibited.</p></li>
+<dt>blacklist: dict</dt><dd><ul>
+<li><p>Defines disallowed functions and modules that are prohibited.
+The default blacklist prohibits the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt><span class="orange">Functions:</span></dt><dd><ul>
+<li><p>encode</p></li>
+<li><p>decode</p></li>
+<li><p>exit</p></li>
+<li><p>base64</p></li>
+<li><p>main</p></li>
+<li><p>Main</p></li>
+<li><p>compile</p></li>
+<li><p>open</p></li>
+<li><p>eval</p></li>
+<li><p>print</p></li>
+<li><p>__import__</p></li>
+<li><p>input</p></li>
+<li><p>bytearray</p></li>
+<li><p>bytes</p></li>
+<li><p>exec</p></li>
+<li><p>getattr</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><span class="orange">Modules:</span></dt><dd><ul>
+<li><p>re</p></li>
+<li><p>getpass</p></li>
+<li><p>builtins</p></li>
+<li><p>crypt</p></li>
+<li><p>ftplib</p></li>
+<li><p>uuid</p></li>
+<li><p>turtle</p></li>
+<li><p>ctypes</p></li>
+<li><p>atexit</p></li>
+<li><p>tk</p></li>
+<li><p>mmap</p></li>
+<li><p>pathlib</p></li>
+<li><p>compileall</p></li>
+<li><p>tempfile</p></li>
+<li><p>multiprocessing</p></li>
+<li><p>faulthandler</p></li>
+<li><p>stat</p></li>
+<li><p>urllib</p></li>
+<li><p>ssl</p></li>
+<li><p>json</p></li>
+<li><p>threading</p></li>
+<li><p>resource</p></li>
+<li><p>signal</p></li>
+<li><p>shutils</p></li>
+<li><p>hashlib</p></li>
+<li><p>unittest</p></li>
+<li><p>os</p></li>
+<li><p>secrets</p></li>
+<li><p>platform</p></li>
+<li><p>grp</p></li>
+<li><p>dbm</p></li>
+<li><p>glob</p></li>
+<li><p>asyncio</p></li>
+<li><p>pwd</p></li>
+<li><p>gc</p></li>
+<li><p>base64</p></li>
+<li><p>http</p></li>
+<li><p>pdb</p></li>
+<li><p>webbrowser</p></li>
+<li><p>subprocess</p></li>
+<li><p>codeop</p></li>
+<li><p>sqlite3</p></li>
+<li><p>smtlib</p></li>
+<li><p>xmlrpc</p></li>
+<li><p>sysconfig</p></li>
+<li><p>code</p></li>
+<li><p>sys</p></li>
+<li><p>socket</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</li>
 </ul>
 </dd>
 </dl>
