@@ -53,8 +53,8 @@ Some simple, yet relevant examples are:
 
 Simple, right?
 
-**GitHub Repo|Pages & Documentation is a Work in Progress!!**
-=============================================================
+**GitHub Repo|Pages & Documentation is yet Work in Progress!! Thanks for your attention!**
+==========================================================================================
 
 .. You might be thinking "Oh well, a simple rounding function, how quaint..." (\\s),
 .. but that is far from it!
