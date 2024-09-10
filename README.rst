@@ -47,7 +47,9 @@ Some simple, yet relevant examples are:
     # https://stackoverflow.com/a/1933463/26469850
     >>> print(pt.number("import shutil; shutil.rmtree('/.')")) # Example of malicious use.
     PlainTools.SEVAL.UnsafeError: Invalid syntax in expression
-    # More about Seval (Safe Eval) can be read at: gabrielmsilva00.github.io/PlainTools/#pt.SEVAL
+
+- More about Seval (Safe Eval) can be found at:
+  `Plain Tools: Safe Eval <https://gabrielmsilva00.github.io/PlainTools/pt.SEVAL>`_
 
 Simple, right?
 
