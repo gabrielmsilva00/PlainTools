@@ -380,7 +380,7 @@ loops and contexts with easy to handle classes and functions.</p>
 </ul>
 <p>(Click below onto each [Section] to expand | collapse it.)</p>
 <div class="sphinx_collapse docutils container">
-<input class="sphinx_collapse__input" id="d88ae392-2ecb-4ee0-bec2-b352240e2334" name="d88ae392-2ecb-4ee0-bec2-b352240e2334" type="checkbox"><label class="sphinx_collapse__label" for="d88ae392-2ecb-4ee0-bec2-b352240e2334"><i class="sphinx_collapse__icon"></i>[Table of Contents]</label><div class="sphinx_collapse__content docutils container">
+<input class="sphinx_collapse__input" id="c4955467-fa76-41ae-bd22-9c8eb7a67b95" name="c4955467-fa76-41ae-bd22-9c8eb7a67b95" type="checkbox"><label class="sphinx_collapse__label" for="c4955467-fa76-41ae-bd22-9c8eb7a67b95"><i class="sphinx_collapse__icon"></i>[Table of Contents]</label><div class="sphinx_collapse__content docutils container">
 <ul class="simple">
 <li><dl class="simple">
 <dt><a class="reference internal" href="#formatter-functions"><span class="std std-ref">Formatter Functions</span></a></dt><dd><dl class="simple">
@@ -472,8 +472,9 @@ loops and contexts with easy to handle classes and functions.</p>
 </ul>
 </div>
 </div>
+<p>ㅤ</p>
 <div class="sphinx_collapse docutils container">
-<input class="sphinx_collapse__input" id="664bb214-b4e4-4f97-8a6a-14fc975c52d4" name="664bb214-b4e4-4f97-8a6a-14fc975c52d4" type="checkbox"><label class="sphinx_collapse__label" for="664bb214-b4e4-4f97-8a6a-14fc975c52d4"><i class="sphinx_collapse__icon"></i>[Introduction]</label><div class="sphinx_collapse__content docutils container">
+<input class="sphinx_collapse__input" id="3cb634de-7b32-42c1-bc9f-cc80e767448f" name="3cb634de-7b32-42c1-bc9f-cc80e767448f" type="checkbox"><label class="sphinx_collapse__label" for="3cb634de-7b32-42c1-bc9f-cc80e767448f"><i class="sphinx_collapse__icon"></i>[Introduction]</label><div class="sphinx_collapse__content docutils container">
 <p>The following needs to be considered when reading these docs:</p>
 <ul>
 <li><dl class="simple">
@@ -529,8 +530,9 @@ context or environment running this module by the use of the
 or <cite>stdout</cite> in general.</p>
 </div>
 </div>
+<p>ㅤ</p>
 <div class="sphinx_collapse docutils container">
-<input class="sphinx_collapse__input" id="68ad8660-f1a8-4568-a8c1-ef0520e24be7" name="68ad8660-f1a8-4568-a8c1-ef0520e24be7" type="checkbox"><label class="sphinx_collapse__label" for="68ad8660-f1a8-4568-a8c1-ef0520e24be7"><i class="sphinx_collapse__icon"></i>[Resources &amp; Credits]</label><div class="sphinx_collapse__content docutils container">
+<input class="sphinx_collapse__input" id="18af423a-89bc-45ef-b74e-80035b2523f1" name="18af423a-89bc-45ef-b74e-80035b2523f1" type="checkbox"><label class="sphinx_collapse__label" for="18af423a-89bc-45ef-b74e-80035b2523f1"><i class="sphinx_collapse__icon"></i>[Resources &amp; Credits]</label><div class="sphinx_collapse__content docutils container">
 <ul class="simple">
 <li><dl class="simple">
 <dt>Disclaimer: <span class="orange">LLM (AI)</span> Use:</dt><dd><ul>
@@ -580,6 +582,7 @@ or <cite>stdout</cite> in general.</p>
 </ul>
 </div>
 </div>
+<p>ㅤ</p>
 </section>
 <section id="formatter-functions">
 <h1>Formatter Functions<a class="headerlink" href="#formatter-functions" title="Link to this heading"><span>§</span></a></h1>
@@ -1631,6 +1634,7 @@ Returns a Container with the min, max, original min, original max values.</p>
 </dl>
 </dd></dl>
 
+<p>ㅤ</p>
 </section>
 <section id="statement-extension-functions">
 <h1>Statement &amp; Extension Functions<a class="headerlink" href="#statement-extension-functions" title="Link to this heading"><span>§</span></a></h1>
@@ -1761,7 +1765,7 @@ monitoring function execution.</p>
 <dt class="field-odd">Example<span class="colon">:</span></dt>
 <dd class="field-odd"><p>&#64;showcall</p>
 <p>def my_function(x, y):</p>
-<p>    return x + y</p>
+<p>ㅤㅤㅤㅤreturn x + y</p>
 <ul class="simple">
 <li><dl class="simple">
 <dt>my_function(3, 4)</dt><dd><ul>
@@ -1777,6 +1781,7 @@ monitoring function execution.</p>
 </dl>
 </li>
 </ul>
+<p>ㅤ</p>
 <p>&#64;showcall</p>
 <p>def vec_func(i, j, k, op=’div’):</p>
 <p>⠀⠀⠀⠀(…)</p>
@@ -1905,18 +1910,21 @@ and interrupt the loop execution.</p>
 <ul class="simple">
 <li><p>This will print the value of <cite>x</cite> three times at ‘my_function()’.</p></li>
 </ul>
+<p>ㅤ</p>
 <p>&#64;loop(loopif=lambda: some_condition())</p>
 <p>def my_function(x):</p>
 <p>⠀⠀⠀⠀print(f”Value: {x}”)</p>
 <ul class="simple">
 <li><p>This will execute <cite>my_function</cite> as long as <cite>some_condition()</cite> returns True.</p></li>
 </ul>
+<p>ㅤ</p>
 <p>&#64;loop(escape=KeyboardInterrupt)</p>
 <p>def my_function(x):</p>
 <p>⠀⠀⠀⠀print(f”Processing {x}”)</p>
 <ul class="simple">
 <li><p>This will execute <cite>my_function</cite> in a loop until a <cite>KeyboardInterrupt</cite> exception is raised.</p></li>
 </ul>
+<p>ㅤ</p>
 <p>&#64;loop(times=5, show=True)</p>
 <p>def example_function(x):</p>
 <p>⠀⠀⠀⠀print(x)</p>
@@ -2025,6 +2033,7 @@ executing code in the same line, such as starting a timer for example.</p>
 </dl>
 </dd></dl>
 
+<p>ㅤ</p>
 </section>
 <section id="operator-instantiated-classes">
 <h1>Operator &amp; Instantiated Classes<a class="headerlink" href="#operator-instantiated-classes" title="Link to this heading"><span>§</span></a></h1>
@@ -2484,6 +2493,7 @@ operations and functions.</p>
 </dl>
 </dd></dl>
 
+<p>ㅤ</p>
 </section>
 <section id="constructor-classes-custom-objects">
 <h1>Constructor Classes &amp; Custom Objects<a class="headerlink" href="#constructor-classes-custom-objects" title="Link to this heading"><span>§</span></a></h1>
@@ -2690,6 +2700,8 @@ value and won’t modify the Constant itself or it’s value in any way.</p>
 </dl>
 </dd></dl>
 
+<p>ㅤ</p>
+<p>ㅤ</p>
 </section>
 <section id="beta-release-v1-0-240902b-work-in-progress">
 <h1><strong>BETA RELEASE V1.0.240902b, WORK IN PROGRESS!</strong><a class="headerlink" href="#beta-release-v1-0-240902b-work-in-progress" title="Link to this heading"><span>§</span></a></h1>

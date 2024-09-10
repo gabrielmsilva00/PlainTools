@@ -111,7 +111,7 @@ Xor = lambda *args: sum(bool(arg) for arg in args) % 2 == 1
 Xnor = lambda *args: sum(bool(arg) for arg in args) % 2 == 0
 
 
-# NUMBER ──► Numeric structure:
+# NUMBER ──► Numeric constructor:
 def number(obj: Any) -> Number:
     obj = Seval(obj)
     if isinstance(obj, Fraction):
@@ -245,17 +245,16 @@ def number(obj: Any) -> Number:
 
                 DP = NS.split('.')[-1][:16]
                 
-                for SIDX in range(len(DP)):
-                    SDP = DP[SIDX:]
-                    for PL in range(1, 9):
+                for PL in range(1, 9):
+                    for SIDX in range(len(DP) - PL):
+                        SDP = DP[SIDX:]
                         regex = re.compile(rf"(\d{{{PL}}})\1+")
                         match = regex.search(SDP)
+                        
                         if match:
                             RS = match.group(1)
-                            RC = len(
-                                match.group(0)) // len(RS)
+                            RC = len(match.group(0)) // len(RS)
                             RD = SDP[match.end():]
-
                             if len(RD) <= 1:
                                 if Or((PL == 1 and RC >= 6),
                                       (PL == 2 and RC >= 5),

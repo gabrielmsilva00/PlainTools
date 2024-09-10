@@ -75,7 +75,7 @@ loops and contexts with easy to handle classes and functions.
             - :py:class:`pt.Container`
             - :py:class:`pt.Constant`
 
- 
+ㅤ
 
 .. collapse:: [Introduction]
 
@@ -112,7 +112,7 @@ loops and contexts with easy to handle classes and functions.
     This will print the target's documentation, if any, to the current `console` 
     or `stdout` in general.
 
- 
+ㅤ
 
 .. collapse:: [Resources & Credits]
 
@@ -144,7 +144,7 @@ loops and contexts with easy to handle classes and functions.
         - Thanks to my beloved girlfriend :fuchsia:`Ana Caroline`, who tirelessly heard me babble about Python through hours in these past few months where I was still learning and improving much of my understanding of the language. I love you!
         - Thanks to :orange:`all my friends` who helped me debug the documentation itself (this HTML file) when I had zero `Sphinx` knowledge. I hope I did well enough and hope to do much more in the future!
 
- 
+ㅤ
 
 Formatter Functions
 -------------------
@@ -807,7 +807,7 @@ output data in a formatted, previsible way.
         R: Frame
             - Frame object.
 
- 
+ㅤ
 
 
 Statement & Extension Functions
@@ -914,7 +914,7 @@ standard syntax and built-in functions.
 
         def my_function(x, y):
 
-            return x + y
+        ㅤㅤㅤㅤreturn x + y
 
         - my_function(3, 4)
             - [!-CALL-!]
@@ -925,7 +925,7 @@ standard syntax and built-in functions.
             - R* 7
             - Tm 0.0001s
         
-         
+        ㅤ
 
         @showcall
 
@@ -1028,7 +1028,7 @@ standard syntax and built-in functions.
 
         - This will print the value of `x` three times at 'my_function()'.
 
-         
+        ㅤ
 
         @loop(loopif=lambda: some_condition())
 
@@ -1038,7 +1038,7 @@ standard syntax and built-in functions.
 
         - This will execute `my_function` as long as `some_condition()` returns True.
 
-         
+        ㅤ
 
         @loop(escape=KeyboardInterrupt)
 
@@ -1048,7 +1048,7 @@ standard syntax and built-in functions.
 
         - This will execute `my_function` in a loop until a `KeyboardInterrupt` exception is raised.
 
-         
+        ㅤ
 
         @loop(times=5, show=True)
 
@@ -1134,7 +1134,7 @@ executing code in the same line, such as starting a timer for example.
     :Rationale:
         Prints the full depth of the current path and the frame stack.
 
- 
+ㅤ
 
 
 Operator & Instantiated Classes
@@ -1451,7 +1451,7 @@ Are all instance examples of the operator class 'TIME()'
         blacklist: dict
             - Defines disallowed functions and modules that are prohibited.
 
- 
+ㅤ
 
 
 Constructor Classes & Custom Objects
@@ -1618,9 +1618,9 @@ each's documentation below.
         Constant
           - An immutable Constant instance wrapping the provided value.
 
- 
+ㅤ
 
- 
+ㅤ
 
 
 
