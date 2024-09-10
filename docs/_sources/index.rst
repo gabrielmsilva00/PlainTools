@@ -1450,75 +1450,76 @@ Are all instance examples of the operator class 'TIME()'
 
         blacklist: dict
             - Defines disallowed functions and modules that are prohibited.
-              The default blacklist prohibits the following:
-              
-                - :orange:`Functions:`
-                    - encode
-                    - decode
-                    - exit
-                    - base64
-                    - main
-                    - Main
-                    - compile
-                    - open
-                    - eval
-                    - print
-                    - __import__
-                    - input
-                    - bytearray
-                    - bytes
-                    - exec
-                    - getattr
-
-                - :orange:`Modules:`
-                    - re
-                    - getpass
-                    - builtins
-                    - crypt
-                    - ftplib
-                    - uuid
-                    - turtle
-                    - ctypes
-                    - atexit
-                    - tk
-                    - mmap
-                    - pathlib
-                    - compileall
-                    - tempfile
-                    - multiprocessing
-                    - faulthandler
-                    - stat
-                    - urllib
-                    - ssl
-                    - json
-                    - threading
-                    - resource
-                    - signal
-                    - shutils
-                    - hashlib
-                    - unittest
-                    - os
-                    - secrets
-                    - platform
-                    - grp
-                    - dbm
-                    - glob
-                    - asyncio
-                    - pwd
-                    - gc
-                    - base64
-                    - http
-                    - pdb
-                    - webbrowser
-                    - subprocess
-                    - codeop
-                    - sqlite3
-                    - smtlib
-                    - xmlrpc
-                    - sysconfig
-                    - code
-                    - sys
-                    - socket
+            - This can be changed by creating a new SEVAL() instance and modfying
+              its '.blacklist' dictionary.
+            - The original dictionary contains 2 keys: .blacklist['functions']
+              and .blacklist['modules'] each with a set of strings as its value.
+            - :orange:`Disallowed Functions:`
+                - __import__
+                - eval
+                - exec
+                - compile
+                - encode
+                - decode
+                - open
+                - exit
+                - print
+                - input
+                - base64
+                - bytearray
+                - bytes
+                - getattr
+                - main
+                - Main
+            - :orange:`Disallowed Modules:`
+                - builtins
+                - os
+                - sys
+                - code
+                - shutils
+                - json
+                - multiprocessing
+                - platform
+                - http
+                - sqlite3
+                - getpass
+                - crypt
+                - ftplib
+                - uuid
+                - turtle
+                - ctypes
+                - atexit
+                - tk
+                - re
+                - mmap
+                - pathlib
+                - compileall
+                - tempfile
+                - faulthandler
+                - stat
+                - urllib
+                - ssl
+                - threading
+                - resource
+                - signal
+                - hashlib
+                - unittest
+                - secrets
+                - grp
+                - dbm
+                - glob
+                - asyncio
+                - pwd
+                - gc
+                - base64
+                - pdb
+                - webbrowser
+                - subprocess
+                - codeop
+                - smtlib
+                - xmlrpc
+                - sysconfig
+                - socket
 
 ؜
 
