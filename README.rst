@@ -49,7 +49,7 @@ Some simple, yet relevant examples are:
     PlainTools.SEVAL.UnsafeError: Invalid syntax in expression
 
 - More about Seval (Safe Eval) can be found at:
-  `Plain Tools: Safe Eval <https://gabrielmsilva00.github.io/PlainTools/pt.SEVAL>`_
+  `Plain Tools: Safe Eval <https://gabrielmsilva00.github.io/PlainTools/#pt.SEVAL>`_
 
 Simple, right?
 
