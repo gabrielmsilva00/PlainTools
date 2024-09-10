@@ -807,7 +807,7 @@ output data in a formatted, previsible way.
         R: Frame
             - Frame object.
 
-ㅤ
+؜
 
 
 Statement & Extension Functions
@@ -1028,7 +1028,7 @@ standard syntax and built-in functions.
 
         - This will print the value of `x` three times at 'my_function()'.
 
-        ㅤ
+        ؜
 
         @loop(loopif=lambda: some_condition())
 
@@ -1038,7 +1038,7 @@ standard syntax and built-in functions.
 
         - This will execute `my_function` as long as `some_condition()` returns True.
 
-        ㅤ
+        ؜
 
         @loop(escape=KeyboardInterrupt)
 
@@ -1048,7 +1048,7 @@ standard syntax and built-in functions.
 
         - This will execute `my_function` in a loop until a `KeyboardInterrupt` exception is raised.
 
-        ㅤ
+        ؜
 
         @loop(times=5, show=True)
 
@@ -1134,7 +1134,7 @@ executing code in the same line, such as starting a timer for example.
     :Rationale:
         Prints the full depth of the current path and the frame stack.
 
-ㅤ
+؜
 
 
 Operator & Instantiated Classes
@@ -1451,7 +1451,7 @@ Are all instance examples of the operator class 'TIME()'
         blacklist: dict
             - Defines disallowed functions and modules that are prohibited.
 
-ㅤ
+؜
 
 
 Constructor Classes & Custom Objects
@@ -1618,9 +1618,9 @@ each's documentation below.
         Constant
           - An immutable Constant instance wrapping the provided value.
 
-ㅤ
+؜
 
-ㅤ
+؜
 
 
 
