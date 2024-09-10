@@ -67,5 +67,3 @@ x = {'functions': {'eval',
                 're',
                 },
     }
-
-print(pt.pstring(pt.plist(x)))
