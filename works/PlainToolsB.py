@@ -151,7 +151,7 @@ def number(obj: Any) -> Number:
         
         x.id
             - `2667619486224` :grey:`# This is an example`
-            - The assigned `id()` of the object `float(1/3)`.
+            - The direct assigned `id()` of the object `float(1/3)`.
       
     :Args:
         obj: Any

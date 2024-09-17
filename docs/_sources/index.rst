@@ -171,10 +171,11 @@ base of any numeric-related definition or class. And such is the
     
     Failure to convert the object to a numeric type (contained into the 
     :orange:`numbers.Number` definition) will result in an instance of 
-    :green:`float('Nan')` class being returned.
+    :green:`float('nan')` class being returned.
     
     :Examples:
         Considering :code:`x = pt.number(1/3)`;
+        ؜
 
         print(x)
             - :code:`0.333...`
@@ -198,12 +199,12 @@ base of any numeric-related definition or class. And such is the
         
         x.id
             - :code:`2667619486224` :gray:`# This is an example`
-            - The assigned :code:`id()` of the object :code:`float(1/3)` given to the numeric constructor.
-            - Please note that this is different than both :code:`id()` and :code:`id(x.value)`
+            - The direct assigned :code:`id()` of the object :code:`float(1/3)` given to the numeric constructor.
+            - Please note that this is different than both :code:`id(x)` and :code:`id(x.value)`
     
     :Args:
         obj: Any
-            - Object to :py:func:`pt.SEVAL(obj)` into a numeric type.
+            - Object to :py:class:`pt.SEVAL(obj)` into a numeric type.
             - Failure to safely convert to a numeric type will return :code:`float('nan')`.
 
     :Returns:
