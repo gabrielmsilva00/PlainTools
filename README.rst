@@ -33,13 +33,25 @@ Some simple, yet relevant examples are:
     0.30000000000000004
 
     >>> print(pt.number(0.1 * 3))
-    0.3
+    0.3 # Deals with float imprecision errors.
 
     >>> print(5 / 3)
     1.6666666666666667
 
     >>> print(pt.number("5 / 3"))
     1.666... # '...' present only in string format; The true value is still float(5/3).
+
+    >>> print(7 / 53)
+    0.0958904109589041
+
+    >>> print(pt.number(7 / 53))
+    0.095890410958904109589041... # Can detect long chains of repeating decimals!
+
+    >>> print(0.9999999999999988)
+    0.9999999999999988
+
+    >>> print(pt.number(0.9999999999999988))
+    0.9999999999999988 # No loss of precision up to 15 digits!
 
     >>> print(pt.number("math.pi")) # A safe variation of 'eval()' is used, as shown below!
     3.141592653589793

@@ -60,26 +60,16 @@ test_operations = [
     ("math.pi/3", pt.Null),
 ]
 
-# for num, expected in test_literals + test_operations:
-#     n = ptb.number(num)
-#     print(
-#         f"String Evaluated:\t{repr(num)}\n",
-#         f"Object Instance:\t{n.object}\n",
-#         f"Number Instance:\t{n}\n",
-#         f"Expected Period:\t{(expected)+'...'}\n",
-#         f"Detected Period:\t{((n.period))+'...'}\n",
-#         sep='',
-#         )
-
-
-x = ptb.number('john')
-print(x)
-print(x.value)
-print(x.period)
-print(x.fraction)
-print(x.type)
-print(x.string)
-print(x.id)
+for num, expected in test_literals + test_operations:
+    n = ptb.number(num)
+    print(
+        f"String Evaluated:\t{repr(num)}\n",
+        f"Object Instance:\t{n.object}\n",
+        f"Number Instance:\t{n}\n",
+        f"Expected Period:\t{(expected)+'...'}\n",
+        f"Detected Period:\t{((n.period))+'...'}\n",
+        sep='',
+        )
 
 
 # for x in pt.psequence(0.1, 0.2, ..., 2):
