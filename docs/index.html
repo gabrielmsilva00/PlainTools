@@ -300,13 +300,13 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"><strong>PlainTools’ Docs</strong></a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#numeric-constructor">Numeric Constructor</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.number"><code class="docutils literal notranslate"><span class="pre">pt.number()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.pnumber"><code class="docutils literal notranslate"><span class="pre">pt.pnumber()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#formatter-functions">Formatter Functions</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.plist"><code class="docutils literal notranslate"><span class="pre">pt.plist()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.punit"><code class="docutils literal notranslate"><span class="pre">pt.punit()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.pnumber"><code class="docutils literal notranslate"><span class="pre">pt.pnumber()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.pround"><code class="docutils literal notranslate"><span class="pre">pt.pround()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.pdecimals"><code class="docutils literal notranslate"><span class="pre">pt.pdecimals()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.pstring"><code class="docutils literal notranslate"><span class="pre">pt.pstring()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.pistype"><code class="docutils literal notranslate"><span class="pre">pt.pistype()</span></code></a></li>
@@ -384,12 +384,12 @@ loops and contexts with easy to handle classes and functions.</p>
 </ul>
 <p>(Click below onto each [Section] to expand | collapse it.)</p>
 <div class="sphinx_collapse docutils container">
-<input class="sphinx_collapse__input" id="245e6f5d-6679-44c7-ad2d-d08e623e3756" name="245e6f5d-6679-44c7-ad2d-d08e623e3756" type="checkbox"><label class="sphinx_collapse__label" for="245e6f5d-6679-44c7-ad2d-d08e623e3756"><i class="sphinx_collapse__icon"></i>[Table of Contents]</label><div class="sphinx_collapse__content docutils container">
+<input class="sphinx_collapse__input" id="10060363-5442-4a35-b099-a4610562fe82" name="10060363-5442-4a35-b099-a4610562fe82" type="checkbox"><label class="sphinx_collapse__label" for="10060363-5442-4a35-b099-a4610562fe82"><i class="sphinx_collapse__icon"></i>[Table of Contents]</label><div class="sphinx_collapse__content docutils container">
 <ul class="simple">
 <li><dl class="simple">
 <dt><a class="reference internal" href="#numeric-constructor"><span class="std std-ref">Numeric Constructor</span></a></dt><dd><dl class="simple">
 <dt>The base solution for numberic-related problems.</dt><dd><ul>
-<li><p><a class="reference internal" href="#pt.number" title="pt.number"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.number()</span></code></a></p></li>
+<li><p><a class="reference internal" href="#pt.pnumber" title="pt.pnumber"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pnumber()</span></code></a></p></li>
 </ul>
 </dd>
 </dl>
@@ -401,6 +401,7 @@ loops and contexts with easy to handle classes and functions.</p>
 <dt>Formatted data in an easy way.</dt><dd><ul>
 <li><p><a class="reference internal" href="#pt.plist" title="pt.plist"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.plist()</span></code></a></p></li>
 <li><p><a class="reference internal" href="#pt.punit" title="pt.punit"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.punit()</span></code></a></p></li>
+<li><p><a class="reference internal" href="#pt.pround" title="pt.pround"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pround()</span></code></a></p></li>
 <li><p><a class="reference internal" href="#pt.pnumber" title="pt.pnumber"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pnumber()</span></code></a></p></li>
 <li><p><a class="reference internal" href="#pt.pdecimals" title="pt.pdecimals"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pdecimals()</span></code></a></p></li>
 <li><p><a class="reference internal" href="#pt.pstring" title="pt.pstring"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pstring()</span></code></a></p></li>
@@ -488,7 +489,7 @@ loops and contexts with easy to handle classes and functions.</p>
 </div>
 <p>؜</p>
 <div class="sphinx_collapse docutils container">
-<input class="sphinx_collapse__input" id="90e07659-c04d-44f5-b83e-244a2297eb67" name="90e07659-c04d-44f5-b83e-244a2297eb67" type="checkbox"><label class="sphinx_collapse__label" for="90e07659-c04d-44f5-b83e-244a2297eb67"><i class="sphinx_collapse__icon"></i>[Introduction]</label><div class="sphinx_collapse__content docutils container">
+<input class="sphinx_collapse__input" id="62449852-b3b2-4f77-8f3c-ce35640588ce" name="62449852-b3b2-4f77-8f3c-ce35640588ce" type="checkbox"><label class="sphinx_collapse__label" for="62449852-b3b2-4f77-8f3c-ce35640588ce"><i class="sphinx_collapse__icon"></i>[Introduction]</label><div class="sphinx_collapse__content docutils container">
 <p>The following needs to be considered when reading these docs:</p>
 <ul>
 <li><dl class="simple">
@@ -546,7 +547,7 @@ or <cite>stdout</cite> in general.</p>
 </div>
 <p>؜</p>
 <div class="sphinx_collapse docutils container">
-<input class="sphinx_collapse__input" id="198ae784-e9c7-4a85-b389-63e380f8c950" name="198ae784-e9c7-4a85-b389-63e380f8c950" type="checkbox"><label class="sphinx_collapse__label" for="198ae784-e9c7-4a85-b389-63e380f8c950"><i class="sphinx_collapse__icon"></i>[Resources &amp; Credits]</label><div class="sphinx_collapse__content docutils container">
+<input class="sphinx_collapse__input" id="43437c38-c7fb-4c5e-9ecc-50179c0115b5" name="43437c38-c7fb-4c5e-9ecc-50179c0115b5" type="checkbox"><label class="sphinx_collapse__label" for="43437c38-c7fb-4c5e-9ecc-50179c0115b5"><i class="sphinx_collapse__icon"></i>[Resources &amp; Credits]</label><div class="sphinx_collapse__content docutils container">
 <ul class="simple">
 <li><dl class="simple">
 <dt>Disclaimer: <span class="orange">LLM (AI)</span> Use:</dt><dd><ul>
@@ -603,27 +604,27 @@ or <cite>stdout</cite> in general.</p>
 <p>(Goto <a class="reference internal" href="#plaintools-docs"><span class="std std-ref">PlainTools’ Docs</span></a>)</p>
 <p>Before anything else, it is important to lay down the documentation for the
 base of any numeric-related definition or class. And such is the
-<a class="reference internal" href="#pt.number" title="pt.number"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.number()</span></code></a> function.</p>
+<a class="reference internal" href="#pt.pnumber" title="pt.pnumber"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pnumber()</span></code></a> function.</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="pt.number">
-<span class="sig-prename descclassname"><span class="pre">pt.</span></span><span class="sig-name descname"><span class="pre">number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Number:</span></span></span><a class="headerlink" href="#pt.number" title="Link to this definition"><span>§</span></a></dt>
-<dd><p>Numeric Constructor.</p>
-<p>This function constructs a generic <cite>Numeric</cite> class instance which
-dynamically inherits the input’s parent class. This means that all
-numeric types such as ‘int’, ‘float’, ‘complex’, ‘Decimal’ and ‘Fraction’
-given to this function will generate a subclass instance with inheritance
-from the object’s own numeric class.</p>
+<dt class="sig sig-object py" id="pt.pnumber">
+<span class="sig-prename descclassname"><span class="pre">pt.</span></span><span class="sig-name descname"><span class="pre">pnumber</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">objs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Number</span> <span class="pre">|</span> <span class="pre">List[Number]:</span></span></span><a class="headerlink" href="#pt.pnumber" title="Link to this definition"><span>§</span></a></dt>
+<dd><p>Plain Numeric Constructor.</p>
+<p>For each input, this function constructs a generic <cite>Numeric</cite> class
+instance which dynamically inherits the input’s parent class.
+This means that all numeric types such as ‘int’, ‘float’, ‘complex’,
+‘Decimal’ and ‘Fraction’ given to this function will generate a subclass
+instance with inheritance from the object’s own numeric class.</p>
 <p>Failure to convert the object to a numeric type (contained into the
 <span class="orange">numbers.Number</span> definition) will result in an instance of
 <span class="green">float(‘nan’)</span> class being returned.</p>
 <dl class="field-list">
 <dt class="field-odd">Examples<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Considering <code class="code docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">pt.number(1/3)</span></code>;
+<dd class="field-odd"><p>Considering <code class="code docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">pt.pnumber(1/3)</span></code>;
 ؜</p>
 <dl class="simple">
 <dt>print(x)</dt><dd><ul class="simple">
 <li><p><code class="code docutils literal notranslate"><span class="pre">0.333...</span></code></p></li>
-<li><p>The <a class="reference internal" href="#pt.number" title="pt.number"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.number()</span></code></a> constructor detects repeating decimals.</p></li>
+<li><p>The <a class="reference internal" href="#pt.pnumber" title="pt.pnumber"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pnumber()</span></code></a> constructor detects repeating decimals.</p></li>
 </ul>
 </dd>
 <dt>x.value</dt><dd><ul class="simple">
@@ -656,8 +657,8 @@ from the object’s own numeric class.</p>
 </dd>
 <dt class="field-even">Args<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt>obj: Any</dt><dd><ul class="simple">
-<li><p>Object to <code class="xref py py-class docutils literal notranslate"><span class="pre">pt.SEVAL(obj)</span></code> into a numeric type.</p></li>
+<dt>obj: Any | Iterable[Any]</dt><dd><ul class="simple">
+<li><p>Object(s) to <code class="xref py py-class docutils literal notranslate"><span class="pre">pt.SEVAL(obj)</span></code> into a numeric type.</p></li>
 <li><p>Failure to safely convert to a numeric type will return <code class="code docutils literal notranslate"><span class="pre">float('nan')</span></code>.</p></li>
 </ul>
 </dd>
@@ -665,12 +666,18 @@ from the object’s own numeric class.</p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt>R: Number</dt><dd><ul class="simple">
-<li><p>A numeric-type instance (of <code class="code docutils literal notranslate"><span class="pre">isinstance(obj,</span> <span class="pre">numbers.Number)</span></code>).</p></li>
+<dt>R: Number | List[Number]</dt><dd><ul class="simple">
+<li><p>Numeric-type instance(s) (of <code class="code docutils literal notranslate"><span class="pre">isinstance(obj,</span> <span class="pre">numbers.Number)</span></code>).</p></li>
 <li><p>The numeric class created dynamically inherits from the <code class="code docutils literal notranslate"><span class="pre">obj</span></code> own class.</p></li>
 </ul>
 </dd>
 </dl>
+</dd>
+<dt class="field-even">Notes<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p>It is computationally expensive; Not ideal for long sequences.</p></li>
+<li><p>Due to the above, you may want to use ‘pt.pround()’ instead.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -791,10 +798,11 @@ output data in a formatted, previsible way.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="pt.pnumber">
-<span class="sig-prename descclassname"><span class="pre">pt.</span></span><span class="sig-name descname"><span class="pre">pnumber</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">vals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dcm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Number</span> <span class="pre">|</span> <span class="pre">Iterable[Number]</span> <span class="pre">|</span> <span class="pre">None:</span></span></span><a class="headerlink" href="#pt.pnumber" title="Link to this definition"><span>§</span></a></dt>
-<dd><p>Plain Number.</p>
+<dt class="sig sig-object py" id="pt.pround">
+<span class="sig-prename descclassname"><span class="pre">pt.</span></span><span class="sig-name descname"><span class="pre">pround</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">vals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dcm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Number</span> <span class="pre">|</span> <span class="pre">Iterable[Number]</span> <span class="pre">|</span> <span class="pre">None:</span></span></span><a class="headerlink" href="#pt.pround" title="Link to this definition"><span>§</span></a></dt>
+<dd><p>Plain Round.</p>
 <p>Numeric formatter; Evaluates numeric expressions;
+Less precise than <a class="reference internal" href="#pt.pnumber" title="pt.pnumber"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pnumber()</span></code></a>, but much faster.
 Removes floating point imprecision errors with great accuracy;
 Works well expressing repeating decimals.</p>
 <p>The ‘tol’ argument is used roughly for the precision of the output.
@@ -2919,13 +2927,13 @@ value and won’t modify the Constant itself or it’s value in any way.</p>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"><strong>PlainTools’ Docs</strong></a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#numeric-constructor">Numeric Constructor</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.number"><code class="docutils literal notranslate"><span class="pre">pt.number()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.pnumber"><code class="docutils literal notranslate"><span class="pre">pt.pnumber()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#formatter-functions">Formatter Functions</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.plist"><code class="docutils literal notranslate"><span class="pre">pt.plist()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.punit"><code class="docutils literal notranslate"><span class="pre">pt.punit()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.pnumber"><code class="docutils literal notranslate"><span class="pre">pt.pnumber()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.pround"><code class="docutils literal notranslate"><span class="pre">pt.pround()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.pdecimals"><code class="docutils literal notranslate"><span class="pre">pt.pdecimals()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.pstring"><code class="docutils literal notranslate"><span class="pre">pt.pstring()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.pistype"><code class="docutils literal notranslate"><span class="pre">pt.pistype()</span></code></a></li>

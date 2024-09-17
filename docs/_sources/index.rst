@@ -18,12 +18,13 @@ loops and contexts with easy to handle classes and functions.
 
     - :ref:`Numeric Constructor`
         The base solution for numberic-related problems.
-            - :py:func:`pt.number`
+            - :py:func:`pt.pnumber`
 
     - :ref:`Formatter Functions`
         Formatted data in an easy way.
             - :py:func:`pt.plist`
             - :py:func:`pt.punit`
+            - :py:func:`pt.pround`
             - :py:func:`pt.pnumber`
             - :py:func:`pt.pdecimals`
             - :py:func:`pt.pstring`
@@ -157,29 +158,29 @@ Numeric Constructor
 
 Before anything else, it is important to lay down the documentation for the 
 base of any numeric-related definition or class. And such is the 
-:py:func:`pt.number` function.
+:py:func:`pt.pnumber` function.
 
-.. py:function:: pt.number(obj) -> Number:
+.. py:function:: pt.pnumber(*objs) -> Number | List[Number]:
 
-    Numeric Constructor.
+    Plain Numeric Constructor.
     
-    This function constructs a generic `Numeric` class instance which 
-    dynamically inherits the input's parent class. This means that all 
-    numeric types such as 'int', 'float', 'complex', 'Decimal' and 'Fraction' 
-    given to this function will generate a subclass instance with inheritance 
-    from the object's own numeric class.
+    For each input, this function constructs a generic `Numeric` class 
+    instance which dynamically inherits the input's parent class. 
+    This means that all numeric types such as 'int', 'float', 'complex', 
+    'Decimal' and 'Fraction' given to this function will generate a subclass 
+    instance with inheritance from the object's own numeric class.
     
     Failure to convert the object to a numeric type (contained into the 
     :orange:`numbers.Number` definition) will result in an instance of 
     :green:`float('nan')` class being returned.
     
     :Examples:
-        Considering :code:`x = pt.number(1/3)`;
+        Considering :code:`x = pt.pnumber(1/3)`;
         ؜
 
         print(x)
             - :code:`0.333...`
-            - The :py:func:`pt.number()` constructor detects repeating decimals.
+            - The :py:func:`pt.pnumber()` constructor detects repeating decimals.
         
         x.value
             - :code:`0.3333333333333333`
@@ -203,14 +204,18 @@ base of any numeric-related definition or class. And such is the
             - Please note that this is different than both :code:`id(x)` and :code:`id(x.value)`
     
     :Args:
-        obj: Any
-            - Object to :py:class:`pt.SEVAL(obj)` into a numeric type.
+        obj: Any | Iterable[Any]
+            - Object(s) to :py:class:`pt.SEVAL(obj)` into a numeric type.
             - Failure to safely convert to a numeric type will return :code:`float('nan')`.
 
     :Returns:
-        R: Number
-            - A numeric-type instance (of :code:`isinstance(obj, numbers.Number)`).
+        R: Number | List[Number]
+            - Numeric-type instance(s) (of :code:`isinstance(obj, numbers.Number)`).
             - The numeric class created dynamically inherits from the :code:`obj` own class.
+
+    :Notes:
+        - It is computationally expensive; Not ideal for long sequences.
+        - Due to the above, you may want to use 'pt.pround()' instead.
 
 
 Formatter Functions
@@ -292,11 +297,12 @@ output data in a formatted, previsible way.
             - A single item or a tuple of items.
 
 
-.. py:function:: pt.pnumber(*vals, tol='auto', dcm='auto', prd=4) -> Number | Iterable[Number] | None:
+.. py:function:: pt.pround(*vals, tol='auto', dcm='auto', prd=4) -> Number | Iterable[Number] | None:
 
-    Plain Number.
+    Plain Round.
 
     Numeric formatter; Evaluates numeric expressions;
+    Less precise than :py:func:`pt.pnumber()`, but much faster.
     Removes floating point imprecision errors with great accuracy;
     Works well expressing repeating decimals.
     
