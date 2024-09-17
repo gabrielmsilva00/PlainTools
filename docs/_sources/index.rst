@@ -16,6 +16,10 @@ loops and contexts with easy to handle classes and functions.
 
 .. collapse:: [Table of Contents]
 
+    - :ref:`Numeric Constructor`
+        The base solution for numberic-related problems.
+            - :py:func:`pt.number`
+
     - :ref:`Formatter Functions`
         Formatted data in an easy way.
             - :py:func:`pt.plist`
@@ -145,6 +149,68 @@ loops and contexts with easy to handle classes and functions.
         - Thanks to :orange:`all my friends` who helped me debug the documentation itself (this HTML file) when I had zero `Sphinx` knowledge. I hope I did well enough and hope to do much more in the future!
 
 ؜
+
+Numeric Constructor
+-------------------
+
+(Goto :ref:`**PlainTools' Docs**`)
+
+Before anything else, it is important to lay down the documentation for the 
+base of any numeric-related definition or class. And such is the 
+:py:func:`pt.number` function.
+
+.. py:function:: pt.number(obj) -> Number:
+
+    Numeric Constructor.
+    
+    This function constructs a generic `Numeric` class instance which 
+    dynamically inherits the input's parent class. This means that all 
+    numeric types such as 'int', 'float', 'complex', 'Decimal' and 'Fraction' 
+    given to this function will generate a subclass instance with inheritance 
+    from the object's own numeric class.
+    
+    Failure to convert the object to a numeric type (contained into the 
+    :orange:`numbers.Number` definition) will result in an instance of 
+    :green:`float('Nan')` class being returned.
+    
+    :Examples:
+        Considering :code:`x = pt.number(1/3)`;
+
+        print(x)
+            - :code:`0.333...`
+            - The :py:func:`pt.number()` constructor detects repeating decimals.
+        
+        x.value
+            - :code:`0.3333333333333333`
+            - This is used for proper arithmetic operations.
+        
+        x.period
+            - :code:`3`
+            - This is the detected repeating decimal.
+        
+        x.fraction
+            - :code:`(1, 3)`
+            - The fraction part can be used for reconstruction of the numeric object.
+        
+        x.type
+            - :code:`<class 'float'>`
+            - The :code:`x` object dynamically inherited from the :code:`float` class.
+        
+        x.id
+            - :code:`2667619486224` :gray:`# This is an example`
+            - The assigned :code:`id()` of the object :code:`float(1/3)` given to the numeric constructor.
+            - Please note that this is different than both :code:`id()` and :code:`id(x.value)`
+    
+    :Args:
+        obj: Any
+            - Object to :py:func:`pt.SEVAL(obj)` into a numeric type.
+            - Failure to safely convert to a numeric type will return :code:`float('nan')`.
+
+    :Returns:
+        R: Number
+            - A numeric-type instance (of :code:`isinstance(obj, numbers.Number)`).
+            - The numeric class created dynamically inherits from the :code:`obj` own class.
+
 
 Formatter Functions
 -------------------
@@ -1248,8 +1314,9 @@ Are all instance examples of the operator class 'TIME()'
     A class that implements the Null Object Pattern by defining methods and operations that return neutral values or perform no actions.
 
     :Examples:
-        Null()
-            - Returns an instance of the NULL class.
+        Nil = NULL()
+            - Assigns an instance of the NULL class.
+            - Default instance is 'Null'.
 
         Null + 5
             - Performs a no-op and returns Null itself.
@@ -1262,6 +1329,15 @@ Are all instance examples of the operator class 'TIME()'
         Null.attribute
             - Accesses a non-existent attribute, returns Null.
             - Null
+        
+        Null == None 
+            - Null has equality to None.
+            - True
+
+        print(Null)
+            - Prints nothing. 
+            - Same as print().
+
     
     :Instances:
         Null = NULL()

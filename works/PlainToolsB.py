@@ -113,9 +113,67 @@ Xnor = lambda *args: sum(bool(arg) for arg in args) % 2 == 0
 
 # NUMBER ──► Numeric constructor:
 def number(obj: Any) -> Number:
-    obj = Seval(obj)
-    if isinstance(obj, Fraction):
-        obj = float(obj)
+    """
+    Numeric Constructor.
+    
+    This function constructs a generic `Numeric` class instance which 
+    dynamically inherits the input's parent class. This means that all 
+    numeric types such as 'int', 'float', 'complex', 'Decimal' and 'Fraction' 
+    given to this function will generate a subclass instance with inheritance 
+    from the object's own numeric class.
+    
+    Failure to convert the object to a numeric type (contained into the 
+    `numbers.Number` definition) will result in an instance of 
+    `float('Nan')` class being returned.
+    
+    :Examples:
+        Considering `x = pt.number(1/3)`;
+
+        print(x)
+            - `0.333...`
+            - The `pt.number()` constructor detects repeating decimals.
+        
+        x.value
+            - `0.3333333333333333`
+            - This is used for proper arithmetic operations.
+        
+        x.period
+            - `3`
+            - This is the detected repeating decimal.
+        
+        x.fraction
+            - `(1, 3)`
+            - The fraction part can be used for reconstruction of the object.
+        
+        x.type
+            - `<class 'float'>`
+            - The `x` object dynamically inherited from the `float` class.
+        
+        x.id
+            - `2667619486224` :grey:`# This is an example`
+            - The assigned `id()` of the object `float(1/3)`.
+      
+    :Args:
+        obj: Any
+            - Object to `pt.SEVAL(obj)` into a numeric type.
+            - Failure to convert to a numeric type will return `float('nan')`.
+
+    :Returns:
+        R: Number
+            - A numeric-type instance (of `isinstance(obj, numbers.Number)`).
+            - The class created dynamically inherits from the `obj` own class.
+
+    """
+    try:
+        idobj = id(obj)
+        obj = Seval(obj)
+        if isinstance(obj, Fraction):
+            obj = float(obj)
+        if not isinstance(obj, Number):
+            obj = float('NaN')
+    except BaseException:
+        obj = float('NaN')
+        
     class TypeChecker(type):
         def __new__(mcls, classname, bases, classdict):
             iname = '%s_%s_ID%s' % (
@@ -129,14 +187,16 @@ def number(obj: Any) -> Number:
                 return R
     
     @arithmetic
-    class Number(metaclass=TypeChecker):
+    class Numeric(metaclass=TypeChecker):
         def __init__(cls,
                      val: Real | String,
                      ):
             cls.object = obj
             cls.value = cls.number(val)
             cls.period = cls.periodic(cls.value)
-            cls.id = id(obj)
+            cls.type = type(obj)
+            cls.string = str(cls)
+            cls.id = idobj
             try:
                 cls.fraction = Fraction(cls.value).limit_denominator(
                     math.ceil(cls.value) * 10e3).as_integer_ratio()
@@ -255,7 +315,7 @@ def number(obj: Any) -> Number:
                             RS = match.group(1)
                             RC = len(match.group(0)) // len(RS)
                             RD = SDP[match.end():]
-                            if len(RD) <= 1:
+                            if len(RD) <= len(RS):
                                 if Or((PL == 1 and RC >= 6),
                                       (PL == 2 and RC >= 5),
                                       (PL == 3 and RC >= 4),
@@ -263,11 +323,15 @@ def number(obj: Any) -> Number:
                                       (PL == 5 and RC >= 2),
                                       (PL >= 6 and RC >= 1)):
                                         if not RS.strip('0') == '':
-                                            return RS
+                                            if len(RS) > 1 and (
+                                                RS.strip(RS[0]) == ''):
+                                                break
+                                            else:
+                                                return RS
 
             return Null
     
-    return Number(obj)
+    return Numeric(obj)
 
 
 # FORMATTERS ──► Conformity Operators:
@@ -1982,6 +2046,8 @@ class NULL:
         Null + 5         # Performs a no-op and returns Null itself.
         str(Null)        # Returns an empty string.
         Null.attribute   # Accesses a non-existent attribute, returns Null.
+        Null == None     # Returns True, Null has equality to None.
+        print(Null)      # Prints nothing, same as print().
 
     :Instances:
         Null = NULL()
@@ -2004,7 +2070,8 @@ class NULL:
     __dir__ = lambda cls, *args, **kwargs: []
 
     # Comparison operations
-    __eq__ = Nul
+    __eq__ = lambda cls, other: True if (
+        (other is None) or (other is cls)) else False
     __ne__ = Nul
     __lt__ = Nul
     __le__ = Nul

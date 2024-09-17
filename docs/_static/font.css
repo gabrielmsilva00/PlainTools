@@ -135,16 +135,25 @@ blockquote {
   font-family: 'JetBrains Mono' !important;
   font-weight: 200;
 }
+
+.green {
+  color: green;
+  font-family: 'JetBrains Mono' !important;
+  font-weight: 200;
+}
+
 .magenta {
   color: magenta;
   font-family: 'JetBrains Mono' !important;
   font-weight: 200;
 }
+
 .fuchsia {
   color: fuchsia;
   font-family: 'JetBrains Mono' !important;
   font-weight: 200;
 }
+
 .orange {
   color: orange;
   font-family: 'JetBrains Mono' !important;
