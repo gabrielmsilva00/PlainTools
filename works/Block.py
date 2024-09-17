@@ -71,13 +71,9 @@ test_operations = [
 #         sep='',
 #         )
 
-print(0.00000000001 ** 3)
 
-print(ptb.number(0.00000000001 ** 3))
-
-
-# for x in pt.psequence(0.1, 0.2, ..., 2):
-#     print(x)
+for x in ptb.psequence(0.1, ..., 0.1 * 20e3):
+    print(ptb.number(x))
 
 # import decimal
 # import fractions

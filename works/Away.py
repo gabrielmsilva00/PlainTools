@@ -1,9 +1,3 @@
 import PlainToolsB as pt
 
-y = float(1/3)
-
-x = pt.number(y)
-
-print(x.id)
-print(id(y))
-print(id(x.value))
+print(pt.pround([8.0, '0.1 * 3', '355/113', 'math.e']))
