@@ -5,7 +5,7 @@
 
 - [Library's Documentation](https://gabrielmsilva00.github.io/PlainTools)
 
-[![Image](https://github.com/gabrielmsilva00/PlainTools/blob/main/ptqrdoc.png)]((https://gabrielmsilva00.github.io/PlainTools))
+[<img src="https://github.com/gabrielmsilva00/PlainTools/blob/main/ptqrdoc.png">](https://gabrielmsilva00.github.io/PlainTools)
 
 - [Author's Github](https://github.com/gabrielmsilva00)
 
