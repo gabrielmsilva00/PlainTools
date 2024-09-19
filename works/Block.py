@@ -1,4 +1,4 @@
-import PlainTools as pt
+from ..src.PlainTools import PlainTools as pt
 import PlainToolsB as ptb
 
 # Test cases for detect_repeating_decimal
