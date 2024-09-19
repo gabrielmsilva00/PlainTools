@@ -17,6 +17,8 @@ This package can be installed using `pip` in your CLI of choice as:
 pip install PlainTools
 ```
 
+The PyPi page can be found [here.](https://pypi.org/project/PlainTools/)
+
 # Introduction
 
 Welcome to the PlainTools library's GitHub repo!
