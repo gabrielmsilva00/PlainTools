@@ -1,6 +1,6 @@
 ![Image](https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/pthead.png)
 
-> Version\: V1.0.240918b (As in: Main.sub.YYMMDD branch)
+> Version\: V1.0.240919b (As in: Main.sub.YYMMDD branch)
 
 
 - [Library's Documentation](https://gabrielmsilva00.github.io/PlainTools)
