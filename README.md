@@ -9,6 +9,10 @@
 
 - [Author's Github](https://github.com/gabrielmsilva00)
 
+# Installation
+
+`pip install PlainTools`
+
 # Introduction
 
 Welcome to the PlainTools library's GitHub repo!
@@ -16,7 +20,7 @@ Welcome to the PlainTools library's GitHub repo!
 PlainTools is a Python 3 library designed to introduce new features and 
 fix awkward common interactions present in the Python 3 native ecosystem.
 
-Most functions are prefixed with 'p' (as in :code:`pt.plist` or :code:`pt.pround`) 
+Most functions are prefixed with 'p' (as in `pt.plist` or `pt.pround`) 
 to avoid homonyms. The 'p' stands for 'Plain' and are the namesake of this package.
 
 Some simple, yet relevant examples using the 'Plain Number' function are:
