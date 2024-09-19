@@ -1,6 +1,6 @@
 ![Image](https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/pthead.png)
 
-> Version\: V1.0.240919b (As in: Main.sub.YYMMDD branch)
+> Version\: 1.1.240919 (As in: Main.sub.YYMMDD)
 
 
 - [Library's Documentation](https://gabrielmsilva00.github.io/PlainTools)
@@ -72,5 +72,5 @@ PlainTools.SEVAL.UnsafeError: Invalid syntax in expression
 
 Simple, right?
 
-## GitHub Repo|Pages & Documentation is yet Work in Progress!! Thanks for your attention!**
+## GitHub Repo|Pages is yet WIP!! Thanks for your attention!**
 ---

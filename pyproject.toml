@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "PlainTools"
-version = "1.0.240919b"
+version = "1.1.240919"
 authors = [
   { name="Gabriel Maia", email="gabrielmaia.silva00@gmail.com" },
 ]

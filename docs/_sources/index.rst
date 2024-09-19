@@ -1777,5 +1777,5 @@ each's documentation below.
 
 
 
-**BETA RELEASE V1.0.240919b, WORK IN PROGRESS!**
+**RELEASE 1.1.240919, WORK IN PROGRESS!**
 ---------------------------------------------------

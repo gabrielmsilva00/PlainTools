@@ -27,7 +27,7 @@
 ∙∙∙ github.com/JetBrains/JetBrainsMono
 """
 # ---------------------------------------------------------------------------<
-# V1.0.240918b
+# V1.1.240919
 # IMPORTS ──► from <package> import <func> as <Alias>
 import __main__
 import os
