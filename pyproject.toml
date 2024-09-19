@@ -9,7 +9,7 @@ authors = [
   { name="Gabriel Maia", email="gabrielmaia.silva00@gmail.com" },
 ]
 description = "A library designed to streamline simple operations, loops and contexts."
-readme = "README.rst"
+readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [
     "Programming Language :: Python :: 3",
