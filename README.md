@@ -11,7 +11,11 @@
 
 # Installation
 
-`pip install PlainTools`
+This package can be installed using `pip` in your CLI of choice as:
+
+```
+pip install PlainTools
+```
 
 # Introduction
 
