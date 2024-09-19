@@ -1,11 +1,11 @@
-![Image](https://github.com/gabrielmsilva00/PlainTools/blob/main/imgs/pthead.png)
+![Image](https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/pthead.png)
 
 > Version\: V1.0.240918b (As in: Main.sub.YYMMDD branch)
 
 
 - [Library's Documentation](https://gabrielmsilva00.github.io/PlainTools)
 
-[<img src="https://github.com/gabrielmsilva00/PlainTools/blob/main/imgs/ptqrdoc.png">](https://gabrielmsilva00.github.io/PlainTools)
+[<img src="https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/ptqrdoc.png">](https://gabrielmsilva00.github.io/PlainTools)
 
 - [Author's Github](https://github.com/gabrielmsilva00)
 
