@@ -1,10 +1,3 @@
-a[href='org'] {
-    color: orange;
-    pointer-events: none;
-    cursor: default;
-    text-decoration: none;
-}
-
 ![Image](https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/pthead.png)
 
 > Version\: 1.1.240919 (As in: Main.sub.YYMMDD)
@@ -18,7 +11,7 @@ a[href='org'] {
 
 # Installation
 
-This package can be installed using `pip` in your [CLI](org) of choice as:
+This package can be installed using `pip` in your <span style="color: orange;">CLI</span> of choice as:
 
 ```
 pip install PlainTools
