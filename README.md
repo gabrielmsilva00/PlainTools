@@ -1,3 +1,13 @@
+<style>
+red { color: Red }
+blu { color: Blue }
+grn { color: Green }
+ylw { color: Yellow }
+org { color: Orange }
+mgt { color: Magenta }
+gry { color: Gray }
+</style>
+
 ![Image](https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/pthead.png)
 
 > Version\: 1.1.240919 (As in: Main.sub.YYMMDD)
@@ -11,7 +21,7 @@
 
 # Installation
 
-This package can be installed using `pip` in your CLI of choice as:
+This package can be installed using <org>`pip`</org> in your CLI of choice as:
 
 ```
 pip install PlainTools
@@ -26,10 +36,12 @@ Welcome to the PlainTools library's GitHub repo!
 PlainTools is a Python 3 library designed to introduce new features and 
 fix awkward common interactions present in the Python 3 native ecosystem.
 
-Most functions are prefixed with `p` (as in `pt.plist` or `pt.pround`) 
-to avoid homonyms. The `p` stands for `Plain` and are the namesake of this package.
+Most functions are prefixed with <org>`p`</org> (as in `pt.plist` or `pt.pround`) 
+to avoid homonyms. The <org>`p`</org> stands for <org>`Plain`</org> and are the 
+namesake of this package.
 
-Some simple, yet relevant examples using the **Plain Number**(`pt.pnumber`) function are:
+Some simple, yet relevant examples using the <org>**Plain Number**</org>
+(<org>`pt.pnumber()`</org>) function are:
 
 ```python
 >>> import PlainTools as pt

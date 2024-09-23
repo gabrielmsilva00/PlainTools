@@ -580,13 +580,17 @@ def pdecimals(*nums: Real | Iterable[Real | String],
     Plain Decimals.
 
     Identifies the highest number of decimal places in a set.
+    
+    If the number has a repeating period (detected by `pt.pnumber()`), the 
+    return value will be `float('inf')`, even if the Python representation of 
+    the `float(num)` is limited to 16 decimal places.
 
     :Example:
         pdecimals(1.23, 4.5678, 3.1, 5.67890)
             | 4
 
         pdecimals(1/3)
-            | 3
+            | inf
 
         pdecimals(math.pi)
             | 15
@@ -602,9 +606,11 @@ def pdecimals(*nums: Real | Iterable[Real | String],
     R: Integer = 0
 
     for num in plist(nums):
-        num = str(pnumber(num))
-        if '.' in num:
-            R = max(R, len(num.split('.')[1]))
+        num = pnumber(num)
+        if num.period is not None:
+            return float('inf')
+        if '.' in num.string:
+            R = max(R, len(num.string.split('.')[1]))
 
     return R
 
