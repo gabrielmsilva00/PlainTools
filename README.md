@@ -1,6 +1,6 @@
 ![Image](https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/pthead.png)
 
-> Version\: 1.1.240923 (As in: Main.sub.YYMMDD)
+> Version\: 1.1.240924 (As in: Main.sub.YYMMDD)
 
 
 - [Library's Documentation](https://gabrielmsilva00.github.io/PlainTools)

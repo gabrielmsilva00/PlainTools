@@ -27,7 +27,7 @@
 ∙∙∙ github.com/JetBrains/JetBrainsMono
 """
 # ---------------------------------------------------------------------------<
-# V1.1.240923
+# V1.1.240924
 # IMPORTS ──► from <package> import <func> as <Alias>
 import __main__
 import os
@@ -241,7 +241,7 @@ def pnumber(*objs: Any | Iterable[Any],
                     elif isinstance(R, Bool):
                         return bool(R)
 
-                    elif isinstance(R, (int, float)) and R.is_integer():
+                    elif isinstance(R, (int, float))and float(R).is_integer():
                         return int(R)
 
                     elif isinstance(R, (Decimal, Fraction)):
@@ -280,7 +280,7 @@ def pnumber(*objs: Any | Iterable[Any],
                             R = round(float(str(R).split('.')[0] + '.' +
                                             str(R).split('.')[-1]), 16)
 
-                        if R.is_integer():
+                        if float(R).is_integer():
                             R = int(R)
 
                         S -= 1
