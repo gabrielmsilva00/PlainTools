@@ -3,7 +3,7 @@
 **Version\: 1.1.240924.3 (As in: Main.sub.YYMMDD.rev)**
 | - [GitHub Repo](https://gabrielmsilva00.github.io/PlainTools) \| [PyPi Repo](https://pypi.org/project/PlainTools)
 | - [Author's Github](https://github.com/gabrielmsilva00)
-[<img src="https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/ptqrdoc.png">](https://gabrielmsilva00.github.io/PlainTools)
+[<img src="https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/ptqrdoc.png?">](https://gabrielmsilva00.github.io/PlainTools)
 
 # Installation
 
