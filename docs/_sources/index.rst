@@ -1353,28 +1353,23 @@ Are all instance examples of the operator class 'TIME()'
     :Instances:
         Null = NULL()
 
-    :|Returns|:
-        R: Class | Any
-            - Returns neutral values or the instance itself, depending on the operation.
 
-
-.. py:class:: pt.ERROR(NULL)
+.. py:class:: pt.ERROR(NULL, Exception)
 
     Error Object.
 
-    A specialized version of the 'NULL' class that represents an error state, 
+    A specialized version of the NULL class that represents an error state, 
     overriding string and representation methods to return 'Error'.
 
-    :Examples:
-        str(Error)
-            - 'Error'
+    :Example:
+        print(Error)
+            - Error
+        
+        raise Error:
+            - PlainTools.ERROR: Error
 
     :Instances:
         Error = ERROR()
-
-    :|Returns|:
-        R: String
-            - Always returns the string 'Error' for both string and representation methods.
 
 
 .. py:class:: pt.MAIN
@@ -1801,5 +1796,5 @@ each's documentation below.
 
 
 
-**RELEASE 1.1.240924, WORK IN PROGRESS!**
----------------------------------------------------
+**VERSION v1.1.240924.1**
+-------------------------

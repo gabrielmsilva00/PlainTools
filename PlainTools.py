@@ -27,7 +27,7 @@
 ∙∙∙ github.com/JetBrains/JetBrainsMono
 """
 # ---------------------------------------------------------------------------<
-# V1.1.240924
+# V1.1.240924.1
 # IMPORTS ──► from <package> import <func> as <Alias>
 import __main__
 import os
@@ -974,6 +974,15 @@ def psequence(*nums: Real | Iterable[Real],
 
         else:
             limit = float('inf')
+    
+    rnd = 0
+    nums = [x for x in N if x != ...]
+    for i in nums:
+        try:
+            rnd = max(rnd, len(str(i).split('.')[1]))
+        except BaseException:
+            continue
+            
 
     for i, num in enumerate(N):
         if num == ...:
@@ -989,7 +998,7 @@ def psequence(*nums: Real | Iterable[Real],
             if i == len(N) - 1:
                 if S == None:
                     S = start
-                L.append(pround(x) for x in itertools.takewhile(
+                L.append(round(pround(x), rnd) for x in itertools.takewhile(
                     lambda x: x >= limit if S < 0 else (
                         x <= limit or abs(x - limit) < S / 10),
                     itertools.count(start + S, S)))
@@ -997,7 +1006,7 @@ def psequence(*nums: Real | Iterable[Real],
                 end = N[i + 1]
                 if S == None:
                     S = end - start
-                L.append(pround(x) for x in itertools.takewhile(
+                L.append(round(pround(x), rnd) for x in itertools.takewhile(
                     lambda x: x <= limit if S < 0 else (
                         x >= limit or abs(x - limit) < S / 10),
                     itertools.count(start + S, S)))
@@ -2161,10 +2170,6 @@ class NULL:
 
     :Instances:
         Null = NULL()
-
-    :Returns:
-        R: Class | Any
-            | Returns neutral values or the instance itself, depending on the operation.
     """
     Nal = lambda cls, *args, **kwargs: 0
     Nel = lambda cls, *args, **kwargs: ''
@@ -2181,7 +2186,8 @@ class NULL:
 
     # Comparison operations
     def __eq__(cls, other): return True if (
-        (other == None) or (other is cls)) else False
+        (other == None) or (type(cls) == type(other))) or isinstance(
+            cls, other) else False
     __ne__ = Nul
     __lt__ = Nul
     __le__ = Nul
@@ -2278,25 +2284,27 @@ class NULL:
 Null = NULL()
 
 
-class ERROR(NULL):
+class ERROR(NULL, Exception):
     """
     Error Object.
 
-    A specialized version of the NULL class that represents an error state, overriding string and representation methods to return 'Error'.
+    A specialized version of the NULL class that represents an error state, 
+    overriding string and representation methods to return 'Error'.
 
     :Example:
-        str(Error)       # Returns 'Error'.
-        repr(Error)      # Returns 'Error'.
+        print(Error)
+            - Error
+        
+        raise Error:
+            - PlainTools.ERROR: Error
 
     :Instances:
         Error = ERROR()
-
-    :Returns:
-        R: String
-            | Always returns the string 'Error' for both string and representation methods.
     """
     __repr__ = lambda cls, *args, **kwargs: 'Error'
     __str__ = lambda cls, *args, **kwargs: 'Error'
+    def __eq__(cls, other): return True if (
+        type(cls) == type(other)) or isinstance(cls, other) else False
 
 
 Error = ERROR()
