@@ -3,8 +3,8 @@
 ΛΛΛ Gabriel Maia - UERJ - Electric Engineering Undergraduate.
 === Utilities, Constructors, Formatters, Debuggers.
 ‼‼‼ Tooling:
-──► AutoPEP8: Code formatting by Python's extension autopep8 -i -a*3.
-──► Sphinx: Code has modular, Sphinx-ready (.rst) documentation and typing.
+==> AutoPEP8: Code formatting by Python's extension autopep8 -i -a*3.
+==> Sphinx: Code has modular, Sphinx-ready (.rst) documentation and typing.
 
 ○○○ References and auxiliary material:
 ••• AutoPEP8, code formatting;
@@ -27,8 +27,8 @@
 ∙∙∙ github.com/JetBrains/JetBrainsMono
 """
 # ---------------------------------------------------------------------------<
-# V1.1.240924.4
-# IMPORTS ──► from <package> import <func> as <Alias>
+# V1.1.240924.5
+# IMPORTS ==> from <package> import <obj>
 import __main__
 import os
 import sys
@@ -56,7 +56,7 @@ import multiprocessing
 import copy
 
 
-# TYPES ──► Special aliases to denote typing annotations; Redundant cases.
+# TYPES ==> Special aliases to denote typing annotations; Redundant cases.
 Type = type
 String = str
 Bytes = bytes
@@ -101,7 +101,7 @@ Args = type
 Kwargs = type
 
 
-# LOGIC ──► Logic gate operators:
+# LOGIC ==> Logic gate operators:
 Not = lambda *args: tuple(not bool(arg) for arg in args)
 Buf = lambda *args: tuple(bool(arg) for arg in args)
 And = lambda *args: all(bool(arg) for arg in args)
@@ -112,7 +112,7 @@ Xor = lambda *args: sum(bool(arg) for arg in args) % 2 == 1
 Xnor = lambda *args: sum(bool(arg) for arg in args) % 2 == 0
 
 
-# PLAIN NUMBER ──► Numeric constructor:
+# PLAIN NUMBER ==> Numeric constructor:
 def pnumber(*objs: Any | Iterable[Any],
             ) -> Number | List[Number]:
     """
@@ -126,7 +126,7 @@ def pnumber(*objs: Any | Iterable[Any],
 
     Failure to convert the object to a numeric type (contained into the
     `numbers.Number` definition) will result in an instance of
-    `float('Nan')` class being returned.
+    `float('nan')` class being returned.
 
     :Examples:
         Considering `x = pt.pnumber(1/3)`;
@@ -179,9 +179,9 @@ def pnumber(*objs: Any | Iterable[Any],
             if isinstance(obj, Fraction):
                 obj = float(obj)
             if not isinstance(obj, Number):
-                obj = float('NaN')
+                obj = float('nan')
         except BaseException:
-            obj = float('NaN')
+            obj = float('nan')
 
         class TypeChecker(type):
             def __new__(mcls, classname, bases, classdict):
@@ -209,7 +209,7 @@ def pnumber(*objs: Any | Iterable[Any],
                     cls.fraction = Fraction(cls.value).limit_denominator(
                         math.ceil(cls.value) * 10e3).as_integer_ratio()
                 except Exception:
-                    cls.fraction = (float('NaN'), float('NaN'))
+                    cls.fraction = (float('nan'), float('nan'))
 
             def __str__(cls):  # for 'print's & 'str'
                 if cls.period:
@@ -227,7 +227,7 @@ def pnumber(*objs: Any | Iterable[Any],
             def number(cls,
                        num: Real | String,
                        ) -> Real:
-                R: Real = float('NaN')
+                R: Real = float('nan')
                 J: Complex = None
                 S: Integer = 1
 
@@ -241,7 +241,7 @@ def pnumber(*objs: Any | Iterable[Any],
                     elif isinstance(R, Bool):
                         return bool(R)
 
-                    elif isinstance(R, (int, float))and float(R).is_integer():
+                    elif isinstance(R, (int, float)) and float(R).is_integer():
                         return int(R)
 
                     elif isinstance(R, (Decimal, Fraction)):
@@ -294,7 +294,7 @@ def pnumber(*objs: Any | Iterable[Any],
                 # except BaseException as e:
                 #    print(e)
 
-                if J != None:
+                if J is not None:
                     R = complex(R1, R)
 
                 if isinstance(cls.object, Decimal):
@@ -347,7 +347,7 @@ def pnumber(*objs: Any | Iterable[Any],
     return punit(R)
 
 
-# FORMATTERS ──► Conformity Operators:
+# FORMATTERS ==> Conformity Operators:
 def plist(*vals: Any | Iterable[Any],
           ) -> List[Any]:
     """
@@ -579,9 +579,9 @@ def pdecimals(*nums: Real | Iterable[Real | String],
     Plain Decimals.
 
     Identifies the highest number of decimal places in a set.
-    
-    If the number has a repeating period (detected by `pt.pnumber()`), the 
-    return value will be `float('inf')`, even if the Python representation of 
+
+    If the number has a repeating period (detected by `pt.pnumber()`), the
+    return value will be `float('inf')`, even if the Python representation of
     the `float(num)` is limited to 16 decimal places.
 
     :Example:
@@ -606,7 +606,7 @@ def pdecimals(*nums: Real | Iterable[Real | String],
 
     for num in plist(nums):
         num = pnumber(num)
-        if num.period != None:
+        if num.period is not None:
             return float('inf')
         if '.' in num.string:
             R = max(R, len(num.string.split('.')[1]))
@@ -951,6 +951,9 @@ def psequence(*nums: Real | Iterable[Real],
     L: List[Real] = []
     N: List[Real | ...] = plist(nums)
     S: Real = None
+    
+    if len(N) == 0:
+        return itertools.chain.from_iterable(L)
 
     if len(N) == 1:
         return psequence(N[0], ...,
@@ -964,29 +967,33 @@ def psequence(*nums: Real | Iterable[Real],
                          rel_lim=rel_lim,
                          )
 
-    if abs_lim != None:
+    if abs_lim is not None:
         limit = pround(abs_lim)
 
     else:
-        if rel_lim != None:
+        if rel_lim is not None:
             limit = pround(N[-2] * rel_lim) if N[-1] == ... else pround(
                 N[-1] * rel_lim) if N[-1] == ... else N[-1]
 
         else:
             limit = float('inf')
-    
+
     rnd = 0
     nums = [x for x in N if x != ...]
+    nums.append(limit)
+    
     for i in nums:
         try:
             if 'e-' in repr(i):
-                rnd = max(rnd, len(repr(i).split('.')[-1].split('e-')[-1]) + (
-                    Seval(repr(i).split('e-')[-1])))
+                rnd = max(rnd, int((repr(i).split('.')[-1].split('e-')[-1])
+                                   .lstrip('0')))
             else:
                 rnd = max(rnd, len(repr(i).split('.')[-1]))
         except BaseException:
             continue
     
+    rnd = int(rnd)
+
     for i, num in enumerate(N):
         if num == ...:
             if i == 0:
@@ -994,11 +1001,11 @@ def psequence(*nums: Real | Iterable[Real],
                     "Ellipsis cannot be the first element of a sequence.")
 
             start = N[i - 1]
-            if S == None and i >= 2:
+            if S is None and i >= 2:
                 S = start - N[i - 2]
 
             if i == len(N) - 1:
-                if S == None:
+                if S is None:
                     S = start
                 L.append(pround(round(x, rnd)) for x in itertools.takewhile(
                     lambda x: x >= limit if S < 0 else (
@@ -1006,7 +1013,7 @@ def psequence(*nums: Real | Iterable[Real],
                     itertools.count(start + S, S)))
             else:
                 end = N[i + 1]
-                if S == None:
+                if S is None:
                     S = end - start
                 L.append(pround(round(x, rnd)) for x in itertools.takewhile(
                     lambda x: x <= limit if S < 0 else (
@@ -1303,7 +1310,7 @@ def pframe(depth: Integer = 1,
     R: Frame = inspect.currentframe()
     i: Integer = 0
 
-    while R.f_back != None:
+    while R.f_back is not None:
         R = R.f_back
         i += 1
 
@@ -1313,8 +1320,8 @@ def pframe(depth: Integer = 1,
     return R
 
 
-# DEBUG | CONSOLE ──► End Prompt, Traceback, sys.stdout etc.
-def clear(*buffer: Any,  # Buffer
+# DEBUG | CONSOLE ==> End Prompt, Traceback, sys.stdout etc.
+def clear(*buffer: Any,
           ) -> None:
     """
     Clear Screen.
@@ -1768,11 +1775,11 @@ def arithmetic(cls):
                 val = type(val)(op(v, other) for v in val)
             else:
                 try:
-                    if other != None:
+                    if other is not None:
                         val = op(val, other)
                     else:
                         val = op(val, Null)
-                        
+
                 except TypeError:
                     val = op(val)
 
@@ -1894,7 +1901,7 @@ def showcall(func: Function) -> Function:
     return wrapper
 
 
-# OPERATOR CLASSES ──► Instantiable Operators:
+# OPERATOR CLASSES ==> Instantiable Operators:
 class TIME:
     """
     Execution Timer.
@@ -2188,8 +2195,8 @@ class NULL:
 
     # Comparison operations
     def __eq__(cls, other): return True if (
-        (other == None) or (
-                    type(cls) == type(other))) else False
+        (other is None) or (
+            type(cls) == type(other))) else False
     __ne__ = Nul
     __lt__ = Nul
     __le__ = Nul
@@ -2290,13 +2297,13 @@ class ERROR(NULL, Exception):
     """
     Error Object.
 
-    A specialized version of the NULL class that represents an error state, 
+    A specialized version of the NULL class that represents an error state,
     overriding string and representation methods to return 'Error'.
 
     :Example:
         print(Error)
             - Error
-        
+
         raise Error:
             - PlainTools.ERROR: Error
 
@@ -2364,9 +2371,9 @@ class MAIN:
                  *args: Any,
                  **kwargs: Any,
                  ) -> Bool:
-        if cls.args == None:
+        if cls.args is None:
             cls.args = args or None
-        if cls.kwargs == None:
+        if cls.kwargs is None:
             cls.kwargs = kwargs or None
         ns = pframe(outer=True).f_locals
         if 'main' in ns and isinstance(ns['main'], Callable):
@@ -2435,7 +2442,7 @@ class MAIN:
         if isinstance(exc_val, cls.MainguardError):
             return True
 
-        if exc_type != None:
+        if exc_type is not None:
             exc_report = str(exc_type)
             start = exc_report.index("'") + 1
             end = exc_report.index("'", start)
@@ -2479,7 +2486,7 @@ class MAIN:
         printc('[!-END-OF-FILE-!]', fill='=')
         skip()
 
-        if err != None:
+        if err is not None:
             print('|= [‼-MAIN:ERROR-LOGGED-‼]')
             skip()
 
@@ -2539,13 +2546,13 @@ class SILENCE:
 
     def __str__(cls: Self,
                 ) -> String:
-        if cls.err != None:
+        if cls.err is not None:
             return '\n'.join(cls.err)
         return ''
 
     def __repr__(cls: Self,
                  ) -> String:
-        if cls.err != None:
+        if cls.err is not None:
             return '\n'.join(cls.err)
         return ''
 
@@ -2680,7 +2687,7 @@ class LOGGING:
     def _write(cls: Self,
                message: Object,
                ) -> None:
-        if cls.log_filename == None:
+        if cls.log_filename is None:
             cls._file()
 
         with open(cls.log_filename, "a", encoding="utf-8") as file:
@@ -2793,7 +2800,7 @@ class TRY:
         while True:
             backframe = frame.f_back
 
-            if backframe == None:
+            if backframe is None:
                 break
 
             frame = backframe
@@ -2821,7 +2828,7 @@ class TRY:
                  *args: Any,
                  ) -> True:
 
-        if args[0] != None:
+        if args[0] is not None:
             cls.err = debug()
             cls.exitcode = str(cls.err[-1])
             cls.exitline = str(cls.err[-2])
@@ -2876,7 +2883,7 @@ class LINES:
 
             while True:
                 backframe = frame.f_back
-                if backframe == None:
+                if backframe is None:
                     break
                 frame = backframe
 
@@ -3111,7 +3118,7 @@ class SEVAL:
 Seval = SEVAL()
 
 
-# CONSTRUCTOR CLASSES ──► Custom objects:
+# CONSTRUCTOR CLASSES ==> Custom objects:
 class Container(Dict):
     """
     Container Class; dict Subclass.
@@ -3399,7 +3406,7 @@ class Container(Dict):
             for key in other.keys():
                 if key in cls:
                     try:
-                        if result[key] != None:
+                        if result[key] is not None:
                             result[key] = op(cls[key], other[key])
                         else:
                             result[key] = other[key]
@@ -3673,7 +3680,7 @@ class Constant:
     def __release_buffer__(cls, view): return None
 
 
-# DOCUMENT ──► Docstring printer:
+# DOCUMENT ==> Docstring printer:
 def doc(*objs: callable,
         ) -> List[String] | Null:
     """
@@ -3693,7 +3700,7 @@ def doc(*objs: callable,
 
         for obj in objs:
             try:
-                if obj.__doc__ != None:
+                if obj.__doc__ is not None:
                     printnl(obj.__module__,
                             obj.__class__,
                             obj.__name__,
