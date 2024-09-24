@@ -76,5 +76,7 @@ PlainTools.SEVAL.UnsafeError: Invalid syntax in expression
 
 Simple, right?
 
+Countless more examples can be found in the [Library's Documentation Page](https://gabrielmsilva00.github.io/PlainTools), so please check it out!
+
 | **GitHub Repo & Pages is yet WIP!!** **Thanks for your attention!** |
 |-|
