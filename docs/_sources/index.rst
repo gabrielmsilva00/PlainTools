@@ -9,8 +9,9 @@
 PlainTools is a Python 3 library designed to streamline simple operations, 
 loops and contexts with easy to handle classes and functions.
 
-- `Library's Github <https://github.com/gabrielmsilva00/PlainTools>`_
-- `Author's Github <https://github.com/gabrielmsilva00>`_
+- `Library's Github Repo <https://github.com/gabrielmsilva00/PlainTools>`_
+- `Library's PyPi Repo <https://pypi.org/project/PlainTools>`_
+- `Author's Github Profile <https://github.com/gabrielmsilva00>`_
 
 (Click below onto each [Section] to expand | collapse it.)
 
