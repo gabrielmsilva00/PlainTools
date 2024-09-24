@@ -1801,5 +1801,5 @@ each's documentation below.
 
 
 
-**RELEASE 1.1.240923, WORK IN PROGRESS!**
+**RELEASE 1.1.240924, WORK IN PROGRESS!**
 ---------------------------------------------------
