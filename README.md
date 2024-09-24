@@ -9,7 +9,7 @@
 
 This package can be installed using `pip` in your CLI of choice as:
 
-```
+```sh
 pip install plaintools
 ```
 
