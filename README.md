@@ -1,6 +1,6 @@
 |![Image](https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/pthead.png)
 |:--:|
-**Version\: 1.1.240924.1 (As in: Main.sub.YYMMDD.rev)**
+**Version\: 1.1.240924.2 (As in: Main.sub.YYMMDD.rev)**
 | - [Library's Documentation](https://gabrielmsilva00.github.io/PlainTools)
 | - [Author's Github](https://github.com/gabrielmsilva00)
 [<img src="https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/ptqrdoc.png">](https://gabrielmsilva00.github.io/PlainTools)

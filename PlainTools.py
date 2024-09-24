@@ -27,7 +27,7 @@
 ∙∙∙ github.com/JetBrains/JetBrainsMono
 """
 # ---------------------------------------------------------------------------<
-# V1.1.240924.1
+# V1.1.240924.2
 # IMPORTS ──► from <package> import <func> as <Alias>
 import __main__
 import os
@@ -998,7 +998,7 @@ def psequence(*nums: Real | Iterable[Real],
             if i == len(N) - 1:
                 if S == None:
                     S = start
-                L.append(round(pround(x), rnd) for x in itertools.takewhile(
+                L.append(pround(round(x, rnd)) for x in itertools.takewhile(
                     lambda x: x >= limit if S < 0 else (
                         x <= limit or abs(x - limit) < S / 10),
                     itertools.count(start + S, S)))
@@ -1006,7 +1006,7 @@ def psequence(*nums: Real | Iterable[Real],
                 end = N[i + 1]
                 if S == None:
                     S = end - start
-                L.append(round(pround(x), rnd) for x in itertools.takewhile(
+                L.append(pround(round(x, rnd)) for x in itertools.takewhile(
                     lambda x: x <= limit if S < 0 else (
                         x >= limit or abs(x - limit) < S / 10),
                     itertools.count(start + S, S)))
