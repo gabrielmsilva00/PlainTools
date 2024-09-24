@@ -27,7 +27,7 @@
 ∙∙∙ github.com/JetBrains/JetBrainsMono
 """
 # ---------------------------------------------------------------------------<
-# V1.1.240924.2
+# V1.1.240924.3
 # IMPORTS ──► from <package> import <func> as <Alias>
 import __main__
 import os
@@ -979,11 +979,14 @@ def psequence(*nums: Real | Iterable[Real],
     nums = [x for x in N if x != ...]
     for i in nums:
         try:
-            rnd = max(rnd, len(str(i).split('.')[1]))
+            if 'e-' in repr(i):
+                rnd = max(rnd, len(repr(i).split('.')[-1].split('e-')[-1]) + (
+                    Seval(repr(i).split('e-')[-1])))
+            else:
+                rnd = max(rnd, len(repr(i).split('.')[-1]))
         except BaseException:
             continue
-            
-
+    
     for i, num in enumerate(N):
         if num == ...:
             if i == 0:
@@ -991,7 +994,6 @@ def psequence(*nums: Real | Iterable[Real],
                     "Ellipsis cannot be the first element of a sequence.")
 
             start = N[i - 1]
-            print(start)
             if S == None and i >= 2:
                 S = start - N[i - 2]
 
@@ -2186,8 +2188,8 @@ class NULL:
 
     # Comparison operations
     def __eq__(cls, other): return True if (
-        (other == None) or (type(cls) == type(other))) or isinstance(
-            cls, other) else False
+        (other == None) or (
+                    type(cls) == type(other))) else False
     __ne__ = Nul
     __lt__ = Nul
     __le__ = Nul
@@ -2304,7 +2306,7 @@ class ERROR(NULL, Exception):
     __repr__ = lambda cls, *args, **kwargs: 'Error'
     __str__ = lambda cls, *args, **kwargs: 'Error'
     def __eq__(cls, other): return True if (
-        type(cls) == type(other)) or isinstance(cls, other) else False
+        type(cls) == type(other)) else False
 
 
 Error = ERROR()
