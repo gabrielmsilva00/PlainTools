@@ -11,7 +11,7 @@
 
 # Installation
 
-This package can be installed using `pip` in your <span style="color: orange;">CLI</span> of choice as:
+This package can be installed using `pip` in your CLI of choice as:
 
 ```
 pip install PlainTools

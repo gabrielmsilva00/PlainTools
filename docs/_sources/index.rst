@@ -357,7 +357,11 @@ output data in a formatted, previsible way.
 
     Plain Decimals.
 
-    Identifies the highest number of decimal places in a set of given numbers.
+    Identifies the highest number of decimal places in a set.
+    
+    If the number has a repeating period (detected by `pt.pnumber()`), the 
+    return value will be `float('inf')`, even if the Python representation of 
+    the `float(num)` is limited to 16 decimal places.
 
     :Pseudocode:
         Start (Decimals) as 0.
@@ -375,7 +379,7 @@ output data in a formatted, previsible way.
             - 4
         
         pdecimals(1/3)
-            - 3
+            - inf
 
         pdecimals(math.pi)
             - 15
@@ -563,7 +567,7 @@ output data in a formatted, previsible way.
         pinterval(3, 5)
             - [0, 2.5, 5]
 
-        pinterval(5, 10, 0, 'cont')
+        pinterval(5, 10, 0, 'dict')
             - {0: 10, 1: 7.5, 2: 5, 3: 2.5, 4: 0}
 
     :Args:
@@ -1554,6 +1558,26 @@ Are all instance examples of the operator class 'TIME()'
                 - getattr
                 - main
                 - Main
+            - :orange:`Disallowed Package Functions:`
+                - :py:func:`pt.pimport`
+                - :py:func:`pt.pframe`
+                - :py:func:`pt.printnl`
+                - :py:func:`pt.printc`
+                - :py:func:`pt.timeout`
+                - :py:func:`pt.let`
+                - :py:func:`pt.const`
+                - :py:func:`pt.skip`
+                - :py:func:`pt.clear`
+                - :py:func:`pt.eof`
+                - :py:func:`pt.debug`
+                - :py:func:`pt.deepframe`
+                - :py:func:`pt.evinput`
+                - :py:func:`pt.showcall`
+            - :orange:`Disallowed Constructor|Instances:`
+                - :py:class:`pt.LOGGING`
+                - :py:class:`pt.MAIN`
+                - :py:class:`pt.Constant`
+
             - :orange:`Disallowed Modules:`
                 - builtins
                 - os
@@ -1777,5 +1801,5 @@ each's documentation below.
 
 
 
-**RELEASE 1.1.240919, WORK IN PROGRESS!**
+**RELEASE 1.1.240923, WORK IN PROGRESS!**
 ---------------------------------------------------

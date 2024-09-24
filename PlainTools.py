@@ -27,7 +27,7 @@
 ∙∙∙ github.com/JetBrains/JetBrainsMono
 """
 # ---------------------------------------------------------------------------<
-# V1.1.240919
+# V1.1.240923
 # IMPORTS ──► from <package> import <func> as <Alias>
 import __main__
 import os
@@ -195,7 +195,6 @@ def pnumber(*objs: Any | Iterable[Any],
                 finally:
                     return R
 
-        @arithmetic
         class Numeric(metaclass=TypeChecker):
             def __init__(cls,
                          val: Real | String,
@@ -295,7 +294,7 @@ def pnumber(*objs: Any | Iterable[Any],
                 # except BaseException as e:
                 #    print(e)
 
-                if J is not None:
+                if J != None:
                     R = complex(R1, R)
 
                 if isinstance(cls.object, Decimal):
@@ -607,7 +606,7 @@ def pdecimals(*nums: Real | Iterable[Real | String],
 
     for num in plist(nums):
         num = pnumber(num)
-        if num.period is not None:
+        if num.period != None:
             return float('inf')
         if '.' in num.string:
             R = max(R, len(num.string.split('.')[1]))
@@ -721,7 +720,7 @@ def prange(*args: Real,
 
     :Example:
         prange(5)
-            | [0, 1, 2, 3, 4]
+            | [0, 1, 2, 3, 4, 5]
 
         prange(5, 2.5, 0.5, 'tuple')
             | (5, 4.5, 4, 3.5, 3, 2.5)
@@ -836,7 +835,7 @@ def pinterval(*args: Real,
         pinterval(3, 5)
             | [0, 2.5, 5]
 
-        pinterval(5, 10, 0, 'cont')
+        pinterval(5, 10, 0, 'dict')
             | {0: 10, 1: 7.5, 2: 5, 3: 2.5, 4: 0}
 
     :Args:
@@ -965,11 +964,11 @@ def psequence(*nums: Real | Iterable[Real],
                          rel_lim=rel_lim,
                          )
 
-    if abs_lim is not None:
+    if abs_lim != None:
         limit = pround(abs_lim)
 
     else:
-        if rel_lim is not None:
+        if rel_lim != None:
             limit = pround(N[-2] * rel_lim) if N[-1] == ... else pround(
                 N[-1] * rel_lim) if N[-1] == ... else N[-1]
 
@@ -984,11 +983,11 @@ def psequence(*nums: Real | Iterable[Real],
 
             start = N[i - 1]
             print(start)
-            if S is None and i >= 2:
+            if S == None and i >= 2:
                 S = start - N[i - 2]
 
             if i == len(N) - 1:
-                if S is None:
+                if S == None:
                     S = start
                 L.append(pround(x) for x in itertools.takewhile(
                     lambda x: x >= limit if S < 0 else (
@@ -996,7 +995,7 @@ def psequence(*nums: Real | Iterable[Real],
                     itertools.count(start + S, S)))
             else:
                 end = N[i + 1]
-                if S is None:
+                if S == None:
                     S = end - start
                 L.append(pround(x) for x in itertools.takewhile(
                     lambda x: x <= limit if S < 0 else (
@@ -1153,7 +1152,7 @@ def pabs(*nums: Real | Iterable[Real | String],
             | Dict-subclass with min, max, original min and original max.
     """
     R: Container[String: Real]
-    nums = plist(pnumber(nums))
+    nums = pnumber(plist(nums))
 
     return Container(min=min([abs(num) for num in nums]),
                      max=max([abs(num) for num in nums]),
@@ -1293,7 +1292,7 @@ def pframe(depth: Integer = 1,
     R: Frame = inspect.currentframe()
     i: Integer = 0
 
-    while R.f_back is not None:
+    while R.f_back != None:
         R = R.f_back
         i += 1
 
@@ -1757,10 +1756,14 @@ def arithmetic(cls):
                     String, Bytes)):
                 val = type(val)(op(v, other) for v in val)
             else:
-                if other is not None:
-                    val = op(val, other)
-                else:
-                    val = op(val, Null)
+                try:
+                    if other != None:
+                        val = op(val, other)
+                    else:
+                        val = op(val, Null)
+                        
+                except TypeError:
+                    val = op(val)
 
             return cls(val)
 
@@ -2178,7 +2181,7 @@ class NULL:
 
     # Comparison operations
     def __eq__(cls, other): return True if (
-        (other is None) or (other is cls)) else False
+        (other == None) or (other is cls)) else False
     __ne__ = Nul
     __lt__ = Nul
     __le__ = Nul
@@ -2351,9 +2354,9 @@ class MAIN:
                  *args: Any,
                  **kwargs: Any,
                  ) -> Bool:
-        if cls.args is None:
+        if cls.args == None:
             cls.args = args or None
-        if cls.kwargs is None:
+        if cls.kwargs == None:
             cls.kwargs = kwargs or None
         ns = pframe(outer=True).f_locals
         if 'main' in ns and isinstance(ns['main'], Callable):
@@ -2422,7 +2425,7 @@ class MAIN:
         if isinstance(exc_val, cls.MainguardError):
             return True
 
-        if exc_type is not None:
+        if exc_type != None:
             exc_report = str(exc_type)
             start = exc_report.index("'") + 1
             end = exc_report.index("'", start)
@@ -2466,7 +2469,7 @@ class MAIN:
         printc('[!-END-OF-FILE-!]', fill='=')
         skip()
 
-        if err is not None:
+        if err != None:
             print('|= [‼-MAIN:ERROR-LOGGED-‼]')
             skip()
 
@@ -2526,13 +2529,13 @@ class SILENCE:
 
     def __str__(cls: Self,
                 ) -> String:
-        if cls.err is not None:
+        if cls.err != None:
             return '\n'.join(cls.err)
         return ''
 
     def __repr__(cls: Self,
                  ) -> String:
-        if cls.err is not None:
+        if cls.err != None:
             return '\n'.join(cls.err)
         return ''
 
@@ -2667,7 +2670,7 @@ class LOGGING:
     def _write(cls: Self,
                message: Object,
                ) -> None:
-        if cls.log_filename is None:
+        if cls.log_filename == None:
             cls._file()
 
         with open(cls.log_filename, "a", encoding="utf-8") as file:
@@ -2780,7 +2783,7 @@ class TRY:
         while True:
             backframe = frame.f_back
 
-            if backframe is None:
+            if backframe == None:
                 break
 
             frame = backframe
@@ -2808,7 +2811,7 @@ class TRY:
                  *args: Any,
                  ) -> True:
 
-        if args[0] is not None:
+        if args[0] != None:
             cls.err = debug()
             cls.exitcode = str(cls.err[-1])
             cls.exitline = str(cls.err[-2])
@@ -2863,7 +2866,7 @@ class LINES:
 
             while True:
                 backframe = frame.f_back
-                if backframe is None:
+                if backframe == None:
                     break
                 frame = backframe
 
@@ -2890,7 +2893,7 @@ class SEVAL:
 
         Seval("round(math.pi * 2, 2)")  # Returns 6.28 if 'math' is imported.
 
-        Seval(""import shutil; shutil.rmtree('/.')"  # Raises UnsafeError.
+        Seval("import shutil; shutil.rmtree('/.')")  # Raises UnsafeError.
 
     :Raises:
         UnsafeError: Raised when tries unsafe operation, function, or module.
@@ -2929,8 +2932,28 @@ class SEVAL:
                                        'exit',
                                        'compile',
                                        '__import__',
+                                       'pimport',
+                                       'pframe',
                                        'print',
+                                       'printnl',
+                                       'printc',
+                                       'qfunc',
+                                       'timeout',
+                                       'let',
+                                       'const',
+                                       'Constant',
+                                       'skip',
+                                       'clear',
+                                       'debug',
+                                       'eof',
+                                       'deepframe',
+                                       'evinput',
                                        'input',
+                                       'showcall',
+                                       'raise',
+                                       'LOGGING',
+                                       'Logging',
+                                       'Constant',
                                        'getattr',
                                        'base64',
                                        'bytes',
@@ -2940,6 +2963,7 @@ class SEVAL:
                                        'open',
                                        'main',
                                        'Main',
+                                       'MAIN',
                                        },
                          'modules': {'os',
                                      'sys',
@@ -3365,7 +3389,7 @@ class Container(Dict):
             for key in other.keys():
                 if key in cls:
                     try:
-                        if result[key] is not None:
+                        if result[key] != None:
                             result[key] = op(cls[key], other[key])
                         else:
                             result[key] = other[key]
@@ -3659,7 +3683,7 @@ def doc(*objs: callable,
 
         for obj in objs:
             try:
-                if obj.__doc__ is not None:
+                if obj.__doc__ != None:
                     printnl(obj.__module__,
                             obj.__class__,
                             obj.__name__,
