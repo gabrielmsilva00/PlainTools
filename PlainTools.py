@@ -2186,8 +2186,8 @@ class NULL:
 
     # Comparison operations
     def __eq__(cls, other): return True if (
-        (other == None) or (type(cls) == type(other))) or isinstance(
-            cls, other) else False
+        (other == None) or (
+                    type(cls) == type(other))) else False
     __ne__ = Nul
     __lt__ = Nul
     __le__ = Nul
@@ -2304,7 +2304,7 @@ class ERROR(NULL, Exception):
     __repr__ = lambda cls, *args, **kwargs: 'Error'
     __str__ = lambda cls, *args, **kwargs: 'Error'
     def __eq__(cls, other): return True if (
-        type(cls) == type(other)) or isinstance(cls, other) else False
+        type(cls) == type(other)) else False
 
 
 Error = ERROR()
