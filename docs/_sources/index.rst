@@ -15,11 +15,13 @@ loops and contexts with easy to handle classes and functions.
 
 .. dropdown:: :blue:`[Table of Contents]`
 
-    - :ref:`Numeric Constructor`
+    .. dropdown:: :ref:`Numeric Constructor`
+        
         The base solution for numberic-related problems.
             - :py:func:`pt.pnumber`
 
-    - :ref:`Formatter Functions`
+    .. dropdown:: :ref:`Formatter Functions`
+
         Formatted data in an easy way.
             - :py:func:`pt.plist`
             - :py:func:`pt.punit`
@@ -40,7 +42,8 @@ loops and contexts with easy to handle classes and functions.
             - :py:func:`pt.pframe`
 
 
-    - :ref:`Statement & Extension Functions`
+    .. dropdown:: :ref:`Statement & Extension Functions`
+
         Powerful, close to native syntax and easy to use.
             - :py:func:`pt.let`
             - :py:func:`pt.const`
@@ -54,14 +57,16 @@ loops and contexts with easy to handle classes and functions.
             - :py:func:`pt.showcall`
 
 
-    - :ref:`Debugger & Utility Functions`
+    .. dropdown:: :ref:`Debugger & Utility Functions`
+
         Easy debugging management with console operations.
             - :py:func:`pt.debug`
             - :py:func:`pt.clear`
             - :py:func:`pt.eof`
             - :py:func:`pt.deepframe`
 
-    - :ref:`Operator & Instantiated Classes`
+    .. dropdown:: :ref:`Operator & Instantiated Classes`
+
         Ready-to-use instances of functional objects.
             - :py:class:`pt.TIME`
             - :py:class:`pt.STUB`
@@ -74,7 +79,8 @@ loops and contexts with easy to handle classes and functions.
             - :py:class:`pt.LINES`
             - :py:class:`pt.SEVAL`
 
-    - :ref:`Constructor Classes & Custom Objects`
+    .. dropdown:: :ref:`Constructor Classes & Custom Objects`
+
         Custom object constructors.
             - :py:class:`pt.Container`
             - :py:class:`pt.Constant`
