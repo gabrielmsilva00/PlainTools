@@ -16,7 +16,7 @@ loops and contexts with easy to handle classes and functions.
 .. dropdown:: :blue:`[Table of Contents]`
 
     .. dropdown:: :ref:`Numeric Constructor`
-        
+
         The base solution for numberic-related problems.
             - :py:func:`pt.pnumber`
 
@@ -114,11 +114,12 @@ loops and contexts with easy to handle classes and functions.
     context or environment running this module by the use of the 
     :py:func:`pt.doc` function as:
 
-        - pt.doc(\*objs)
-            - Where `objs` is the desired function(s) or class(es) to obtain documentation from.
+    - pt.doc(\*objs)
+        - Where `objs` is the desired function(s) or class(es) to obtain documentation from.
 
-    This will print the target's documentation, if any, to the current `console` 
-    or `stdout` in general.
+    This will print the target's documentation, if any, to the current :code:`console` 
+    or :code:`stdout` in general. Note that :py:func:`pt.doc` also works with any builtin 
+    object as well as third-party ones, given they have any type of **docstring** themselves.
 
 .. dropdown:: :blue:`[Resources & Credits]`
 
@@ -137,6 +138,7 @@ loops and contexts with easy to handle classes and functions.
     - References & Auxiliary Material:
         - `AutoPEP8 <https://pypi.org/project/autopep8/>`_, code formatting;
         - `Sphinx <https://www.sphinx-doc.org/en/master/index.html>`_, documentation;
+        - `Sphinx-Design <https://sphinx-design.readthedocs.io/en/latest/index.html>`_, styling;
         - `StackOverflow <https://stackoverflow.com>`_, definitions, concepts;
         - `W3Schools <https://w3schools.com/python/>`_, theories, fundamentals, methods;
         - `OpenAI's ChatGPT <https://chat.openai.com>`_, definitions, debugging;
@@ -148,7 +150,7 @@ loops and contexts with easy to handle classes and functions.
     - Credits & Thanks:
         - A big thanks to my professor `Vitor Tocci <https://br.linkedin.com/in/vitor-tocci-79249164>`_, who lectured `Introduction to Data Proccessing <https://www.ementario.uerj.br/ementa.php?cdg_disciplina=627>`_ and introduced me into Python programming when I had little background experience in the matter.
         - Thanks to my beloved girlfriend :fuchsia:`Ana Caroline`, who tirelessly heard me babble about Python through hours in these past few months where I was still learning and improving much of my understanding of the language. I love you!
-        - Thanks to :orange:`all my friends` who helped me debug the documentation itself (this HTML file) when I had zero `Sphinx` knowledge. I hope I did well enough and hope to do much more in the future!
+        - Thanks to :orange:`all of my friends and family` who helped me debug the documentation itself (this HTML file) when I had zero `Sphinx` knowledge. I hope I did well enough and hope to do much more in the future!
 
 ؜
 
