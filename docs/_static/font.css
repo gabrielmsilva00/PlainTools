@@ -112,6 +112,12 @@ blockquote {
   font-weight: 200;
 }
 
+.blue {
+  color: #528fe4;
+  font-family: 'JetBrains Mono' !important;
+  font-weight: 200;
+}
+
 .gray {
   color: gray;
   font-family: 'JetBrains Mono' !important;
@@ -137,7 +143,7 @@ blockquote {
 }
 
 .green {
-  color: green;
+  color: #96e696;
   font-family: 'JetBrains Mono' !important;
   font-weight: 200;
 }

@@ -31,7 +31,8 @@
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx_collapse.css?v=226d88b4" />
-    <link rel="stylesheet" type="text/css" href="_static/font.css?v=3647aec5" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/font.css?v=815faba6" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -42,6 +43,7 @@
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
     <link rel="icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
@@ -383,14 +385,14 @@ loops and contexts with easy to handle classes and functions.</p>
 <li><p><a class="reference external" href="https://pypi.org/project/PlainTools">Library’s PyPi Repo</a></p></li>
 <li><p><a class="reference external" href="https://github.com/gabrielmsilva00">Author’s Github Profile</a></p></li>
 </ul>
-<p>(Click below onto each [Section] to expand | collapse it.)</p>
-<div class="sphinx_collapse docutils container">
-<input class="sphinx_collapse__input" id="7beca7e0-07e3-4090-83d9-cbb777e713e5" name="7beca7e0-07e3-4090-83d9-cbb777e713e5" type="checkbox"><label class="sphinx_collapse__label" for="7beca7e0-07e3-4090-83d9-cbb777e713e5"><i class="sphinx_collapse__icon"></i>[Table of Contents]</label><div class="sphinx_collapse__content docutils container">
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><span class="blue">[Table of Contents]</span></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 <ul class="simple">
 <li><dl class="simple">
 <dt><a class="reference internal" href="#numeric-constructor"><span class="std std-ref">Numeric Constructor</span></a></dt><dd><dl class="simple">
 <dt>The base solution for numberic-related problems.</dt><dd><ul>
-<li><p><a class="reference internal" href="#pt.pnumber" title="pt.pnumber"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pnumber()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.pnumber" title="pt.pnumber"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pnumber()</span></code></a></p></li>
 </ul>
 </dd>
 </dl>
@@ -400,23 +402,23 @@ loops and contexts with easy to handle classes and functions.</p>
 <li><dl class="simple">
 <dt><a class="reference internal" href="#formatter-functions"><span class="std std-ref">Formatter Functions</span></a></dt><dd><dl class="simple">
 <dt>Formatted data in an easy way.</dt><dd><ul>
-<li><p><a class="reference internal" href="#pt.plist" title="pt.plist"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.plist()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.punit" title="pt.punit"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.punit()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.pround" title="pt.pround"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pround()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.pnumber" title="pt.pnumber"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pnumber()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.pdecimals" title="pt.pdecimals"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pdecimals()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.pstring" title="pt.pstring"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pstring()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.pistype" title="pt.pistype"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pistype()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.prange" title="pt.prange"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.prange()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.pinterval" title="pt.pinterval"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pinterval()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.psequence" title="pt.psequence"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.psequence()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.pindex" title="pt.pindex"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pindex()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.pminmax" title="pt.pminmax"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pminmax()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.plen" title="pt.plen"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.plen()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.pabs" title="pt.pabs"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pabs()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.psum" title="pt.psum"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.psum()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.pimport" title="pt.pimport"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pimport()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.pframe" title="pt.pframe"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pframe()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.plist" title="pt.plist"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.plist()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.punit" title="pt.punit"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.punit()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.pround" title="pt.pround"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pround()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.pnumber" title="pt.pnumber"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pnumber()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.pdecimals" title="pt.pdecimals"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pdecimals()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.pstring" title="pt.pstring"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pstring()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.pistype" title="pt.pistype"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pistype()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.prange" title="pt.prange"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.prange()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.pinterval" title="pt.pinterval"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pinterval()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.psequence" title="pt.psequence"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.psequence()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.pindex" title="pt.pindex"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pindex()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.pminmax" title="pt.pminmax"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pminmax()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.plen" title="pt.plen"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.plen()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.pabs" title="pt.pabs"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pabs()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.psum" title="pt.psum"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.psum()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.pimport" title="pt.pimport"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pimport()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.pframe" title="pt.pframe"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pframe()</span></code></a></p></li>
 </ul>
 </dd>
 </dl>
@@ -426,16 +428,16 @@ loops and contexts with easy to handle classes and functions.</p>
 <li><dl class="simple">
 <dt><a class="reference internal" href="#statement-extension-functions"><span class="std std-ref">Statement &amp; Extension Functions</span></a></dt><dd><dl class="simple">
 <dt>Powerful, close to native syntax and easy to use.</dt><dd><ul>
-<li><p><a class="reference internal" href="#pt.let" title="pt.let"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.let()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.const" title="pt.const"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.const()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.printnl" title="pt.printnl"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.printnl()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.printc" title="pt.printc"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.printc()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.doc" title="pt.doc"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.doc()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.skip" title="pt.skip"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.skip()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.evinput" title="pt.evinput"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.evinput()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.timeout" title="pt.timeout"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.timeout()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.loop" title="pt.loop"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.loop()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.showcall" title="pt.showcall"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.showcall()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.let" title="pt.let"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.let()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.const" title="pt.const"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.const()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.printnl" title="pt.printnl"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.printnl()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.printc" title="pt.printc"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.printc()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.doc" title="pt.doc"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.doc()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.skip" title="pt.skip"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.skip()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.evinput" title="pt.evinput"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.evinput()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.timeout" title="pt.timeout"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.timeout()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.loop" title="pt.loop"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.loop()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.showcall" title="pt.showcall"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.showcall()</span></code></a></p></li>
 </ul>
 </dd>
 </dl>
@@ -445,10 +447,10 @@ loops and contexts with easy to handle classes and functions.</p>
 <li><dl class="simple">
 <dt><a class="reference internal" href="#debugger-utility-functions"><span class="std std-ref">Debugger &amp; Utility Functions</span></a></dt><dd><dl class="simple">
 <dt>Easy debugging management with console operations.</dt><dd><ul>
-<li><p><a class="reference internal" href="#pt.debug" title="pt.debug"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.debug()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.clear" title="pt.clear"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.clear()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.eof" title="pt.eof"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.eof()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.deepframe" title="pt.deepframe"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.deepframe()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.debug" title="pt.debug"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.debug()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.clear" title="pt.clear"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.clear()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.eof" title="pt.eof"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.eof()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.deepframe" title="pt.deepframe"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.deepframe()</span></code></a></p></li>
 </ul>
 </dd>
 </dl>
@@ -458,16 +460,16 @@ loops and contexts with easy to handle classes and functions.</p>
 <li><dl class="simple">
 <dt><a class="reference internal" href="#operator-instantiated-classes"><span class="std std-ref">Operator &amp; Instantiated Classes</span></a></dt><dd><dl class="simple">
 <dt>Ready-to-use instances of functional objects.</dt><dd><ul>
-<li><p><a class="reference internal" href="#pt.TIME" title="pt.TIME"><code class="xref py py-class docutils literal notranslate"><span class="pre">pt.TIME</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.STUB" title="pt.STUB"><code class="xref py py-class docutils literal notranslate"><span class="pre">pt.STUB</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.NULL" title="pt.NULL"><code class="xref py py-class docutils literal notranslate"><span class="pre">pt.NULL</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.ERROR" title="pt.ERROR"><code class="xref py py-class docutils literal notranslate"><span class="pre">pt.ERROR</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.MAIN" title="pt.MAIN"><code class="xref py py-class docutils literal notranslate"><span class="pre">pt.MAIN</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.SILENCE" title="pt.SILENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">pt.SILENCE</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.LOGGING" title="pt.LOGGING"><code class="xref py py-class docutils literal notranslate"><span class="pre">pt.LOGGING</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.TRY" title="pt.TRY"><code class="xref py py-class docutils literal notranslate"><span class="pre">pt.TRY</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.LINES" title="pt.LINES"><code class="xref py py-class docutils literal notranslate"><span class="pre">pt.LINES</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.SEVAL" title="pt.SEVAL"><code class="xref py py-class docutils literal notranslate"><span class="pre">pt.SEVAL</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.TIME" title="pt.TIME"><code class="xref py py-class docutils literal notranslate"><span class="pre">pt.TIME</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.STUB" title="pt.STUB"><code class="xref py py-class docutils literal notranslate"><span class="pre">pt.STUB</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.NULL" title="pt.NULL"><code class="xref py py-class docutils literal notranslate"><span class="pre">pt.NULL</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.ERROR" title="pt.ERROR"><code class="xref py py-class docutils literal notranslate"><span class="pre">pt.ERROR</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.MAIN" title="pt.MAIN"><code class="xref py py-class docutils literal notranslate"><span class="pre">pt.MAIN</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.SILENCE" title="pt.SILENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">pt.SILENCE</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.LOGGING" title="pt.LOGGING"><code class="xref py py-class docutils literal notranslate"><span class="pre">pt.LOGGING</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.TRY" title="pt.TRY"><code class="xref py py-class docutils literal notranslate"><span class="pre">pt.TRY</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.LINES" title="pt.LINES"><code class="xref py py-class docutils literal notranslate"><span class="pre">pt.LINES</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.SEVAL" title="pt.SEVAL"><code class="xref py py-class docutils literal notranslate"><span class="pre">pt.SEVAL</span></code></a></p></li>
 </ul>
 </dd>
 </dl>
@@ -477,8 +479,8 @@ loops and contexts with easy to handle classes and functions.</p>
 <li><dl class="simple">
 <dt><a class="reference internal" href="#constructor-classes-custom-objects"><span class="std std-ref">Constructor Classes &amp; Custom Objects</span></a></dt><dd><dl class="simple">
 <dt>Custom object constructors.</dt><dd><ul>
-<li><p><a class="reference internal" href="#pt.Container" title="pt.Container"><code class="xref py py-class docutils literal notranslate"><span class="pre">pt.Container</span></code></a></p></li>
-<li><p><a class="reference internal" href="#pt.Constant" title="pt.Constant"><code class="xref py py-class docutils literal notranslate"><span class="pre">pt.Constant</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.Container" title="pt.Container"><code class="xref py py-class docutils literal notranslate"><span class="pre">pt.Container</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.Constant" title="pt.Constant"><code class="xref py py-class docutils literal notranslate"><span class="pre">pt.Constant</span></code></a></p></li>
 </ul>
 </dd>
 </dl>
@@ -487,15 +489,14 @@ loops and contexts with easy to handle classes and functions.</p>
 </li>
 </ul>
 </div>
-</div>
-<p>؜</p>
-<div class="sphinx_collapse docutils container">
-<input class="sphinx_collapse__input" id="d7503b58-f44d-4c3f-b401-5bfc6fcd644e" name="d7503b58-f44d-4c3f-b401-5bfc6fcd644e" type="checkbox"><label class="sphinx_collapse__label" for="d7503b58-f44d-4c3f-b401-5bfc6fcd644e"><i class="sphinx_collapse__icon"></i>[Introduction]</label><div class="sphinx_collapse__content docutils container">
-<p>The following needs to be considered when reading these docs:</p>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><span class="blue">[Introduction]</span></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The following needs to be considered when reading these docs:</p>
 <ul>
 <li><dl class="simple">
 <dt>It is encouraged that you use the suggested convention:</dt><dd><ul class="simple">
-<li><p>import PlainTools as pt</p></li>
+<li><p class="sd-card-text">import PlainTools as pt</p></li>
 </ul>
 </dd>
 </dl>
@@ -503,66 +504,65 @@ loops and contexts with easy to handle classes and functions.</p>
 <li><dl>
 <dt>It is assumed that you know the basics of Python’s data types.</dt><dd><dl class="simple">
 <dt>Type annotations were made in a more verbose way, with:</dt><dd><ul class="simple">
-<li><p>X: Integer</p></li>
+<li><p class="sd-card-text">X: Integer</p></li>
 </ul>
 </dd>
 <dt>Instead of:</dt><dd><ul class="simple">
-<li><p>X: int</p></li>
+<li><p class="sd-card-text">X: int</p></li>
 </ul>
 </dd>
 </dl>
-<p>Unfamiliar types like ‘Real’ can be associated with what
+<p class="sd-card-text">Unfamiliar types like ‘Real’ can be associated with what
 meaning they first convey:</p>
 <dl class="simple">
 <dt>Having a variable declared as:</dt><dd><ul class="simple">
-<li><p>Y: Real</p></li>
+<li><p class="sd-card-text">Y: Real</p></li>
 </ul>
 </dd>
 <dt>Is the same as:</dt><dd><ul class="simple">
-<li><p>Y: int | float | decimal.Decimal | fractions.Fraction</p></li>
+<li><p class="sd-card-text">Y: int | float | decimal.Decimal | fractions.Fraction</p></li>
 </ul>
 </dd>
 </dl>
-<p>And is itself similar or very closely related to ‘numbers.Real’.</p>
+<p class="sd-card-text">And is itself similar or very closely related to ‘numbers.Real’.</p>
 </dd>
 </dl>
 </li>
 </ul>
-<p>Any documentation found here can be similarly provided in the Python
+<p class="sd-card-text">Any documentation found here can be similarly provided in the Python
 context or environment running this module by the use of the
 <a class="reference internal" href="#pt.doc" title="pt.doc"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.doc()</span></code></a> function as:</p>
 <blockquote>
 <div><ul class="simple">
 <li><dl class="simple">
 <dt>pt.doc(*objs)</dt><dd><ul>
-<li><p>Where <cite>objs</cite> is the desired function(s) or class(es) to obtain documentation from.</p></li>
+<li><p class="sd-card-text">Where <cite>objs</cite> is the desired function(s) or class(es) to obtain documentation from.</p></li>
 </ul>
 </dd>
 </dl>
 </li>
 </ul>
 </div></blockquote>
-<p>This will print the target’s documentation, if any, to the current <cite>console</cite>
+<p class="sd-card-text">This will print the target’s documentation, if any, to the current <cite>console</cite>
 or <cite>stdout</cite> in general.</p>
 </div>
-</div>
-<p>؜</p>
-<div class="sphinx_collapse docutils container">
-<input class="sphinx_collapse__input" id="11c34657-8238-4c39-bd62-8693c0feb7d4" name="11c34657-8238-4c39-bd62-8693c0feb7d4" type="checkbox"><label class="sphinx_collapse__label" for="11c34657-8238-4c39-bd62-8693c0feb7d4"><i class="sphinx_collapse__icon"></i>[Resources &amp; Credits]</label><div class="sphinx_collapse__content docutils container">
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><span class="blue">[Resources &amp; Credits]</span></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 <ul class="simple">
 <li><dl class="simple">
 <dt>Disclaimer: <span class="orange">LLM (AI)</span> Use:</dt><dd><ul>
-<li><p><a class="reference external" href="https://chat.openai.com">ChatGPT</a>, <a class="reference external" href="https://codeium.com">Codeium</a> and <a class="reference external" href="https://gemini.google.com">Gemini</a> (The later not credited as it did not “contribute” directly to the codebase) were used in this project development.</p></li>
-<li><p>If you, your university or your company (in general, if the target for this library’s use) does have any restrictions, implicit or explicit, against the use of LLMs in production | academic coding, please avert from using this library.</p></li>
-<li><p>Any code “contributed” by or taken from any LLM (AI) use, prompted directly or indirectly, was heavily debugged and tested (to the best of my personal capacity).</p></li>
-<li><p>If any code comes across as sluggish, unnoptimized or just bad, please let me know by raising an issue or DMing me at GitHub (<a class="reference external" href="https://github.com/gabrielmsilva00">&#64;gabrielmsilva00</a>), or email me at <a class="reference external" href="mailto:gabrielmaia&#46;silva00&#37;&#52;&#48;gmail&#46;com?subject=PlainTools%20Python%20Library%20Feedback"><span>&#64;</span>gabrielmaia<span>&#46;</span>silva00<span>&#64;</span>gmail<span>&#46;</span>com</a>.</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://chat.openai.com">ChatGPT</a>, <a class="reference external" href="https://codeium.com">Codeium</a> and <a class="reference external" href="https://gemini.google.com">Gemini</a> (The later not credited as it did not “contribute” directly to the codebase) were used in this project development.</p></li>
+<li><p class="sd-card-text">If you, your university or your company (in general, if the target for this library’s use) does have any restrictions, implicit or explicit, against the use of LLMs in production | academic coding, please avert from using this library.</p></li>
+<li><p class="sd-card-text">Any code “contributed” by or taken from any LLM (AI) use, prompted directly or indirectly, was heavily debugged and tested (to the best of my personal capacity).</p></li>
+<li><p class="sd-card-text">If any code comes across as sluggish, unnoptimized or just bad, please let me know by raising an issue or DMing me at GitHub (<a class="reference external" href="https://github.com/gabrielmsilva00">&#64;gabrielmsilva00</a>), or email me at <a class="reference external" href="mailto:gabrielmaia&#46;silva00&#37;&#52;&#48;gmail&#46;com?subject=PlainTools%20Python%20Library%20Feedback"><span>&#64;</span>gabrielmaia<span>&#46;</span>silva00<span>&#64;</span>gmail<span>&#46;</span>com</a>.</p></li>
 <li><dl class="simple">
 <dt>For a more clear understanding of the above, you will probably find 40~80% LLM-made code wherever attributes from the following libraries were used:</dt><dd><ul>
-<li><p>re</p></li>
-<li><p>ast</p></li>
-<li><p>itertools</p></li>
-<li><p>functools</p></li>
-<li><p>multiprocessing</p></li>
+<li><p class="sd-card-text">re</p></li>
+<li><p class="sd-card-text">ast</p></li>
+<li><p class="sd-card-text">itertools</p></li>
+<li><p class="sd-card-text">functools</p></li>
+<li><p class="sd-card-text">multiprocessing</p></li>
 </ul>
 </dd>
 </dl>
@@ -573,32 +573,31 @@ or <cite>stdout</cite> in general.</p>
 </li>
 <li><dl class="simple">
 <dt>References &amp; Auxiliary Material:</dt><dd><ul>
-<li><p><a class="reference external" href="https://pypi.org/project/autopep8/">AutoPEP8</a>, code formatting;</p></li>
-<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/index.html">Sphinx</a>, documentation;</p></li>
-<li><p><a class="reference external" href="https://stackoverflow.com">StackOverflow</a>, definitions, concepts;</p></li>
-<li><p><a class="reference external" href="https://w3schools.com/python/">W3Schools</a>, theories, fundamentals, methods;</p></li>
-<li><p><a class="reference external" href="https://chat.openai.com">OpenAI’s ChatGPT</a>, definitions, debugging;</p></li>
-<li><p><a class="reference external" href="https://claude.ai">Claude AI</a>, additional debugging;</p></li>
-<li><p><a class="reference external" href="https://codeium.com">Codeium AI</a>, autocompletion, code refactoring &amp; cleaning;</p></li>
-<li><p><a class="reference external" href="https://chromewebstore.google.com/detail/singlefile/mpiodijhokgodhhofbcjdecpffjipkle">SingleFile</a>, HTML factoring of this Sphinx-generated documentation;</p></li>
-<li><p><a class="reference external" href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, this <span class="magenta">awesome</span> font!</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://pypi.org/project/autopep8/">AutoPEP8</a>, code formatting;</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://www.sphinx-doc.org/en/master/index.html">Sphinx</a>, documentation;</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://stackoverflow.com">StackOverflow</a>, definitions, concepts;</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://w3schools.com/python/">W3Schools</a>, theories, fundamentals, methods;</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://chat.openai.com">OpenAI’s ChatGPT</a>, definitions, debugging;</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://claude.ai">Claude AI</a>, additional debugging;</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://codeium.com">Codeium AI</a>, autocompletion, code refactoring &amp; cleaning;</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://chromewebstore.google.com/detail/singlefile/mpiodijhokgodhhofbcjdecpffjipkle">SingleFile</a>, HTML factoring of this Sphinx-generated documentation;</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, this <span class="magenta">awesome</span> font!</p></li>
 </ul>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
 <dt>Credits &amp; Thanks:</dt><dd><ul>
-<li><p>A big thanks to my professor <a class="reference external" href="https://br.linkedin.com/in/vitor-tocci-79249164">Vitor Tocci</a>, who lectured <a class="reference external" href="https://www.ementario.uerj.br/ementa.php?cdg_disciplina=627">Introduction to Data Proccessing</a> and introduced me into Python programming when I had little background experience in the matter.</p></li>
-<li><p>Thanks to my beloved girlfriend <span class="fuchsia">Ana Caroline</span>, who tirelessly heard me babble about Python through hours in these past few months where I was still learning and improving much of my understanding of the language. I love you!</p></li>
-<li><p>Thanks to <span class="orange">all my friends</span> who helped me debug the documentation itself (this HTML file) when I had zero <cite>Sphinx</cite> knowledge. I hope I did well enough and hope to do much more in the future!</p></li>
+<li><p class="sd-card-text">A big thanks to my professor <a class="reference external" href="https://br.linkedin.com/in/vitor-tocci-79249164">Vitor Tocci</a>, who lectured <a class="reference external" href="https://www.ementario.uerj.br/ementa.php?cdg_disciplina=627">Introduction to Data Proccessing</a> and introduced me into Python programming when I had little background experience in the matter.</p></li>
+<li><p class="sd-card-text">Thanks to my beloved girlfriend <span class="fuchsia">Ana Caroline</span>, who tirelessly heard me babble about Python through hours in these past few months where I was still learning and improving much of my understanding of the language. I love you!</p></li>
+<li><p class="sd-card-text">Thanks to <span class="orange">all my friends</span> who helped me debug the documentation itself (this HTML file) when I had zero <cite>Sphinx</cite> knowledge. I hope I did well enough and hope to do much more in the future!</p></li>
 </ul>
 </dd>
 </dl>
 </li>
 </ul>
 </div>
-</div>
-<p>؜</p>
+</details><p>؜</p>
 </section>
 <section id="numeric-constructor">
 <h1>Numeric Constructor<a class="headerlink" href="#numeric-constructor" title="Link to this heading"><span>§</span></a></h1>

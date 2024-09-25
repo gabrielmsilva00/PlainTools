@@ -13,9 +13,7 @@ loops and contexts with easy to handle classes and functions.
 - `Library's PyPi Repo <https://pypi.org/project/PlainTools>`_
 - `Author's Github Profile <https://github.com/gabrielmsilva00>`_
 
-(Click below onto each [Section] to expand | collapse it.)
-
-.. collapse:: [Table of Contents]
+.. dropdown:: :blue:`[Table of Contents]`
 
     - :ref:`Numeric Constructor`
         The base solution for numberic-related problems.
@@ -81,9 +79,7 @@ loops and contexts with easy to handle classes and functions.
             - :py:class:`pt.Container`
             - :py:class:`pt.Constant`
 
-؜
-
-.. collapse:: [Introduction]
+.. dropdown:: :blue:`[Introduction]`
 
     The following needs to be considered when reading these docs:
 
@@ -118,9 +114,7 @@ loops and contexts with easy to handle classes and functions.
     This will print the target's documentation, if any, to the current `console` 
     or `stdout` in general.
 
-؜
-
-.. collapse:: [Resources & Credits]
+.. dropdown:: :blue:`[Resources & Credits]`
 
     - Disclaimer\: :orange:`LLM (AI)` Use\:
         - `ChatGPT <https://chat.openai.com>`_, `Codeium <https://codeium.com>`_ and `Gemini <https://gemini.google.com>`_ (The later not credited as it did not "contribute" directly to the codebase) were used in this project development.
