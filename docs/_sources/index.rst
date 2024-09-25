@@ -1712,23 +1712,31 @@ each's documentation below.
     :Operators:
         Any basic arithmetic operator is supported as in:
 
-        Container <> Container;
+        - :code:`Container <> Container`;
 
-        Container <> other (if the operation(value, other) is valid).
+        - :code:`Container <> other` (if the :code:`operation(value, other)` is valid).
         
-        Operations with non-iterables are valid as long as the operation to every Container[N] <> other is valid for all given N.
-            - i.e. Container(f=1, g=2, h=3) * 2 == Container(f=2, g=4, h=6)
-            - i.e. Container(Bob='Foo') - 5 == Container(Bob='Foo', Bob_1=5)
+        | Operations with non-iterables are valid as long as the operation to every 
+        | :code:`Container[N] <> other` is valid for all given N.
+
+        - Container(f=1, g=2, h=3) * 2 == Container(f=2, g=4, h=6)
+        - Container(Bob='Foo') - 5 == Container(Bob='Foo', Bob_1=5)
+
+        | Operations with iterables are valid as long as the operation to every pair 
+        | :code:`Container[N] <> other[N]` is valid for the max possible N.
+
+        - Container(R=5, S=10) * (2,3,4) == Container(R=10, S=30)
+        - Container(T=2,U=4,V=6) - {2,3} == Container(T=0, U=1, V=6)
         
-        Operations with iterables are valid as long as the operation to every pair Container[N] <> other[N] is valid for the max possible N.
-            - i.e. Container(R=5, S=10) * (2,3,4) == Container(R=10, S=30)
-            - i.e. Container(T=2,U=4,V=6) - {2,3} == Container(T=0, U=1, V=6)
+        | Remainder of :code:`Container <> other` operations are ignored, as the result is a 
+        | Container type with the same keys as the involved Container.
+
+        - Container(i=2, j=3) * [2, 3, 4] == Container(i=4, j=9)
         
-        Remainder of Container <> Other operations are ignored, as the result is a Container type with the same keys as the involved Container.
-            - i.e. Container(i=2, j=3) * [2, 3, 4] == Container(i=4, j=9)
-        
-        Remainer of Container <> Container operations aggregate non-similar keys into the final result, unmodified, as no C1[K] <> C2[K] is valid.
-            - i.e. Container(f=5) - Container(g=10) == Container(f=5, g=10)
+        | Remainer of :code:`Container <> Container` operations aggregate non-similar keys into 
+        | the final result, unmodified, as no C1[K] <> C2[K] is valid.
+
+        - Container(f=5) - Container(g=10) == Container(f=5, g=10)
         
         add (+)
             - Adds the values of another Container, or from a sequence.
@@ -1760,6 +1768,11 @@ each's documentation below.
         pow (**)
             - Raises the values of the Container to the power of.
             - i.e. Container(C=5) ** Container(C=3) == Container(C=125)
+    
+    :|Returns|:
+        Container
+          - A :code:`dict` subclass object that is callable.
+
 
 
 .. py:class:: pt.Constant

@@ -385,7 +385,7 @@ loops and contexts with easy to handle classes and functions.</p>
 </ul>
 <p>(Click below onto each [Section] to expand | collapse it.)</p>
 <div class="sphinx_collapse docutils container">
-<input class="sphinx_collapse__input" id="6cc96b2d-a9f4-44e6-beca-88fdd409ba6d" name="6cc96b2d-a9f4-44e6-beca-88fdd409ba6d" type="checkbox"><label class="sphinx_collapse__label" for="6cc96b2d-a9f4-44e6-beca-88fdd409ba6d"><i class="sphinx_collapse__icon"></i>[Table of Contents]</label><div class="sphinx_collapse__content docutils container">
+<input class="sphinx_collapse__input" id="7beca7e0-07e3-4090-83d9-cbb777e713e5" name="7beca7e0-07e3-4090-83d9-cbb777e713e5" type="checkbox"><label class="sphinx_collapse__label" for="7beca7e0-07e3-4090-83d9-cbb777e713e5"><i class="sphinx_collapse__icon"></i>[Table of Contents]</label><div class="sphinx_collapse__content docutils container">
 <ul class="simple">
 <li><dl class="simple">
 <dt><a class="reference internal" href="#numeric-constructor"><span class="std std-ref">Numeric Constructor</span></a></dt><dd><dl class="simple">
@@ -490,7 +490,7 @@ loops and contexts with easy to handle classes and functions.</p>
 </div>
 <p>؜</p>
 <div class="sphinx_collapse docutils container">
-<input class="sphinx_collapse__input" id="207e4ff8-4ae4-4c77-8231-d4d01426b388" name="207e4ff8-4ae4-4c77-8231-d4d01426b388" type="checkbox"><label class="sphinx_collapse__label" for="207e4ff8-4ae4-4c77-8231-d4d01426b388"><i class="sphinx_collapse__icon"></i>[Introduction]</label><div class="sphinx_collapse__content docutils container">
+<input class="sphinx_collapse__input" id="d7503b58-f44d-4c3f-b401-5bfc6fcd644e" name="d7503b58-f44d-4c3f-b401-5bfc6fcd644e" type="checkbox"><label class="sphinx_collapse__label" for="d7503b58-f44d-4c3f-b401-5bfc6fcd644e"><i class="sphinx_collapse__icon"></i>[Introduction]</label><div class="sphinx_collapse__content docutils container">
 <p>The following needs to be considered when reading these docs:</p>
 <ul>
 <li><dl class="simple">
@@ -548,7 +548,7 @@ or <cite>stdout</cite> in general.</p>
 </div>
 <p>؜</p>
 <div class="sphinx_collapse docutils container">
-<input class="sphinx_collapse__input" id="1a990b77-92ac-4c39-b2b7-96c8df9c73b8" name="1a990b77-92ac-4c39-b2b7-96c8df9c73b8" type="checkbox"><label class="sphinx_collapse__label" for="1a990b77-92ac-4c39-b2b7-96c8df9c73b8"><i class="sphinx_collapse__icon"></i>[Resources &amp; Credits]</label><div class="sphinx_collapse__content docutils container">
+<input class="sphinx_collapse__input" id="11c34657-8238-4c39-bd62-8693c0feb7d4" name="11c34657-8238-4c39-bd62-8693c0feb7d4" type="checkbox"><label class="sphinx_collapse__label" for="11c34657-8238-4c39-bd62-8693c0feb7d4"><i class="sphinx_collapse__icon"></i>[Resources &amp; Credits]</label><div class="sphinx_collapse__content docutils container">
 <ul class="simple">
 <li><dl class="simple">
 <dt>Disclaimer: <span class="orange">LLM (AI)</span> Use:</dt><dd><ul>
@@ -2805,27 +2805,41 @@ added to the Container’s keys with the designated value.</p>
 </dd>
 <dt class="field-odd">Operators<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Any basic arithmetic operator is supported as in:</p>
-<p>Container &lt;&gt; Container;</p>
-<p>Container &lt;&gt; other (if the operation(value, other) is valid).</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">Container</span> <span class="pre">&lt;&gt;</span> <span class="pre">Container</span></code>;</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">Container</span> <span class="pre">&lt;&gt;</span> <span class="pre">other</span></code> (if the <code class="code docutils literal notranslate"><span class="pre">operation(value,</span> <span class="pre">other)</span></code> is valid).</p></li>
+</ul>
+<div class="line-block">
+<div class="line">Operations with non-iterables are valid as long as the operation to every</div>
+<div class="line"><code class="code docutils literal notranslate"><span class="pre">Container[N]</span> <span class="pre">&lt;&gt;</span> <span class="pre">other</span></code> is valid for all given N.</div>
+</div>
+<ul class="simple">
+<li><p>Container(f=1, g=2, h=3) * 2 == Container(f=2, g=4, h=6)</p></li>
+<li><p>Container(Bob=’Foo’) - 5 == Container(Bob=’Foo’, Bob_1=5)</p></li>
+</ul>
+<div class="line-block">
+<div class="line">Operations with iterables are valid as long as the operation to every pair</div>
+<div class="line"><code class="code docutils literal notranslate"><span class="pre">Container[N]</span> <span class="pre">&lt;&gt;</span> <span class="pre">other[N]</span></code> is valid for the max possible N.</div>
+</div>
+<ul class="simple">
+<li><p>Container(R=5, S=10) * (2,3,4) == Container(R=10, S=30)</p></li>
+<li><p>Container(T=2,U=4,V=6) - {2,3} == Container(T=0, U=1, V=6)</p></li>
+</ul>
+<div class="line-block">
+<div class="line">Remainder of <code class="code docutils literal notranslate"><span class="pre">Container</span> <span class="pre">&lt;&gt;</span> <span class="pre">other</span></code> operations are ignored, as the result is a</div>
+<div class="line">Container type with the same keys as the involved Container.</div>
+</div>
+<ul class="simple">
+<li><p>Container(i=2, j=3) * [2, 3, 4] == Container(i=4, j=9)</p></li>
+</ul>
+<div class="line-block">
+<div class="line">Remainer of <code class="code docutils literal notranslate"><span class="pre">Container</span> <span class="pre">&lt;&gt;</span> <span class="pre">Container</span></code> operations aggregate non-similar keys into</div>
+<div class="line">the final result, unmodified, as no C1[K] &lt;&gt; C2[K] is valid.</div>
+</div>
+<ul class="simple">
+<li><p>Container(f=5) - Container(g=10) == Container(f=5, g=10)</p></li>
+</ul>
 <dl class="simple">
-<dt>Operations with non-iterables are valid as long as the operation to every Container[N] &lt;&gt; other is valid for all given N.</dt><dd><ul class="simple">
-<li><p>i.e. Container(f=1, g=2, h=3) * 2 == Container(f=2, g=4, h=6)</p></li>
-<li><p>i.e. Container(Bob=’Foo’) - 5 == Container(Bob=’Foo’, Bob_1=5)</p></li>
-</ul>
-</dd>
-<dt>Operations with iterables are valid as long as the operation to every pair Container[N] &lt;&gt; other[N] is valid for the max possible N.</dt><dd><ul class="simple">
-<li><p>i.e. Container(R=5, S=10) * (2,3,4) == Container(R=10, S=30)</p></li>
-<li><p>i.e. Container(T=2,U=4,V=6) - {2,3} == Container(T=0, U=1, V=6)</p></li>
-</ul>
-</dd>
-<dt>Remainder of Container &lt;&gt; Other operations are ignored, as the result is a Container type with the same keys as the involved Container.</dt><dd><ul class="simple">
-<li><p>i.e. Container(i=2, j=3) * [2, 3, 4] == Container(i=4, j=9)</p></li>
-</ul>
-</dd>
-<dt>Remainer of Container &lt;&gt; Container operations aggregate non-similar keys into the final result, unmodified, as no C1[K] &lt;&gt; C2[K] is valid.</dt><dd><ul class="simple">
-<li><p>i.e. Container(f=5) - Container(g=10) == Container(f=5, g=10)</p></li>
-</ul>
-</dd>
 <dt>add (+)</dt><dd><ul class="simple">
 <li><p>Adds the values of another Container, or from a sequence.</p></li>
 <li><p>i.e. Container(a=5) + (b=4) == Container(a=5, b=4)</p></li>
@@ -2862,6 +2876,14 @@ added to the Container’s keys with the designated value.</p>
 <dt>pow (**)</dt><dd><ul class="simple">
 <li><p>Raises the values of the Container to the power of.</p></li>
 <li><p>i.e. Container(C=5) ** Container(C=3) == Container(C=125)</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>Container</dt><dd><ul class="simple">
+<li><p>A <code class="code docutils literal notranslate"><span class="pre">dict</span></code> subclass object that is callable.</p></li>
 </ul>
 </dd>
 </dl>
