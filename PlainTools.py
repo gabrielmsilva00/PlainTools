@@ -2957,6 +2957,7 @@ class SEVAL:
                                        'print',
                                        'printnl',
                                        'printc',
+                                       'doc',
                                        'qfunc',
                                        'timeout',
                                        'let',
