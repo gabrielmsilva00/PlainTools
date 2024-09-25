@@ -78,5 +78,6 @@ Simple, right?
 
 Countless more examples can be found in the [Library's Documentation Page](https://gabrielmsilva00.github.io/PlainTools), so please check it out!
 
-| **GitHub Repo & Pages is a constant WIP!!** **Thanks for your attention!** |
+| **GitHub Repo & Pages is a constant WIP!!** |
 |-|
+| **Thank you for your attention!** |
