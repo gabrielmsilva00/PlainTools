@@ -3684,7 +3684,7 @@ class Constant:
     def __release_buffer__(cls, view): return None
 
 
-# DOCUMENT ==> Docstring printer:
+# DOCUMENTATION ==> Docstring printer:
 def doc(*objs: callable,
         verbose: bool = True,
         ) -> List[String] | Null:
