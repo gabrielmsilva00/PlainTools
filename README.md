@@ -7,7 +7,7 @@
 
 # Installation
 
-This package can be installed using `pip` in your CLI of choice as:
+This package can be installed using `pip`:
 
 ```sh
 pip install plaintools
