@@ -1,6 +1,6 @@
 ##!python -m autopep8 -i -a -a -a
 """[||-Plain-Tools-||]
-ΛΛΛ Gabriel Maia - UERJ - Electric Engineering Undergraduate.
+ΛΛΛ Gabriel Maia @gabrielmsilva00 - UERJ - Electric Engineering Undergraduate.
 === Utilities, Constructors, Formatters, Debuggers.
 ‼‼‼ Tooling:
 ==> AutoPEP8: Code formatting by Python's extension autopep8 -i -a*3.
@@ -27,7 +27,10 @@
 ∙∙∙ github.com/JetBrains/JetBrainsMono
 """
 # ---------------------------------------------------------------------------<
-# V1.1.240924.5
+__version__ = "1.1.240925.0"
+__author__ = "gabrielmsilva00"
+
+
 # IMPORTS ==> from <package> import <obj>
 import __main__
 import os
@@ -951,7 +954,7 @@ def psequence(*nums: Real | Iterable[Real],
     L: List[Real] = []
     N: List[Real | ...] = plist(nums)
     S: Real = None
-    
+
     if len(N) == 0:
         return itertools.chain.from_iterable(L)
 
@@ -981,7 +984,7 @@ def psequence(*nums: Real | Iterable[Real],
     rnd = 0
     nums = [x for x in N if x != ...]
     nums.append(limit)
-    
+
     for i in nums:
         try:
             if 'e-' in repr(i):
@@ -991,7 +994,7 @@ def psequence(*nums: Real | Iterable[Real],
                 rnd = max(rnd, len(repr(i).split('.')[-1]))
         except BaseException:
             continue
-    
+
     rnd = int(rnd)
 
     for i, num in enumerate(N):
@@ -3682,6 +3685,7 @@ class Constant:
 
 # DOCUMENT ==> Docstring printer:
 def doc(*objs: callable,
+        verbose: bool = True,
         ) -> List[String] | Null:
     """
     Docstring Printer.
@@ -3696,17 +3700,19 @@ def doc(*objs: callable,
     objs = list(objs)
 
     if objs:
-        printc("#", fill="#")
+        if verbose:
+            printc("#", fill="#")
 
         for obj in objs:
             try:
                 if obj.__doc__ is not None:
-                    printnl(obj.__module__,
-                            obj.__class__,
-                            obj.__name__,
-                            obj.__doc__,
-                            )
-                    printc("#", fill="#")
+                    if verbose:
+                        printnl(obj.__module__,
+                                obj.__class__,
+                                obj.__name__,
+                                obj.__doc__,
+                                )
+                        printc("#", fill="#")
                     R.append(obj.__doc__)
 
             except AttributeError:
@@ -3714,7 +3720,8 @@ def doc(*objs: callable,
                 continue
 
     else:
-        print(pframe(2).f_globals['__doc__'] or Null)
+        if verbose:
+            print(pframe(2).f_globals['__doc__'] or Null)
 
     return R if R else Null
 
