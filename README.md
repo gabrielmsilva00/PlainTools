@@ -10,7 +10,7 @@
 This package can be installed using `pip`:
 
 ```sh
-pip install plaintools
+pip install -U plaintools
 ```
 
 # Introduction
