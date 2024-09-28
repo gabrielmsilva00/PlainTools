@@ -13,6 +13,15 @@ loops and contexts with easy to handle classes and functions.
 - `Library's PyPi Repo <https://pypi.org/project/PlainTools>`_
 - `Author's Github Profile <https://github.com/gabrielmsilva00>`_
 
+This documentation site can be accessed from the Python 
+interpreter|environment itself with:
+
+.. code-block:: python
+
+    import PlainTools as pt
+
+    pt.site(pt) # This will open the PLainToolsDocs.html file!
+
 .. _Table of Contents:
 
 .. dropdown:: :blue:`[Table of Contents]`
@@ -52,6 +61,7 @@ loops and contexts with easy to handle classes and functions.
             - :py:func:`pt.printnl`
             - :py:func:`pt.printc`
             - :py:func:`pt.doc`
+            - :py:func:`pt.site`
             - :py:func:`pt.skip`
             - :py:func:`pt.evinput`
             - :py:func:`pt.timeout`
@@ -1065,6 +1075,16 @@ standard syntax and built-in functions.
         object(s) or its parent class(es), headed by its origin module.
         
         Prints the current frame's module docstring if no object is given.
+
+.. py:function:: pt.site(module) -> None:
+
+    Documentation HTML Viewer.
+
+    :Rationale:
+        This function will search for any .html files in the module's 
+        directory that are named after the module itself, and attempt 
+        to open it in the default browser of the user.
+
 
 .. py:function:: pt.skip(n=1, *args, **kwargs) -> None:
 

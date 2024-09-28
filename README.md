@@ -15,8 +15,6 @@ pip install plaintools
 
 # Introduction
 
-Welcome to the PlainTools library's GitHub repo!
-
 PlainTools is a Python 3 library designed to introduce new features and 
 fix awkward common interactions present in the Python 3 native ecosystem.
 

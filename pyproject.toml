@@ -10,7 +10,10 @@ exclude = [
   "/tests",
   "/dist",
 ]
-include = [
+
+include= [
+  "/PlainTools.py",
+  "/__init__.py",
   "/PlainToolsDocs.html",
 ]
 

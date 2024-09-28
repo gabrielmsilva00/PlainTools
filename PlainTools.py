@@ -37,6 +37,7 @@ import os
 import sys
 import platform
 import shutil
+import glob
 import inspect
 import traceback
 import collections
@@ -1909,7 +1910,7 @@ def moduleview(module: Module | String) -> Container:
     Module View.
 
     Returns a Container of a module's attributes and values.
-    
+
     Note that, as the return type is a Container, you can do such as:
         | calc = moduleview('math')
         | calc.pi # the exact same as math.pi
@@ -1926,10 +1927,10 @@ def moduleview(module: Module | String) -> Container:
     if isinstance(module, str):
         module = pimport(module)
     RL = dir(module)
-    
+
     for i, j in enumerate(RL):
         R[j] = getattr(module, j)
-    
+
     return Container(R)
 
 
@@ -2936,26 +2937,26 @@ class SEVAL:
     A secure alternative to Python's `eval()` function, designed to evaluate
     mathematical and basic expressions while preventing access to unsafe
     operations and functions.
-    
-    Its default protocol is 'blacklist', but a new instance of 'SEVAL()' can 
-    be initiated in the 'whitelist' mode to further restrict access to unsafe 
+
+    Its default protocol is 'blacklist', but a new instance of 'SEVAL()' can
+    be initiated in the 'whitelist' mode to further restrict access to unsafe
     operations and functions. This can be done as:
 
         SevalW = SEVAL('whitelist')
-        
+
         SevalW.whitelist.modules |= {'math'} # Allows using 'math' module.
-        
+
         SevalW.whitelist.functions |= {'round'} # Allows using 'round()'.
-    
-    Beware that instantiating 'SEVAL()' in this mode prohibits  the 
-    evaluation of any variables in the current namespace unless their 
+
+    Beware that instantiating 'SEVAL()' in this mode prohibits  the
+    evaluation of any variables in the current namespace unless their
     names are explicitly whitelisted beforehand.
-    
-    Because of how Python works, objects defined and imported inside the 
-    PlainTools package itself are accessible to the class. Unsafe operators 
+
+    Because of how Python works, objects defined and imported inside the
+    PlainTools package itself are accessible to the class. Unsafe operators
     and packages, such as 'os' and 'sys', are still blacklisted though.
-    
-    To check the complete default 'blacklist' 
+
+    To check the complete default 'blacklist'
 
     :Example:
         Seval("2 + 2")  # Returns 4
@@ -3015,17 +3016,19 @@ class SEVAL:
                                      '__path__',
                                      '__main__',
                                      'dir',
+                                     'moduleview',
                                      'pimport',
                                      'pframe',
                                      'print',
                                      'printnl',
                                      'printc',
                                      'doc',
+                                     'docsite',
                                      'qfunc',
                                      'timeout',
                                      'let',
                                      'const',
-                                      'Constant',
+                                     'Constant',
                                      'skip',
                                      'clear',
                                      'debug',
@@ -3101,7 +3104,7 @@ class SEVAL:
                                    're',
                                    },
                           )
-                )
+        )
         cls.whitelist = Container(cls.permitlist)
 
     def __call__(cls, expression):
@@ -3143,11 +3146,14 @@ class SEVAL:
                         func) and ((cls.protocol == 'blacklist' and (
                             func.__name__ in cls.blacklist['functions']) or (
                                 cls.protocol == 'whitelist' and (
-                                    func.__name__ not in cls.whitelist['functions'])))):
+                                    func.__name__ not in cls.whitelist[
+                                        'functions'])))):
                     raise cls.UnsafeError(
                         f"Function '{node.id}' is not allowed")
                 return func
-            elif node.id in {'getattr', '__class__', '__bases__', '__globals__', '__code__', '__closure__'}:
+            elif node.id in {
+                'getattr', '__class__', '__bases__', '__globals__',
+                    '__code__', '__closure__'}:
                 raise cls.UnsafeError(f"Access to '{node.id}' is not allowed")
             else:
                 raise NameError(f"Name '{node.id}' is not defined")
@@ -3160,7 +3166,7 @@ class SEVAL:
                         node.value.id in cls.blacklist['modules'])) or (
                             cls.protocol == 'whitelist' and (
                                 node.value.id not in cls.whitelist['modules']
-                                ))):
+                            ))):
                 raise cls.UnsafeError(
                     f"Access to module '{node.value.id}' is not allowed")
             if node.attr in {
@@ -3180,7 +3186,7 @@ class SEVAL:
                         node.func.id in cls.blacklist['functions']) or (
                             cls.protocol == 'whitelist' and (
                                 node.func.id not in cls.whitelist['functions']
-                                ))):
+                            ))):
                 raise cls.UnsafeError(
                     f"Function '{node.func.id}' is not allowed")
             func_name = cls.ndeval(node.func, local)
@@ -3188,7 +3194,7 @@ class SEVAL:
                 func_name.__name__ in cls.blacklist['functions'])) or (
                     cls.protocol == 'whitelist' and (
                         func_name.__name__ not in cls.whitelist['functions']
-                        ))):
+                    ))):
                 raise cls.UnsafeError(
                     f"Function '{func_name.__name__}' is not allowed")
             if not callable(func_name):
@@ -3209,26 +3215,26 @@ class Container(Dict):
     """
     Container Class; dict Subclass.
 
-    A flexible dict-class that supports various operations and 
-    transformations. Unlike a standard dictionary, a `Container` 
+    A flexible dict-class that supports various operations and
+    transformations. Unlike a standard dictionary, a `Container`
     is unpacked by its items rather than by its keys.
 
-    Note: Containers can't have numeric keys due to how their 
-    keys are directly associated to its instance attributes. 
-    However, any String type is a valid key type. 
-    Attempting to update a Container instance with 
+    Note: Containers can't have numeric keys due to how their
+    keys are directly associated to its instance attributes.
+    However, any String type is a valid key type.
+    Attempting to update a Container instance with
     enumerated dictionaries will raise a TypeError.
 
 
-    The Container supports basic arithmetic operations on a 
-    per-key basis, meaning that you can operate an iterable 
-    to a Container, where each ordered element operates each 
-    key's value until exhaustion; Where as single, non-iterable 
+    The Container supports basic arithmetic operations on a
+    per-key basis, meaning that you can operate an iterable
+    to a Container, where each ordered element operates each
+    key's value until exhaustion; Where as single, non-iterable
     operations are performed on the entire Container.
 
-    Containers can have its values accessed as attributes 
-    when calling for their keys. This means that assigned 
-    attributes into this class are also added to the 
+    Containers can have its values accessed as attributes
+    when calling for their keys. This means that assigned
+    attributes into this class are also added to the
     Container's keys with the designated value.
 
     :Example:
@@ -3769,7 +3775,7 @@ class Constant:
     def __release_buffer__(cls, view): return None
 
 
-# DOCUMENTATION ==> Docstring printer:
+# DOCUMENTATION ==> Module documentation access:
 def doc(*objs: callable,
         verbose: bool = True,
         ) -> List[String] | Null:
@@ -3810,6 +3816,38 @@ def doc(*objs: callable,
             print(pframe(2).f_globals['__doc__'] or Null)
 
     return R if R else Null
+
+
+def site(module: Module | str,
+         ) -> None:
+    """
+    Documentation HTML Viewer.
+
+    This function will search for any .html files in the module's
+    directory that are named after the module itself, and attempt
+    to open it in the default browser of the user.
+    """
+    import webbrowser
+
+    if isinstance(module, str):
+        module = pimport(module)
+
+    sites = glob.glob('**/*.html', recursive=True)
+
+    for site in sites:
+        if module.__name__ in site:
+            webbrowser.open('file://' + os.path.abspath(site))
+            break
+    else:
+        print(f'{module} documentation not found.\n' + (
+            f'Note: {module} documentation must be a .html file ') + (
+                f"containing '{module.__name__}' in its name.")
+        )
+    # try:
+    #     webbrowser.open('file://' + module.__file__.rstrip('.py') + (
+    #         'Docs.html'))
+    # except BaseException as e:
+    #     print(f'{module} documentation not found: {type(e)}')
 
 
 with Main:
