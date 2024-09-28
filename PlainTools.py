@@ -29,6 +29,8 @@
 # ---------------------------------------------------------------------------<
 __version__ = "1.2.240928.1"
 __author__ = "gabrielmsilva00"
+__url__ = "https://gabrielmsilva00.github.io/PlainTools/"
+__repo__ = "https://github.com/gabrielmsilva00/PlainTools.git"
 
 
 # IMPORTS ==> from <package> import <obj>
@@ -3023,7 +3025,7 @@ class SEVAL:
                                      'printnl',
                                      'printc',
                                      'doc',
-                                     'docsite',
+                                     'site',
                                      'qfunc',
                                      'timeout',
                                      'let',
@@ -3043,6 +3045,9 @@ class SEVAL:
                                      'Logging',
                                      'Constant',
                                      'getattr',
+                                     'setattr',
+                                     'delattr',
+                                     'hasattr',
                                      'base64',
                                      'bytes',
                                      'bytearray',
@@ -3052,6 +3057,12 @@ class SEVAL:
                                      'main',
                                      'Main',
                                      'MAIN',
+                                     'seval',
+                                     'Seval',
+                                     'SEVAL',
+                                     'blacklist',
+                                     'whitelist',
+                                     'protocol',
                                      },
                           modules={'os',
                                    'sys',
@@ -3818,7 +3829,7 @@ def doc(*objs: callable,
     return R if R else Null
 
 
-def site(module: Module | str,
+def site(module: Module | str = '__main__',
          ) -> None:
     """
     Documentation HTML Viewer.
@@ -3831,6 +3842,10 @@ def site(module: Module | str,
 
     if isinstance(module, str):
         module = pimport(module)
+    
+    with Try:
+        webbrowser.open(module.__url__)
+        return
 
     sites = glob.glob('**/*.html', recursive=True)
 
@@ -3841,7 +3856,8 @@ def site(module: Module | str,
     else:
         print(f'{module} documentation not found.\n' + (
             f'Note: {module} documentation must be a .html file ') + (
-                f"containing '{module.__name__}' in its name.")
+                f"containing '{module.__name__}' in its name, ") + (
+                    f"or expressed inside {module}.__url__ attribute.\n")
         )
     # try:
     #     webbrowser.open('file://' + module.__file__.rstrip('.py') + (
@@ -3852,3 +3868,4 @@ def site(module: Module | str,
 
 with Main:
     doc()
+    site()
