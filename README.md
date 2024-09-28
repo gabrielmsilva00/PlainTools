@@ -7,7 +7,7 @@
 
 # Installation
 
-This package can be installed|upgraded using `pip`:
+This package can be installed | upgraded using `pip`:
 
 ```sh
 pip install -U plaintools
