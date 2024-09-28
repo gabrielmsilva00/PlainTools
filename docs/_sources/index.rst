@@ -13,6 +13,8 @@ loops and contexts with easy to handle classes and functions.
 - `Library's PyPi Repo <https://pypi.org/project/PlainTools>`_
 - `Author's Github Profile <https://github.com/gabrielmsilva00>`_
 
+.. _Table of Contents:
+
 .. dropdown:: :blue:`[Table of Contents]`
 
     .. dropdown:: :ref:`Numeric Constructor`
@@ -55,6 +57,7 @@ loops and contexts with easy to handle classes and functions.
             - :py:func:`pt.timeout`
             - :py:func:`pt.loop`
             - :py:func:`pt.showcall`
+            - :py:func:`pt.moduleview`
 
 
     .. dropdown:: :ref:`Debugger & Utility Functions`
@@ -157,7 +160,7 @@ loops and contexts with easy to handle classes and functions.
 Numeric Constructor
 -------------------
 
-(Goto :ref:`**PlainTools' Docs**`)
+(Goto `Table of Contents`_)
 
 Before anything else, it is important to lay down the documentation for the 
 base of any numeric-related definition or class. And such is the 
@@ -224,7 +227,7 @@ base of any numeric-related definition or class. And such is the
 Formatter Functions
 -------------------
 
-(Goto :ref:`**PlainTools' Docs**`)
+(Goto `Table of Contents`_)
 
 Formatter functions are intended to take a variety of types as input and 
 output data in a formatted, previsible way.
@@ -893,7 +896,7 @@ output data in a formatted, previsible way.
 Statement & Extension Functions
 -------------------------------
 
-(Goto :ref:`**PlainTools' Docs**`)
+(Goto `Table of Contents`_)
 
 Statement Functions bring new, easy-to-use functions that improve the native, 
 standard syntax and built-in functions.
@@ -1027,6 +1030,31 @@ standard syntax and built-in functions.
             - Er ZeroDivisionError
             - As division by zero
             - Tm 0.017s
+
+
+.. py:function:: pt.moduleview(module) -> Container:
+
+    Module View.
+
+    Returns a Container of a module's attributes and values.
+
+    Note that, as the return type is a :py:class:`Container`, you can do such as:
+        | calc = moduleview('math')
+        | calc.pi :gray:`# the exact same as math.pi`
+
+    :Example:
+        - moduleview('math')
+            - Returns a Container(k:v) for every 'k:v' pair inside 'math' module.
+            - i.e. {'pi': 3.141592653589793}
+            - i.e. {'sqrt': <built-in function sqrt>}
+
+    :Args:
+        module: Module | String
+            | Module to be viewed. If String, its imported as a module object.
+
+    :Return:
+        R: Container
+            | View of the module as k:v pairs.
 
 .. py:function:: pt.doc(*objs) -> List[String] | Null:
 
@@ -1169,7 +1197,7 @@ standard syntax and built-in functions.
 Debugger & Utility Functions
 ----------------------------
 
-(Goto :ref:`**PlainTools' Docs**`)
+(Goto `Table of Contents`_)
 
 Debug functions interact with the environment the script runs in, 
 and output relevant information to the console.
@@ -1220,7 +1248,7 @@ executing code in the same line, such as starting a timer for example.
 Operator & Instantiated Classes
 -------------------------------
 
-(Goto :ref:`**PlainTools' Docs**`)
+(Goto `Table of Contents`_)
 
 Operator Classes are classes able to be used as functions, objects, contexts 
 and as the name sugests, come with pre-loaded instances that are ready-to-use.
@@ -1632,7 +1660,7 @@ Are all instance examples of the operator class 'TIME()'
 Constructor Classes & Custom Objects
 ------------------------------------
 
-(Goto :ref:`**PlainTools' Docs**`)
+(Goto `Table of Contents`_)
 
 Constructor Classes have the purpose of creating Custom Objects that can be
 manipulated in specific, useful ways. There is a variety of Custom Objects 
@@ -1644,23 +1672,27 @@ each's documentation below.
 
     Container Class; dict Subclass.
 
-    Note: Containers can't have numeric keys due to how their keys are 
-    directly associated to its instance attributes. However, any String 
-    type is a valid key type. Attempting to update a Container instance 
-    with enumerated dictionaries will raise a TypeError.
+    A flexible dict-class that supports various operations and 
+    transformations. Unlike a standard dictionary, a `Container` 
+    is unpacked by its items rather than by its keys.
 
-    A flexible dictionary-like container class that supports various 
-    operations and transformations. Unlike a standard dictionary, 
-    a `Container` is unpacked by its values rather than by its keys.
-    
-    The Container supports basic arithmetic operations on a per-key basis, 
-    meaning that you can operate an iterable to a Container, where each 
-    ordered element operates each key's value until exhaustion; Where as 
-    single, non-iterable operations are performed on the entire Container.
-    
-    Containers can have its values accessed as attributes when calling for 
-    their keys. This means that assigned attributes into this class are also 
-    added to the Container's keys with the designated value.
+    Note: Containers can't have numeric keys due to how their 
+    keys are directly associated to its instance attributes. 
+    However, any String type is a valid key type. 
+    Attempting to update a Container instance with 
+    enumerated dictionaries will raise a TypeError.
+
+
+    The Container supports basic arithmetic operations on a 
+    per-key basis, meaning that you can operate an iterable 
+    to a Container, where each ordered element operates each 
+    key's value until exhaustion; Where as single, non-iterable 
+    operations are performed on the entire Container.
+
+    Containers can have its values accessed as attributes 
+    when calling for their keys. This means that assigned 
+    attributes into this class are also added to the 
+    Container's keys with the designated value.
 
     :Example:
         C1 = Container(a=1, b=2)  
@@ -1716,8 +1748,8 @@ each's documentation below.
 
         - :code:`Container <> Container`;
 
-        - :code:`Container <> other` (if the :code:`operation(value, other)` is valid).
-        
+        - :code:`Container <> other` 
+
         | Operations with non-iterables are valid as long as the operation to every 
         | :code:`Container[N] <> other` is valid for all given N.
 
@@ -1730,13 +1762,13 @@ each's documentation below.
         - Container(R=5, S=10) * (2,3,4) == Container(R=10, S=30)
         - Container(T=2,U=4,V=6) - {2,3} == Container(T=0, U=1, V=6)
         
-        | Remainder of :code:`Container <> other` operations are ignored, as the result is a 
-        | Container type with the same keys as the involved Container.
+        | Remainder of :code:`Container <> other` operations are ignored, as the 
+        | result is a Container type with the same keys as the involved Container.
 
         - Container(i=2, j=3) * [2, 3, 4] == Container(i=4, j=9)
         
-        | Remainer of :code:`Container <> Container` operations aggregate non-similar keys into 
-        | the final result, unmodified, as no C1[K] <> C2[K] is valid.
+        | Remainer of :code:`Container <> Container` operations aggregate non-similar 
+        | keys into the final result, unmodified, as no C1[K] <> C2[K] is valid.
 
         - Container(f=5) - Container(g=10) == Container(f=5, g=10)
         
@@ -1810,5 +1842,5 @@ each's documentation below.
 
 ؜
 
-**VERSION 1.1.240925.0**
+**VERSION 1.1.240928.0**
 -------------------------

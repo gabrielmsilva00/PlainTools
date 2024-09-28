@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>PlainTools’ Docs &#8212; PlainTools 1.1.240925.0 documentation</title>
+    <title>PlainTools’ Docs &#8212; PlainTools 1.1.240928.0 documentation</title>
   
   
   
@@ -38,7 +38,7 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=7fa3b795"></script>
+    <script src="_static/documentation_options.js?v=4de6ef2f"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -136,7 +136,7 @@
   
   
   
-    <p class="title logo__title">PlainTools 1.1.240925.0 documentation</p>
+    <p class="title logo__title">PlainTools 1.1.240928.0 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -329,6 +329,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.printnl"><code class="docutils literal notranslate"><span class="pre">pt.printnl()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.printc"><code class="docutils literal notranslate"><span class="pre">pt.printc()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.showcall"><code class="docutils literal notranslate"><span class="pre">pt.showcall()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.moduleview"><code class="docutils literal notranslate"><span class="pre">pt.moduleview()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.doc"><code class="docutils literal notranslate"><span class="pre">pt.doc()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.skip"><code class="docutils literal notranslate"><span class="pre">pt.skip()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.evinput"><code class="docutils literal notranslate"><span class="pre">pt.evinput()</span></code></a></li>
@@ -361,7 +362,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.Constant"><code class="docutils literal notranslate"><span class="pre">pt.Constant</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#version-1-1-240925-0"><strong>VERSION 1.1.240925.0</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#version-1-1-240928-0"><strong>VERSION 1.1.240928.0</strong></a></li>
 </ul>
 
             </nav>
@@ -384,7 +385,7 @@ loops and contexts with easy to handle classes and functions.</p>
 <li><p><a class="reference external" href="https://pypi.org/project/PlainTools">Library’s PyPi Repo</a></p></li>
 <li><p><a class="reference external" href="https://github.com/gabrielmsilva00">Author’s Github Profile</a></p></li>
 </ul>
-<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="table-of-contents">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text"><span class="blue">[Table of Contents]</span></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
@@ -438,6 +439,7 @@ loops and contexts with easy to handle classes and functions.</p>
 <li><p class="sd-card-text"><a class="reference internal" href="#pt.timeout" title="pt.timeout"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.timeout()</span></code></a></p></li>
 <li><p class="sd-card-text"><a class="reference internal" href="#pt.loop" title="pt.loop"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.loop()</span></code></a></p></li>
 <li><p class="sd-card-text"><a class="reference internal" href="#pt.showcall" title="pt.showcall"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.showcall()</span></code></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pt.moduleview" title="pt.moduleview"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.moduleview()</span></code></a></p></li>
 </ul>
 </dd>
 </dl>
@@ -598,7 +600,7 @@ object as well as third-party ones, given they have any type of <strong>docstrin
 </section>
 <section id="numeric-constructor">
 <h1>Numeric Constructor<a class="headerlink" href="#numeric-constructor" title="Link to this heading"><span>§</span></a></h1>
-<p>(Goto <a class="reference internal" href="#plaintools-docs"><span class="std std-ref">PlainTools’ Docs</span></a>)</p>
+<p>(Goto <a class="reference internal" href="#table-of-contents">Table of Contents</a>)</p>
 <p>Before anything else, it is important to lay down the documentation for the
 base of any numeric-related definition or class. And such is the
 <a class="reference internal" href="#pt.pnumber" title="pt.pnumber"><code class="xref py py-func docutils literal notranslate"><span class="pre">pt.pnumber()</span></code></a> function.</p>
@@ -682,7 +684,7 @@ instance with inheritance from the object’s own numeric class.</p>
 </section>
 <section id="formatter-functions">
 <h1>Formatter Functions<a class="headerlink" href="#formatter-functions" title="Link to this heading"><span>§</span></a></h1>
-<p>(Goto <a class="reference internal" href="#plaintools-docs"><span class="std std-ref">PlainTools’ Docs</span></a>)</p>
+<p>(Goto <a class="reference internal" href="#table-of-contents">Table of Contents</a>)</p>
 <p>Formatter functions are intended to take a variety of types as input and
 output data in a formatted, previsible way.</p>
 <dl class="py function">
@@ -1738,7 +1740,7 @@ Returns a Container with the min, max, original min, original max values.</p>
 </section>
 <section id="statement-extension-functions">
 <h1>Statement &amp; Extension Functions<a class="headerlink" href="#statement-extension-functions" title="Link to this heading"><span>§</span></a></h1>
-<p>(Goto <a class="reference internal" href="#plaintools-docs"><span class="std std-ref">PlainTools’ Docs</span></a>)</p>
+<p>(Goto <a class="reference internal" href="#table-of-contents">Table of Contents</a>)</p>
 <p>Statement Functions bring new, easy-to-use functions that improve the native,
 standard syntax and built-in functions.</p>
 <dl class="py function">
@@ -1904,6 +1906,51 @@ monitoring function execution.</p>
 </dl>
 </li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pt.moduleview">
+<span class="sig-prename descclassname"><span class="pre">pt.</span></span><span class="sig-name descname"><span class="pre">moduleview</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Container:</span></span></span><a class="headerlink" href="#pt.moduleview" title="Link to this definition"><span>§</span></a></dt>
+<dd><p>Module View.</p>
+<p>Returns a Container of a module’s attributes and values.</p>
+<dl>
+<dt>Note that, as the return type is a <a class="reference internal" href="#pt.Container" title="pt.Container"><code class="xref py py-class docutils literal notranslate"><span class="pre">Container</span></code></a>, you can do such as:</dt><dd><div class="line-block">
+<div class="line">calc = moduleview(‘math’)</div>
+<div class="line">calc.pi <span class="gray"># the exact same as math.pi</span></div>
+</div>
+</dd>
+</dl>
+<dl class="field-list">
+<dt class="field-odd">Example<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><dl class="simple">
+<dt>moduleview(‘math’)</dt><dd><ul>
+<li><p>Returns a Container(k:v) for every ‘k:v’ pair inside ‘math’ module.</p></li>
+<li><p>i.e. {‘pi’: 3.141592653589793}</p></li>
+<li><p>i.e. {‘sqrt’: &lt;built-in function sqrt&gt;}</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+<dt class="field-even">Args<span class="colon">:</span></dt>
+<dd class="field-even"><dl>
+<dt>module: Module | String</dt><dd><div class="line-block">
+<div class="line">Module to be viewed. If String, its imported as a module object.</div>
+</div>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Return<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt>R: Container</dt><dd><div class="line-block">
+<div class="line">View of the module as k:v pairs.</div>
+</div>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -2077,7 +2124,7 @@ and interrupt the loop execution.</p>
 </section>
 <section id="debugger-utility-functions">
 <h1>Debugger &amp; Utility Functions<a class="headerlink" href="#debugger-utility-functions" title="Link to this heading"><span>§</span></a></h1>
-<p>(Goto <a class="reference internal" href="#plaintools-docs"><span class="std std-ref">PlainTools’ Docs</span></a>)</p>
+<p>(Goto <a class="reference internal" href="#table-of-contents">Table of Contents</a>)</p>
 <p>Debug functions interact with the environment the script runs in,
 and output relevant information to the console.</p>
 <p>These functions do accept arguments only as buffers, this being,
@@ -2137,7 +2184,7 @@ executing code in the same line, such as starting a timer for example.</p>
 </section>
 <section id="operator-instantiated-classes">
 <h1>Operator &amp; Instantiated Classes<a class="headerlink" href="#operator-instantiated-classes" title="Link to this heading"><span>§</span></a></h1>
-<p>(Goto <a class="reference internal" href="#plaintools-docs"><span class="std std-ref">PlainTools’ Docs</span></a>)</p>
+<p>(Goto <a class="reference internal" href="#table-of-contents">Table of Contents</a>)</p>
 <p>Operator Classes are classes able to be used as functions, objects, contexts
 and as the name sugests, come with pre-loaded instances that are ready-to-use.</p>
 <dl class="simple">
@@ -2705,7 +2752,7 @@ and .blacklist[‘modules’] each with a set of strings as its value.</p></li>
 </section>
 <section id="constructor-classes-custom-objects">
 <h1>Constructor Classes &amp; Custom Objects<a class="headerlink" href="#constructor-classes-custom-objects" title="Link to this heading"><span>§</span></a></h1>
-<p>(Goto <a class="reference internal" href="#plaintools-docs"><span class="std std-ref">PlainTools’ Docs</span></a>)</p>
+<p>(Goto <a class="reference internal" href="#table-of-contents">Table of Contents</a>)</p>
 <p>Constructor Classes have the purpose of creating Custom Objects that can be
 manipulated in specific, useful ways. There is a variety of Custom Objects
 introduced in the module, so a more in-depth explanation is provided in
@@ -2714,20 +2761,23 @@ each’s documentation below.</p>
 <dt class="sig sig-object py" id="pt.Container">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pt.</span></span><span class="sig-name descname"><span class="pre">Container</span></span><a class="headerlink" href="#pt.Container" title="Link to this definition"><span>§</span></a></dt>
 <dd><p>Container Class; dict Subclass.</p>
-<p>Note: Containers can’t have numeric keys due to how their keys are
-directly associated to its instance attributes. However, any String
-type is a valid key type. Attempting to update a Container instance
-with enumerated dictionaries will raise a TypeError.</p>
-<p>A flexible dictionary-like container class that supports various
-operations and transformations. Unlike a standard dictionary,
-a <cite>Container</cite> is unpacked by its values rather than by its keys.</p>
-<p>The Container supports basic arithmetic operations on a per-key basis,
-meaning that you can operate an iterable to a Container, where each
-ordered element operates each key’s value until exhaustion; Where as
-single, non-iterable operations are performed on the entire Container.</p>
-<p>Containers can have its values accessed as attributes when calling for
-their keys. This means that assigned attributes into this class are also
-added to the Container’s keys with the designated value.</p>
+<p>A flexible dict-class that supports various operations and
+transformations. Unlike a standard dictionary, a <cite>Container</cite>
+is unpacked by its items rather than by its keys.</p>
+<p>Note: Containers can’t have numeric keys due to how their
+keys are directly associated to its instance attributes.
+However, any String type is a valid key type.
+Attempting to update a Container instance with
+enumerated dictionaries will raise a TypeError.</p>
+<p>The Container supports basic arithmetic operations on a
+per-key basis, meaning that you can operate an iterable
+to a Container, where each ordered element operates each
+key’s value until exhaustion; Where as single, non-iterable
+operations are performed on the entire Container.</p>
+<p>Containers can have its values accessed as attributes
+when calling for their keys. This means that assigned
+attributes into this class are also added to the
+Container’s keys with the designated value.</p>
 <dl class="field-list">
 <dt class="field-odd">Example<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -2803,7 +2853,7 @@ added to the Container’s keys with the designated value.</p>
 <dd class="field-odd"><p>Any basic arithmetic operator is supported as in:</p>
 <ul class="simple">
 <li><p><code class="code docutils literal notranslate"><span class="pre">Container</span> <span class="pre">&lt;&gt;</span> <span class="pre">Container</span></code>;</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">Container</span> <span class="pre">&lt;&gt;</span> <span class="pre">other</span></code> (if the <code class="code docutils literal notranslate"><span class="pre">operation(value,</span> <span class="pre">other)</span></code> is valid).</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">Container</span> <span class="pre">&lt;&gt;</span> <span class="pre">other</span></code></p></li>
 </ul>
 <div class="line-block">
 <div class="line">Operations with non-iterables are valid as long as the operation to every</div>
@@ -2822,15 +2872,15 @@ added to the Container’s keys with the designated value.</p>
 <li><p>Container(T=2,U=4,V=6) - {2,3} == Container(T=0, U=1, V=6)</p></li>
 </ul>
 <div class="line-block">
-<div class="line">Remainder of <code class="code docutils literal notranslate"><span class="pre">Container</span> <span class="pre">&lt;&gt;</span> <span class="pre">other</span></code> operations are ignored, as the result is a</div>
-<div class="line">Container type with the same keys as the involved Container.</div>
+<div class="line">Remainder of <code class="code docutils literal notranslate"><span class="pre">Container</span> <span class="pre">&lt;&gt;</span> <span class="pre">other</span></code> operations are ignored, as the</div>
+<div class="line">result is a Container type with the same keys as the involved Container.</div>
 </div>
 <ul class="simple">
 <li><p>Container(i=2, j=3) * [2, 3, 4] == Container(i=4, j=9)</p></li>
 </ul>
 <div class="line-block">
-<div class="line">Remainer of <code class="code docutils literal notranslate"><span class="pre">Container</span> <span class="pre">&lt;&gt;</span> <span class="pre">Container</span></code> operations aggregate non-similar keys into</div>
-<div class="line">the final result, unmodified, as no C1[K] &lt;&gt; C2[K] is valid.</div>
+<div class="line">Remainer of <code class="code docutils literal notranslate"><span class="pre">Container</span> <span class="pre">&lt;&gt;</span> <span class="pre">Container</span></code> operations aggregate non-similar</div>
+<div class="line">keys into the final result, unmodified, as no C1[K] &lt;&gt; C2[K] is valid.</div>
 </div>
 <ul class="simple">
 <li><p>Container(f=5) - Container(g=10) == Container(f=5, g=10)</p></li>
@@ -2933,8 +2983,8 @@ value and won’t modify the Constant itself or it’s value in any way.</p>
 <p>؜</p>
 <p>؜</p>
 </section>
-<section id="version-1-1-240925-0">
-<h1><strong>VERSION 1.1.240925.0</strong><a class="headerlink" href="#version-1-1-240925-0" title="Link to this heading"><span>§</span></a></h1>
+<section id="version-1-1-240928-0">
+<h1><strong>VERSION 1.1.240928.0</strong><a class="headerlink" href="#version-1-1-240928-0" title="Link to this heading"><span>§</span></a></h1>
 </section>
 
 
@@ -2994,6 +3044,7 @@ value and won’t modify the Constant itself or it’s value in any way.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.printnl"><code class="docutils literal notranslate"><span class="pre">pt.printnl()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.printc"><code class="docutils literal notranslate"><span class="pre">pt.printc()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.showcall"><code class="docutils literal notranslate"><span class="pre">pt.showcall()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.moduleview"><code class="docutils literal notranslate"><span class="pre">pt.moduleview()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.doc"><code class="docutils literal notranslate"><span class="pre">pt.doc()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.skip"><code class="docutils literal notranslate"><span class="pre">pt.skip()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.evinput"><code class="docutils literal notranslate"><span class="pre">pt.evinput()</span></code></a></li>
@@ -3026,7 +3077,7 @@ value and won’t modify the Constant itself or it’s value in any way.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pt.Constant"><code class="docutils literal notranslate"><span class="pre">pt.Constant</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#version-1-1-240925-0"><strong>VERSION 1.1.240925.0</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#version-1-1-240928-0"><strong>VERSION 1.1.240928.0</strong></a></li>
 </ul>
 
   </nav></div>

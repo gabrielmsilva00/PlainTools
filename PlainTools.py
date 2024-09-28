@@ -27,7 +27,7 @@
 ∙∙∙ github.com/JetBrains/JetBrainsMono
 """
 # ---------------------------------------------------------------------------<
-__version__ = "1.1.240925.0"
+__version__ = "1.1.240928.0"
 __author__ = "gabrielmsilva00"
 
 
@@ -1506,7 +1506,7 @@ def let(**kwargs) -> Container[Any: Any]:
     R: Container[Any: Any] = Container(kwargs)
     C: Frame = pframe(2)
 
-    for k, v in R.items():
+    for k, v in R:
         exec(f"{k} = {repr(v)}",
              C.f_globals,
              C.f_locals,
@@ -1902,6 +1902,35 @@ def showcall(func: Function) -> Function:
         return result
 
     return wrapper
+
+
+def moduleview(module: Module | String) -> Container:
+    """
+    Module View.
+
+    Returns a Container of a module's attributes and values.
+    
+    Note that, as the return type is a Container, you can do such as:
+        | calc = moduleview('math')
+        | calc.pi # the exact same as math.pi
+
+    :Args:
+        module: Module | String
+            | Module to be viewed. If String, its imported as a module object.
+
+    :Return:
+        R: Container
+            | View of the module as k:v pairs.
+    """
+    R: Container = {}
+    if isinstance(module, str):
+        module = pimport(module)
+    RL = dir(module)
+    
+    for i, j in enumerate(RL):
+        R[j] = getattr(module, j)
+    
+    return Container(R)
 
 
 # OPERATOR CLASSES ==> Instantiable Operators:
@@ -2907,6 +2936,26 @@ class SEVAL:
     A secure alternative to Python's `eval()` function, designed to evaluate
     mathematical and basic expressions while preventing access to unsafe
     operations and functions.
+    
+    Its default protocol is 'blacklist', but a new instance of 'SEVAL()' can 
+    be initiated in the 'whitelist' mode to further restrict access to unsafe 
+    operations and functions. This can be done as:
+
+        SevalW = SEVAL('whitelist')
+        
+        SevalW.whitelist.modules |= {'math'} # Allows using 'math' module.
+        
+        SevalW.whitelist.functions |= {'round'} # Allows using 'round()'.
+    
+    Beware that instantiating 'SEVAL()' in this mode prohibits  the 
+    evaluation of any variables in the current namespace unless their 
+    names are explicitly whitelisted beforehand.
+    
+    Because of how Python works, objects defined and imported inside the 
+    PlainTools package itself are accessible to the class. Unsafe operators 
+    and packages, such as 'os' and 'sys', are still blacklisted though.
+    
+    To check the complete default 'blacklist' 
 
     :Example:
         Seval("2 + 2")  # Returns 4
@@ -2928,9 +2977,14 @@ class SEVAL:
     class UnsafeError(TypeError):
         pass
 
-    def __init__(cls):
-        cls.namespace = collections.ChainMap(pframe(2).f_locals,  # PlainTools'
+    def __init__(cls,
+                 protocol: String = 'blacklist',
+                 functions: Set = set(),
+                 modules: Set = set(),
+                 ) -> Class:
+        cls.namespace = collections.ChainMap(pframe(2).f_locals,
                                              pframe(outer=True).f_locals,
+                                             moduleview('builtins'),
                                              )
         cls.operators = {ast.Add: operator.add,
                          ast.Sub: operator.sub,
@@ -2947,95 +3001,108 @@ class SEVAL:
                          ast.BitXor: operator.xor,
                          ast.BitAnd: operator.and_,
                          }
-        cls.blacklist = {'functions': {'eval',
-                                       'exec',
-                                       'exit',
-                                       'compile',
-                                       '__import__',
-                                       'pimport',
-                                       'pframe',
-                                       'print',
-                                       'printnl',
-                                       'printc',
-                                       'doc',
-                                       'qfunc',
-                                       'timeout',
-                                       'let',
-                                       'const',
-                                       'Constant',
-                                       'skip',
-                                       'clear',
-                                       'debug',
-                                       'eof',
-                                       'deepframe',
-                                       'evinput',
-                                       'input',
-                                       'showcall',
-                                       'raise',
-                                       'LOGGING',
-                                       'Logging',
-                                       'Constant',
-                                       'getattr',
-                                       'base64',
-                                       'bytes',
-                                       'bytearray',
-                                       'decode',
-                                       'encode',
-                                       'open',
-                                       'main',
-                                       'Main',
-                                       'MAIN',
-                                       },
-                         'modules': {'os',
-                                     'sys',
-                                     'shutils',
-                                     'pathlib',
-                                     'glob',
-                                     'tempfile',
-                                     'stat',
-                                     'socket',
-                                     'http',
-                                     'ftplib',
-                                     'smtlib',
-                                     'urllib',
-                                     'platform',
-                                     'getpass',
-                                     'pwd',
-                                     'grp',
-                                     'uuid',
-                                     'ctypes',
-                                     'resource',
-                                     'ssl',
-                                     'hashlib',
-                                     'secrets',
-                                     'crypt',
-                                     'code',
-                                     'codeop',
-                                     'compileall',
-                                     'xmlrpc',
-                                     'json',
-                                     'sqlite3',
-                                     'dbm',
-                                     'mmap',
-                                     'gc',
-                                     'webbrowser',
-                                     'tk',
-                                     'turtle',
-                                     'pdb',
-                                     'sysconfig',
-                                     'atexit',
-                                     'faulthandler',
-                                     'unittest',
-                                     'builtins',
-                                     'threading',
-                                     'asyncio',
-                                     'subprocess',
-                                     'multiprocessing',
-                                     'signal',
+        # 'blacklist' | 'whitelist'
+        cls.protocol = protocol if protocol == 'whitelist' else 'blacklist'
+        cls.permitlist = dict(functions=functions, modules=modules)
+        cls.blacklist = Container(cls.permitlist if all(
+            cls.permitlist.values()) else ()) or (
+                Container(functions={'eval',
+                                     'exec',
+                                     'exit',
+                                     'compile',
+                                     '__import__',
+                                     '__file__',
+                                     '__path__',
+                                     '__main__',
+                                     'dir',
+                                     'pimport',
+                                     'pframe',
+                                     'print',
+                                     'printnl',
+                                     'printc',
+                                     'doc',
+                                     'qfunc',
+                                     'timeout',
+                                     'let',
+                                     'const',
+                                      'Constant',
+                                     'skip',
+                                     'clear',
+                                     'debug',
+                                     'eof',
+                                     'deepframe',
+                                     'evinput',
+                                     'input',
+                                     'showcall',
+                                     'raise',
+                                     'open',
+                                     'LOGGING',
+                                     'Logging',
+                                     'Constant',
+                                     'getattr',
                                      'base64',
-                                     're',
+                                     'bytes',
+                                     'bytearray',
+                                     'decode',
+                                     'encode',
+                                     'open',
+                                     'main',
+                                     'Main',
+                                     'MAIN',
                                      },
-                         }
+                          modules={'os',
+                                   'sys',
+                                   'shutil',
+                                   'pathlib',
+                                   'glob',
+                                   'pathlib',
+                                   'tempfile',
+                                   'stat',
+                                   'socket',
+                                   'http',
+                                   'ftplib',
+                                   'smtlib',
+                                   'urllib',
+                                   'platform',
+                                   'getpass',
+                                   'pwd',
+                                   'grp',
+                                   'uuid',
+                                   'ctypes',
+                                   'resource',
+                                   'ssl',
+                                   'hashlib',
+                                   'secrets',
+                                   'crypt',
+                                   'code',
+                                   'codeop',
+                                   'compileall',
+                                   'xmlrpc',
+                                   'json',
+                                   'sqlite3',
+                                   'dbm',
+                                   'mmap',
+                                   'gc',
+                                   'webbrowser',
+                                   'tk',
+                                   'turtle',
+                                   'pdb',
+                                   'sysconfig',
+                                   'atexit',
+                                   'faulthandler',
+                                   'unittest',
+                                   'builtins',
+                                   'threading',
+                                   'asyncio',
+                                   'subprocess',
+                                   'multiprocessing',
+                                   'signal',
+                                   'base64',
+                                   're',
+                                   },
+                          )
+                )
+        cls.whitelist = Container(cls.permitlist)
 
     def __call__(cls, expression):
         if not isinstance(expression, str):
@@ -3073,7 +3140,10 @@ class SEVAL:
             if node.id in local:
                 func = local[node.id]
                 if callable(
-                        func) and func.__name__ in cls.blacklist['functions']:
+                        func) and ((cls.protocol == 'blacklist' and (
+                            func.__name__ in cls.blacklist['functions']) or (
+                                cls.protocol == 'whitelist' and (
+                                    func.__name__ not in cls.whitelist['functions'])))):
                     raise cls.UnsafeError(
                         f"Function '{node.id}' is not allowed")
                 return func
@@ -3086,7 +3156,11 @@ class SEVAL:
             value = cls.ndeval(node.value, local)
             if isinstance(
                     node.value,
-                    ast.Name) and node.value.id in cls.blacklist['modules']:
+                    ast.Name) and ((cls.protocol == 'blacklist' and (
+                        node.value.id in cls.blacklist['modules'])) or (
+                            cls.protocol == 'whitelist' and (
+                                node.value.id not in cls.whitelist['modules']
+                                ))):
                 raise cls.UnsafeError(
                     f"Access to module '{node.value.id}' is not allowed")
             if node.attr in {
@@ -3102,11 +3176,19 @@ class SEVAL:
         elif isinstance(node, ast.Call):  # Calls
             if isinstance(
                     node.func,
-                    ast.Name) and node.func.id in cls.blacklist['functions']:
+                    ast.Name) and (cls.protocol == 'blacklist' and (
+                        node.func.id in cls.blacklist['functions']) or (
+                            cls.protocol == 'whitelist' and (
+                                node.func.id not in cls.whitelist['functions']
+                                ))):
                 raise cls.UnsafeError(
                     f"Function '{node.func.id}' is not allowed")
             func_name = cls.ndeval(node.func, local)
-            if func_name.__name__ in cls.blacklist['functions']:
+            if ((cls.protocol == 'blacklist' and (
+                func_name.__name__ in cls.blacklist['functions'])) or (
+                    cls.protocol == 'whitelist' and (
+                        func_name.__name__ not in cls.whitelist['functions']
+                        ))):
                 raise cls.UnsafeError(
                     f"Function '{func_name.__name__}' is not allowed")
             if not callable(func_name):
@@ -3127,24 +3209,27 @@ class Container(Dict):
     """
     Container Class; dict Subclass.
 
-    A flexible dictionary-like container class that supports various
-    operations and transformations. Unlike a standard dictionary,
-    a `Container` is unpacked by its values rather than by its keys.
+    A flexible dict-class that supports various operations and 
+    transformations. Unlike a standard dictionary, a `Container` 
+    is unpacked by its items rather than by its keys.
 
-    Note: Containers can't have numeric keys due to how their keys are
-    directly associated to its instance attributes. However, any String
-    type is a valid key type. Attempting to update a Container instance
-    with enumerated dictionaries will raise a TypeError.
+    Note: Containers can't have numeric keys due to how their 
+    keys are directly associated to its instance attributes. 
+    However, any String type is a valid key type. 
+    Attempting to update a Container instance with 
+    enumerated dictionaries will raise a TypeError.
 
 
-    The Container supports basic arithmetic operations on a per-key basis,
-    meaning that you can operate an iterable to a Container, where each
-    ordered element operates each key's value until exhaustion; Where as
-    single, non-iterable operations are performed on the entire Container.
+    The Container supports basic arithmetic operations on a 
+    per-key basis, meaning that you can operate an iterable 
+    to a Container, where each ordered element operates each 
+    key's value until exhaustion; Where as single, non-iterable 
+    operations are performed on the entire Container.
 
-    Containers can have its values accessed as attributes when calling for
-    their keys. This means that assigned attributes into this class are also
-    added to the Container's keys with the designated value.
+    Containers can have its values accessed as attributes 
+    when calling for their keys. This means that assigned 
+    attributes into this class are also added to the 
+    Container's keys with the designated value.
 
     :Example:
         C1 = Container(a=1, b=2)
@@ -3167,7 +3252,7 @@ class Container(Dict):
             | Adds the values to the keys following the current order of keys.
 
         .fill(*vals, target=None, exhaust=True): Self
-            | Fills in any `target` vals in the Container with provided vals.
+            | Fills in any `target` vals in the Container with given vals.
             | `target` argument can be a lambda|function|builtin|singleton.
             | `exhaust` argument defines if fill is finite or cyclic infinite.
 
@@ -3299,7 +3384,7 @@ class Container(Dict):
         return cls
 
     def __iter__(cls):
-        return iter(cls.values())
+        return iter(cls.items())
 
     def sort(cls, *args, **kwargs):
         items = list(cls.items())
@@ -3399,7 +3484,7 @@ class Container(Dict):
             key for key in cls.keys() if cls[key] in vals])
 
     def sub(cls):
-        return tuple(Container(key).shove(val) for key, val in cls.items())
+        return tuple(Container(key).shove(val) for key, val in cls)
 
     def copy(cls):
         return Container(cls.keyval())
