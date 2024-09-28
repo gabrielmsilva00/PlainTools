@@ -1862,5 +1862,5 @@ each's documentation below.
 
 ؜
 
-**VERSION 1.1.240928.0**
+**VERSION 1.2.240928.0**
 -------------------------
