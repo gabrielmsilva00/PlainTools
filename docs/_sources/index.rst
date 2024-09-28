@@ -22,7 +22,7 @@ interpreter|environment itself with:
 
     pt.site(pt) # This will open the PLainToolsDocs.html file!
 
-You can easily install|upgrade this package with:
+You can easily install | upgrade this package with:
 
 .. code-block:: powershell
 
