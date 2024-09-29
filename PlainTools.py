@@ -27,7 +27,7 @@
 ∙∙∙ github.com/JetBrains/JetBrainsMono
 """
 # ---------------------------------------------------------------------------<
-__version__ = "1.2.240928.1"
+__version__ = "1.2.240929.0"
 __author__ = "gabrielmsilva00"
 __url__ = "https://gabrielmsilva00.github.io/PlainTools/"
 __repo__ = "https://github.com/gabrielmsilva00/PlainTools.git"
@@ -3842,30 +3842,28 @@ def site(module: Module | str = '__main__',
 
     if isinstance(module, str):
         module = pimport(module)
-    
-    with Try:
+        
+    if hasattr(module, '__url__'):
         webbrowser.open(module.__url__)
         return
-
+    
+    name = os.path.basename(module.__file__).split('.')[0] if hasattr(
+        module, '__file__') else module.__name__
+    
     sites = glob.glob('**/*.html', recursive=True)
 
     for site in sites:
-        if module.__name__ in site:
+        if name in site:
             webbrowser.open('file://' + os.path.abspath(site))
             break
     else:
-        print(f'{module} documentation not found.\n' + (
-            f'Note: {module} documentation must be a .html file ') + (
-                f"containing '{module.__name__}' in its name, ") + (
-                    f"or expressed inside {module}.__url__ attribute.\n")
+        print(f'Site for {name} documentation not found.\n' + (
+            f'Note: [{name}] documentation must be a .html file ') + (
+                f"containing '{name}' in its name, ") + (
+                    f"or an URL defined in {name}.__url__ attribute.\n")
         )
-    # try:
-    #     webbrowser.open('file://' + module.__file__.rstrip('.py') + (
-    #         'Docs.html'))
-    # except BaseException as e:
-    #     print(f'{module} documentation not found: {type(e)}')
 
 
 with Main:
     doc()
-    site()
+    site(math)

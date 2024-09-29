@@ -19,7 +19,7 @@ include= [
 
 [project]
 name = "PlainTools"
-version = "1.2.240928.1"
+version = "1.2.240929.0"
 authors = [
   { name="Gabriel Maia", email="gabrielmaia.silva00@gmail.com" },
 ]

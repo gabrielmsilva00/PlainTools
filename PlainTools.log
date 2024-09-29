@@ -1,0 +1,40 @@
+|‼ LOG•DATA	PlainTools.log
+|! System	Windows-10-10.0.19045-SP0
+|! Python	3.12.4 (tags/v3.12.4:8e8a4ba, Jun  6 2024, 19:30:16)
+|! Platform	[MSC v.1940 64 bit (AMD64)]
+
+|= 29/09/2024 10:55:30:355
+|> Traceback (most recent call last): → webbrowser.open(module.__url__)
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\PlainTools.py", line 3847, in site
+|>                     ^^^^^^^^^^^^^^
+|> Er AttributeError: module '__main__' has no attribute '__url__'. Did you mean: '__file__'?
+
+|= 29/09/2024 11:29:57:394
+|> [‼-MAIN:ERROR-‼] -> AttributeError
+|> Traceback (most recent call last): → webbrowser.open(module.__url__)
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\PlainTools.py", line 3847, in site
+|>                     ^^^^^^^^^^^^^^
+|>   AttributeError: module 'math' has no attribute '__url__'
+|>   
+|>   During handling of the above exception, another exception occurred:
+|>   
+|>   Traceback (most recent call last):
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\PlainTools.py", line 3868, in <module>
+|>       site(math)
+|>     File "c:\Users\Gabriel\Documents\GitHub\PlainTools\PlainTools.py", line 3851, in site
+|>       name = os.path.basename(module.__file__).split('.')[0]
+|>                               ^^^^^^^^^^^^^^^
+|> Er AttributeError: module 'math' has no attribute '__file__'. Did you mean: '__name__'?
+
+|= 29/09/2024 11:35:25:842
+|> Traceback (most recent call last): → webbrowser.open(module.__url__)
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\PlainTools.py", line 3847, in site
+|>                     ^^^^^^^^^^^^^^
+|> Er AttributeError: module 'math' has no attribute '__url__'
+
+|= 29/09/2024 11:37:15:770
+|> Traceback (most recent call last): → webbrowser.open(module.__url__)
+|>   File "c:\Users\Gabriel\Documents\GitHub\PlainTools\PlainTools.py", line 3847, in site
+|>                     ^^^^^^^^^^^^^^
+|> Er AttributeError: module 'math' has no attribute '__url__'
+
