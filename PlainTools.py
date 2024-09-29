@@ -2096,13 +2096,13 @@ class TIME:
         match cls.std:
 
             case 'now':
-                showtime = '[|-Time-|] -> %ss' % cls.now
+                showtime = '[Time] -> %ss' % cls.now
 
             case 'lap':
-                showtime = '[|-Runtime-|] -> %ss' % cls.lap
+                showtime = '[Runtime] -> %ss' % cls.lap
 
             case 'epoch':
-                showtime = '[|-Epoch-|] -> %s' % ', '.join(
+                showtime = '[Epoch] -> %s' % ', '.join(
                     map(str, cls.travel[1:]))
 
             case Z:
@@ -3866,4 +3866,4 @@ def site(module: Module | str = '__main__',
 
 with Main:
     doc()
-    site(math)
+    site()
