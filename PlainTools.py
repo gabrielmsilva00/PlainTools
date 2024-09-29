@@ -27,7 +27,7 @@
 ∙∙∙ github.com/JetBrains/JetBrainsMono
 """
 # ---------------------------------------------------------------------------<
-__version__ = "1.2.240929.0"
+__version__ = "1.2.240929.1"
 __author__ = "gabrielmsilva00"
 __url__ = "https://gabrielmsilva00.github.io/PlainTools/"
 __repo__ = "https://github.com/gabrielmsilva00/PlainTools.git"
@@ -219,11 +219,12 @@ def pnumber(*objs: Any | Iterable[Any],
 
             def __str__(cls):  # for 'print's & 'str'
                 if cls.period:
-                    strval = repr(cls.value)
+                    strint = repr(cls.value).split('.')[0] + '.'
+                    strval = repr(cls.value).split('.')[-1]
                     pstart = strval.find(cls.period)
                     if pstart == -1:
-                        return strval + f"{cls.period * 2}..."
-                    return strval[
+                        return strint + strval + f"{cls.period * 2}..."
+                    return strint + strval[
                         :pstart + len(cls.period)] + f"{cls.period * 2}..."
                 return str(cls.value)
 
@@ -259,7 +260,8 @@ def pnumber(*objs: Any | Iterable[Any],
 
                         if 'e' in SR:
                             SR, E = SR.split('e')[0], int(SR.split('e')[-1])
-                            R = float(SR)
+
+                        R = pround(float(SR), dcm=None)
 
                         DP = SR.split('.')[-1][::-1]
 
@@ -528,6 +530,9 @@ def pround(*vals: Real | Iterable[Real | String],
 
             if tol == 'auto':
                 tol = RT(abs(num))
+            
+            if tol == 'high':
+                tol = RT(abs(num)) * 2
 
             else:
                 tol += 3  # Account for rounding
@@ -790,22 +795,24 @@ def prange(*args: Real,
 
     R: Iterable[Real] = []
     C: Real = start
-    S: Integer = pdecimals(step)
 
     if step == 0:
         raise ValueError('prange() step must not be zero')
 
     if start <= stop:
 
-        while C <= stop:
-            R.append(pnumber(round(C, S)))
-            C += abs(step)
+        while C <= stop or math.isclose(C, stop):
+            R.append(pnumber(C))
+            C += pnumber(abs(step))
 
     else:
 
-        while C >= stop:
-            R.append(pnumber(round(C, S)))
-            C -= abs(step)
+        while C >= stop or math.isclose(C, stop):
+            R.append(pnumber(C))
+            C -= pnumber(abs(step))
+    
+    if math.isclose(R[-1], stop):
+        R = R[:-1] + [stop]
 
     match type.lower():
 
@@ -879,31 +886,31 @@ def pinterval(*args: Real,
         case 1:
             start = 0
             stop = 100
-            divs = stop / max(args[0] - 1, 1)
+            divs = pnumber(stop / max(args[0] - 1, 1))
             type = 'list'
 
         case 2:
             start = 0
             stop = stop or args[1]
-            divs = stop / max(args[0] - 1, 1)
+            divs = pnumber(stop / max(args[0] - 1, 1))
             type = 'list'
 
         case 3:
             start = start or args[1]
             stop = stop or args[2]
-            divs = (stop - start) / max(args[0] - 1, 1)
+            divs = pnumber((stop - start) / max(args[0] - 1, 1))
             type = 'list'
 
         case 4:
             start = start or args[1]
             stop = stop or args[2]
-            divs = (stop - start) / max(args[0] - 1, 1)
+            divs = pnumber((stop - start) / max(args[0] - 1, 1))
             type = type or args[3]
 
         case Z:
             raise TypeError(f"pinterval expected at most 4 arguments, got {Z}")
 
-    return prange(start, stop + (divs / 2), divs, type)
+    return prange(start, stop, divs, type)
 
 
 def psequence(*nums: Real | Iterable[Real],
@@ -3800,6 +3807,7 @@ def doc(*objs: callable,
         Prints the current frame's module docstring if no object is given.
     """
     R: List[String] = []
+    L: List[String] = ('__kmodule__', '__class__', '__name__', '__doc__')
     objs = list(objs)
 
     if objs:
@@ -3810,11 +3818,9 @@ def doc(*objs: callable,
             try:
                 if obj.__doc__ is not None:
                     if verbose:
-                        printnl(obj.__module__,
-                                obj.__class__,
-                                obj.__name__,
-                                obj.__doc__,
-                                )
+                        for attr in L:
+                            if hasattr(obj, attr):
+                                print(getattr(obj, attr))
                         printc("#", fill="#")
                     R.append(obj.__doc__)
 
@@ -3839,13 +3845,23 @@ def site(module: Module | str = '__main__',
     to open it in the default browser of the user.
     """
     import webbrowser
-
     if isinstance(module, str):
         module = pimport(module)
         
     if hasattr(module, '__url__'):
-        webbrowser.open(module.__url__)
-        return
+        # https://stackoverflow.com/a/29854274/26469850
+        import http.client
+        conn = http.client.HTTPSConnection("8.8.8.8", timeout=1)
+        err = False
+        try:
+            conn.request("HEAD", "/")
+            webbrowser.open(module.__url__)
+        except BaseException:
+            err = True
+        finally:
+            conn.close()
+            if not err:
+                return
     
     name = os.path.basename(module.__file__).split('.')[0] if hasattr(
         module, '__file__') else module.__name__
