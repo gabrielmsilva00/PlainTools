@@ -1,7 +1,7 @@
 |![Image](https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/pthead.png)
 |:--:|
-**Version\: 1.2.240929.1 (As in: Main.sub.YYMMDD.rev)**
-| - [GitHub Repo](https://gabrielmsilva00.github.io/PlainTools) \| [PyPi Repo](https://pypi.org/project/PlainTools)
+**Version\: 1.2.241001.0 (As in: Main.sub.YYMMDD.rev)**
+| - [GitHub Repo](https://github.com/gabrielmsilva00/PlainTools) \| [PyPi Repo](https://pypi.org/project/PlainTools)
 | - [Author's GitHub Profile](https://github.com/gabrielmsilva00)
 [<img src="https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/ptqrdoc.png?">](https://gabrielmsilva00.github.io/PlainTools)
 

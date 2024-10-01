@@ -27,7 +27,7 @@
 ∙∙∙ github.com/JetBrains/JetBrainsMono
 """
 # ---------------------------------------------------------------------------<
-__version__ = "1.2.240929.1"
+__version__ = "1.2.241001.0"
 __author__ = "gabrielmsilva00"
 __url__ = "https://gabrielmsilva00.github.io/PlainTools/"
 __repo__ = "https://github.com/gabrielmsilva00/PlainTools.git"
@@ -617,10 +617,20 @@ def pdecimals(*nums: Real | Iterable[Real | String],
 
     for num in plist(nums):
         num = pnumber(num)
-        if num.period is not None:
+        etol = 'auto'
+        if num.period != None:
             return float('inf')
-        if '.' in num.string:
-            R = max(R, len(num.string.split('.')[1]))
+        if 'e-' in str(num):
+            etol = int(num.string.split('e-')[-1])
+        prd = str(pround(abs(num) - math.floor(abs(num)), tol=etol))
+        num = pround(prd, tol=etol)
+        if Seval(prd) == 0:
+            continue
+        if 'e-' in prd:
+            enot = int(prd.split('e-')[-1])
+            prd = f"{num:.{enot}f}"
+        if '.' in prd:
+            R = max(R, len(prd.split('.')[1]))
 
     return R
 
@@ -3869,13 +3879,13 @@ def site(module: Module | str = '__main__',
     sites = glob.glob('**/*.html', recursive=True)
 
     for site in sites:
-        if name in site:
-            webbrowser.open('file://' + os.path.abspath(site))
+        if f"{name}Docs" in site:
+            webbrowser.open(os.path.abspath(site))
             break
     else:
         print(f'Site for {name} documentation not found.\n' + (
             f'Note: [{name}] documentation must be a .html file ') + (
-                f"containing '{name}' in its name, ") + (
+                f"containing '{name}Docs' in its name, ") + (
                     f"or an URL defined in {name}.__url__ attribute.\n")
         )
 
