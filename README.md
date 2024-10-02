@@ -40,11 +40,11 @@ Some simple, yet relevant examples using the **Plain Number**(`pt.pnumber`) func
 1.666... # '...' present only in string format; The true value is still float(5/3).
 ؜
 
->>> 7 / 53
-0.0958904109589041
+>>> 1 / 73
+0.0136986301369863
 
->>> pt.pnumber(7 / 53)
-0.095890410958904109589041... # Can detect long chains of repeating decimals!
+>>> pt.pnumber(1 / 73)
+0.013698630136986301369863... # Can detect long chains of repeating decimals!
 ؜
 
 >>> 0.9999999999999988
