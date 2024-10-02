@@ -1,13 +1,13 @@
 |![Image](https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/pthead.png)
 |:--:|
-**Version\: 1.2.241001.1 (As in: Main.sub.YYMMDD.rev)**
+**[Version: 1.2.241001.1](https://github.com/gabrielmsilva00/PlainTools/releases) <br/> (Main.sub.YYMMDD.rev)**
 | - [GitHub Repo](https://github.com/gabrielmsilva00/PlainTools) \| [PyPi Repo](https://pypi.org/project/PlainTools)
 | - [Author's GitHub Profile](https://github.com/gabrielmsilva00)
 [<img src="https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/ptqrdoc.png?">](https://gabrielmsilva00.github.io/PlainTools)
 
 # Installation
 
-This package can be installed | upgraded using `pip`:
+This package can be installed & upgraded using `pip`:
 
 ```sh
 pip install -U plaintools
@@ -26,46 +26,46 @@ Some simple, yet relevant examples using the **Plain Number**(`pt.pnumber`) func
 ```python
 >>> import PlainTools as pt
 
->>> print(0.1 * 3)
+>>> 0.1 * 3
 0.30000000000000004
 
->>> print(pt.pnumber(0.1 * 3))
+>>> pt.pnumber(0.1 * 3)
 0.3 # Deals with float imprecision errors.
 ؜
 
->>> print(5 / 3)
+>>> 5 / 3
 1.6666666666666667
 
->>> print(pt.pnumber("5 / 3"))
+>>> pt.pnumber("5 / 3")
 1.666... # '...' present only in string format; The true value is still float(5/3).
 ؜
 
->>> print(7 / 53)
+>>> 7 / 53
 0.0958904109589041
 
->>> print(pt.pnumber(7 / 53))
+>>> pt.pnumber(7 / 53)
 0.095890410958904109589041... # Can detect long chains of repeating decimals!
 ؜
 
->>> print(0.9999999999999988)
+>>> 0.9999999999999988
 0.9999999999999988
 
->>> print(pt.pnumber(0.9999999999999988))
+>>> pt.pnumber(0.9999999999999988)
 0.9999999999999988 # No loss of precision up to 15 literal digits.
 ؜
 
->>> print(0.00000000001 ** 3)
+>>> 0.00000000001 ** 3
 9.999999999999999e-34
 
->>> print(pt.pnumber(0.00000000001 ** 3))
+>>> pt.pnumber(0.00000000001 ** 3)
 1e-33 # Corrects scientific-notated float imprecisions as well.
 ؜
 
->>> print(pt.pnumber("math.pi")) # A safe variation of 'eval()' is used, as shown below!
+>>> pt.pnumber("math.pi") # A safe variation of 'eval()' is used, as shown below!
 3.141592653589793
 
 # https://stackoverflow.com/a/1933463/26469850
->>> print(pt.pnumber("import shutil; shutil.rmtree('/.')")) # Example of malicious use.
+>>> pt.pnumber("import shutil; shutil.rmtree('/.')") # Example of malicious use.
 PlainTools.SEVAL.UnsafeError: Invalid syntax in expression
 ؜
 ```
