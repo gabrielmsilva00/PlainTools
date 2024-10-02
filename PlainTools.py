@@ -27,7 +27,7 @@
 ∙∙∙ github.com/JetBrains/JetBrainsMono
 """
 # ---------------------------------------------------------------------------<
-__version__ = "1.2.241001.0"
+__version__ = "1.2.241001.1"
 __author__ = "gabrielmsilva00"
 __url__ = "https://gabrielmsilva00.github.io/PlainTools/"
 __repo__ = "https://github.com/gabrielmsilva00/PlainTools.git"
@@ -114,8 +114,8 @@ And = lambda *args: all(bool(arg) for arg in args)
 Nand = lambda *args: not all(bool(arg) for arg in args)
 Or = lambda *args: any(bool(arg) for arg in args)
 Nor = lambda *args: not any(bool(arg) for arg in args)
-Xor = lambda *args: sum(bool(arg) for arg in args) % 2 == 1
-Xnor = lambda *args: sum(bool(arg) for arg in args) % 2 == 0
+Xor = (lambda *args: sum(bool(arg) for arg in args) % 2 == 1)
+Xnor = (lambda *args: sum(bool(arg) for arg in args) % 2 == 0)
 
 
 # PLAIN NUMBER ==> Numeric constructor:
@@ -201,6 +201,7 @@ def pnumber(*objs: Any | Iterable[Any],
                 finally:
                     return R
 
+        @arithmetic
         class Numeric(metaclass=TypeChecker):
             def __init__(cls,
                          val: Real | String,
@@ -209,8 +210,39 @@ def pnumber(*objs: Any | Iterable[Any],
                 cls.value = cls.number(val)
                 cls.period = cls.periodic(cls.value)
                 cls.type = type(obj)
-                cls.string = str(cls)
-                cls.id = idobj
+                cls.string = repr(cls)
+                cls.id = id(obj)
+
+                try:
+                    cls.enot = int(repr(cls).split('e')[1])
+                except IndexError:
+                    cls.enot = False
+
+                if cls.enot < 0:
+                    expo = int(cls.string.split('e-')[-1])
+                    expo += len(cls.string.split('.')[-1].split('e')[0])
+                    cls.full = f"{cls:.{expo}f}"
+
+                elif cls.enot > 0:
+                    intg, inte = repr(cls.value).split('e+')
+                    inte = int(inte)
+                    while '.' in intg:
+                        inta, intb = intg.split('.')
+                        inta += intb[0]
+                        intb = intb[1:]
+                        if intb:
+                            intg = inta + '.' + intb
+                        else:
+                            intg = inta + intb
+                        inte -= 1
+                        if inte <= 0:
+                            break
+                    cls.full = str(intg + ('0' * inte))
+                    cls.value = Seval(cls.full)
+
+                else:
+                    cls.full = repr(cls)
+
                 try:
                     cls.fraction = Fraction(cls.value).limit_denominator(
                         math.ceil(cls.value) * 10e3).as_integer_ratio()
@@ -226,6 +258,10 @@ def pnumber(*objs: Any | Iterable[Any],
                         return strint + strval + f"{cls.period * 2}..."
                     return strint + strval[
                         :pstart + len(cls.period)] + f"{cls.period * 2}..."
+                if And(cls.type == Integer, len(repr(cls.value)) > 15):
+                    R, S = str("%.12e" % pround(cls.value, tol=cls.enot)
+                               ).split('e')
+                    return (R.rstrip('0') + 'e' + S)
                 return str(cls.value)
 
             def __repr__(cls):  # for 'repr'
@@ -248,7 +284,23 @@ def pnumber(*objs: Any | Iterable[Any],
                     elif isinstance(R, Bool):
                         return bool(R)
 
-                    elif isinstance(R, (int, float)) and float(R).is_integer():
+                    elif And(isinstance(R, (int, float)), float(R).is_integer()):
+                        if 'e+' in repr(float(R)):
+                            intg, inte = repr(float(R)).split('e+')
+                            inte = int(inte)
+                            intg = repr(pround(intg, tol=inte))
+                            while '.' in intg:
+                                inta, intb = intg.split('.')
+                                inta += intb[0]
+                                intb = intb[1:]
+                                if intb:
+                                    intg = inta + '.' + intb
+                                else:
+                                    intg = inta + intb
+                                inte -= 1
+                                if inte <= 0:
+                                    return int(intg)
+                            R = int(intg * (10 ** inte))
                         return int(R)
 
                     elif isinstance(R, (Decimal, Fraction)):
@@ -350,7 +402,10 @@ def pnumber(*objs: Any | Iterable[Any],
         return Numeric(obj)
 
     for obj in plist(objs):
-        R.append(numeric(obj))
+        S = numeric(obj)
+        if S.type != type(S):  # Type correction for float(Xe+Y)
+            S = numeric(S.value)
+        R.append(S)
 
     return punit(R)
 
@@ -530,7 +585,7 @@ def pround(*vals: Real | Iterable[Real | String],
 
             if tol == 'auto':
                 tol = RT(abs(num))
-            
+
             if tol == 'high':
                 tol = RT(abs(num)) * 2
 
@@ -617,20 +672,10 @@ def pdecimals(*nums: Real | Iterable[Real | String],
 
     for num in plist(nums):
         num = pnumber(num)
-        etol = 'auto'
-        if num.period != None:
+        if num.period is not None:
             return float('inf')
-        if 'e-' in str(num):
-            etol = int(num.string.split('e-')[-1])
-        prd = str(pround(abs(num) - math.floor(abs(num)), tol=etol))
-        num = pround(prd, tol=etol)
-        if Seval(prd) == 0:
-            continue
-        if 'e-' in prd:
-            enot = int(prd.split('e-')[-1])
-            prd = f"{num:.{enot}f}"
-        if '.' in prd:
-            R = max(R, len(prd.split('.')[1]))
+        if '.' in num.full:
+            R = max(R, len(num.full.split('.')[-1]))
 
     return R
 
@@ -820,7 +865,7 @@ def prange(*args: Real,
         while C >= stop or math.isclose(C, stop):
             R.append(pnumber(C))
             C -= pnumber(abs(step))
-    
+
     if math.isclose(R[-1], stop):
         R = R[:-1] + [stop]
 
@@ -1395,7 +1440,7 @@ def eof(*buffer: Any,  # Buffer
     End of File.
 
     :Rationale:
-        Logs into a .log file, waits for user input, and then exits the system.
+        Logs into a .log file, waits for user input, then exits the system.
     """
     debug()
     skip()
@@ -1845,7 +1890,8 @@ def arithmetic(cls):
             if item in dir(typ):
                 return getattr(typ(cls.value), item)
         raise AttributeError(
-            f"'{cls.__class__.__name__}' | '{cls.value.__class__.__name__}'" + (
+            f"'{cls.__class__.__name__}' | " + (
+                f"'{cls.value.__class__.__name__}'") + (
                 f" objects have no attribute '{item}'"))
 
     setattr(cls, '__getattr__', __getattr__)
@@ -2145,7 +2191,7 @@ class STUB(NotImplementedError):
     """
     Decorator @Stub | Object Stub.
 
-    Decorates an incomplete function, indicating it has not been implemented yet.
+    Decorates an incomplete function, indicating it has not been implemented.
 
     :Example:
         @Stub  # Prints the stub location when the function is called.
@@ -2217,9 +2263,10 @@ Stub = STUB()
 
 class NULL:
     """
-    Null Object Pattern.
+    Null Object.
 
-    A class that implements the Null Object Pattern by defining methods and operations that return neutral values or perform no actions.
+    The Null object defines methods and operations that
+    return neutral values or perform no actions.
 
     :Example:
         Null()           # Returns an instance of the NULL class.
@@ -2461,8 +2508,8 @@ class MAIN:
                         exec(f"with {pt}.Main: main(**{cls.kwargs})", ns)
                     case X, Z:
                         exec(
-                            f"with {pt}.Main: main(*{cls.args},**{cls.kwargs})",
-                            ns)
+                            f"with {pt}.Main:" + (
+                                f"main(*{cls.args},**{cls.kwargs})"), ns)
 
         return cls
 
@@ -2831,14 +2878,14 @@ class TRY:
 
     :Methods:
         .show -> Self
-            | Enables verbose mode to print the context's progress and results.
+            | Enables verbose mode: prints the context's progress and results.
 
     :Properties:
         verbose: Bool = False
             | Controls whether to print the result to the console.
 
         result: String
-            | Stores the result of the try block, indicating success or failure.
+            | Stores the result of try block, indicating success | failure.
     """
     def __init__(cls: Self,
                  ) -> None:
@@ -3857,7 +3904,7 @@ def site(module: Module | str = '__main__',
     import webbrowser
     if isinstance(module, str):
         module = pimport(module)
-        
+
     if hasattr(module, '__url__'):
         # https://stackoverflow.com/a/29854274/26469850
         import http.client
@@ -3872,10 +3919,10 @@ def site(module: Module | str = '__main__',
             conn.close()
             if not err:
                 return
-    
+
     name = os.path.basename(module.__file__).split('.')[0] if hasattr(
         module, '__file__') else module.__name__
-    
+
     sites = glob.glob('**/*.html', recursive=True)
 
     for site in sites:
