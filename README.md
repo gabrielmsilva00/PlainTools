@@ -50,8 +50,8 @@ Some simple, yet relevant examples using the **Plain Number**(`pt.pnumber`) func
 >>> 0.9999999999999988
 0.9999999999999988
 
->>> pt.pnumber(0.9999999999999988)
-0.9999999999999988 # No loss of precision up to 15 literal digits.
+>>> pt.pnumber(0.9999999999991234)
+0.9999999999999988 # No loss of precision up to 14 literal digits.
 ؜
 
 >>> 0.00000000001 ** 3

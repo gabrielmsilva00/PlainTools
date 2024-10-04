@@ -27,7 +27,7 @@
 ∙∙∙ github.com/JetBrains/JetBrainsMono
 """
 # ---------------------------------------------------------------------------<
-__version__ = "1.2.241004.0"
+__version__ = "1.2.241004.1"
 __author__ = "gabrielmsilva00"
 __url__ = "https://gabrielmsilva00.github.io/PlainTools/"
 __repo__ = "https://github.com/gabrielmsilva00/PlainTools.git"
@@ -213,11 +213,10 @@ def pnumber(*objs: Any | Iterable[Any],
                 cls.type = type(obj)
                 cls.string = repr(cls)
                 cls.id = id(obj)
+                cls.enot = False
                 
-                try:
+                with Try:
                     cls.enot = int(repr(cls).split('e')[1])
-                except (IndexError, ValueError):
-                    cls.enot = False
 
                 if cls.enot < 0:
                     expo = int(cls.string.split('e-')[-1])
@@ -259,7 +258,8 @@ def pnumber(*objs: Any | Iterable[Any],
                         return strint + strval + f"{cls.period * 2}..."
                     return strint + strval[
                         :pstart + len(cls.period)] + f"{cls.period * 2}..."
-                if And(cls.type == Integer, len(repr(cls.value)) > 15):
+                if And(cls.type == Integer, len(
+                    repr(int(Seval(cls.full)))) > 12):
                     R, S = str("%.12e" % pround(cls.value, tol=cls.enot)
                                ).split('e')
                     return (R.rstrip('0') + 'e' + S)
@@ -314,12 +314,12 @@ def pnumber(*objs: Any | Iterable[Any],
                         if 'e' in SR:
                             SR, E = SR.split('e')[0], int(SR.split('e')[-1])
 
-                        R = pround(float(SR), dcm=16, tol=max(E, 16))
+                        R = pround(float(SR), dcm=16, tol=max(E, 14))
 
                         if isinstance(R, int):
                             break
 
-                        DP = SR.split('.')[-1][::-1]
+                        DP = SR.split('.')[-1]
 
                         if len(DP) >= 14:
                             M9 = re.match(r'9+|[0-8]9+', DP)
@@ -341,8 +341,7 @@ def pnumber(*objs: Any | Iterable[Any],
                             R = Seval(f'{R}e{E}')
 
                         else:
-                            R = round(float(str(R).split('.')[0] + '.' +
-                                            str(R).split('.')[-1]), 16)
+                            R = round(float(R), 16)
 
                         if float(R).is_integer():
                             R = int(R)
@@ -872,6 +871,7 @@ def prange(*args: Real,
 
     R: Iterable[Real] = []
     C: Real = pnumber(start)
+    D: Integer = max(pdecimals(step), 16)
 
     if step == 0:
         raise ValueError('prange() step must not be zero')
@@ -891,7 +891,7 @@ def prange(*args: Real,
     if math.isclose(R[-1], stop):
         R = R[:-1] + [stop]
     
-    if R[-1] != stop:
+    elif R[-1] != stop:
         R.append(stop)
 
     match type.lower():
