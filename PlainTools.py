@@ -27,7 +27,7 @@
 ∙∙∙ github.com/JetBrains/JetBrainsMono
 """
 # ---------------------------------------------------------------------------<
-__version__ = "1.2.241003.0"
+__version__ = "1.2.241004.0"
 __author__ = "gabrielmsilva00"
 __url__ = "https://gabrielmsilva00.github.io/PlainTools/"
 __repo__ = "https://github.com/gabrielmsilva00/PlainTools.git"
@@ -209,8 +209,9 @@ def pnumber(*objs: Any | Iterable[Any],
                 cls.object = obj
                 cls.value = cls.number(val)
                 cls.period = cls.periodic(cls.value)
+                cls.irrational = bool(cls.period)
                 cls.type = type(obj)
-                cls.string = str(cls)
+                cls.string = repr(cls)
                 cls.id = id(obj)
                 
                 try:
@@ -284,7 +285,23 @@ def pnumber(*objs: Any | Iterable[Any],
                     elif isinstance(R, Bool):
                         return bool(R)
 
-                    elif isinstance(R, (int, float)) and float(R).is_integer():
+                    elif And(isinstance(R, (int, float)), float(R).is_integer()):
+                        if 'e+' in repr(float(R)):
+                            intg, inte = repr(float(R)).split('e+')
+                            inte = int(inte)
+                            intg = repr(pround(intg, tol=inte))
+                            while '.' in intg:
+                                inta, intb = intg.split('.')
+                                inta += intb[0]
+                                intb = intb[1:]
+                                if intb:
+                                    intg = inta + '.' + intb
+                                else:
+                                    intg = inta + intb
+                                inte -= 1
+                                if inte <= 0:
+                                    return int(intg)
+                            R = int(intg * (10 ** inte))
                         return int(R)
 
                     elif isinstance(R, (Decimal, Fraction)):
@@ -297,11 +314,14 @@ def pnumber(*objs: Any | Iterable[Any],
                         if 'e' in SR:
                             SR, E = SR.split('e')[0], int(SR.split('e')[-1])
 
-                        R = pround(float(SR), dcm=None)
+                        R = pround(float(SR), dcm=16, tol=max(E, 16))
+
+                        if isinstance(R, int):
+                            break
 
                         DP = SR.split('.')[-1][::-1]
 
-                        if len(DP) >= 12:
+                        if len(DP) >= 14:
                             M9 = re.match(r'9+|[0-8]9+', DP)
                             M0 = re.match(r'0+|[1-9]0+', DP)
 
@@ -348,24 +368,24 @@ def pnumber(*objs: Any | Iterable[Any],
 
             def periodic(cls, num):
                 with Try:
-                    P = 0
                     if float(num).is_integer():
                         return Null
 
                     if 'e' in repr(num):
                         return Null
 
-                    DP = repr(num).split('.')[-1][:16]
+                    DP = repr(num).split('.')[-1]
                     TS = DP
+                    P = 1
 
-                    with Try:
+                    try:
                         while TS[-2] == '0':
                             TS = TS[:-2] + TS[-1]
                             P += 1
-
-                    P += len(DP)
+                    finally:
+                        P += len(DP)
                     
-                    if P <= 16:
+                    if P < 15:
                         return Null
 
                     for PL in range(1, 9):
@@ -397,7 +417,10 @@ def pnumber(*objs: Any | Iterable[Any],
         return Numeric(obj)
 
     for obj in plist(objs):
-        R.append(numeric(obj))
+        S = numeric(obj)
+        if S.type != type(S.value):  # Type correction for float(Xe+Y)
+            S = numeric(S.value)
+        R.append(S)
 
     return punit(R)
 
