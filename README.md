@@ -1,6 +1,6 @@
 |![Image](https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/pthead.png)
 |:--:|
-**[Version: 1.2.241003.0](https://github.com/gabrielmsilva00/PlainTools/releases) <br/> (Main.sub.YYMMDD.rev)**
+**[Version: 1.2.241004.2](https://github.com/gabrielmsilva00/PlainTools/releases) <br/> (Main.sub.YYMMDD.rev)**
 | - [GitHub Repo](https://github.com/gabrielmsilva00/PlainTools) \| [PyPi Repo](https://pypi.org/project/PlainTools)
 | - [Author's GitHub Profile](https://github.com/gabrielmsilva00)
 [<img src="https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/ptqrdoc.png?">](https://gabrielmsilva00.github.io/PlainTools)
@@ -51,7 +51,7 @@ Some simple, yet relevant examples using the **Plain Number**(`pt.pnumber`) func
 0.9999999999999988
 
 >>> pt.pnumber(0.9999999999991234)
-0.9999999999999988 # No loss of precision up to 14 literal digits.
+0.99999999999912 # No loss of precision up to 14 literal digits.
 ؜
 
 >>> 0.00000000001 ** 3

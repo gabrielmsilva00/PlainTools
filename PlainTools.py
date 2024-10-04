@@ -27,7 +27,7 @@
 ∙∙∙ github.com/JetBrains/JetBrainsMono
 """
 # ---------------------------------------------------------------------------<
-__version__ = "1.2.241004.1"
+__version__ = "1.2.241004.2"
 __author__ = "gabrielmsilva00"
 __url__ = "https://gabrielmsilva00.github.io/PlainTools/"
 __repo__ = "https://github.com/gabrielmsilva00/PlainTools.git"
@@ -683,20 +683,11 @@ def pdecimals(*nums: Real | Iterable[Real | String],
 
     for num in plist(nums):
         num = pnumber(num)
-        etol = 'auto'
-        if num.period != None:
+        if num.irrational:
             return float('inf')
-        if 'e-' in str(num):
-            etol = int(num.string.split('e-')[-1])
-        prd = str(pround(abs(num) - math.floor(abs(num)), tol=etol))
-        num = pround(prd, tol=etol)
-        if Seval(prd) == 0:
+        if num.type == int:
             continue
-        if 'e-' in prd:
-            enot = int(prd.split('e-')[-1])
-            prd = f"{num:.{enot}f}"
-        if '.' in prd:
-            R = max(R, len(prd.split('.')[1]))
+        R = max(R, len(num.full.split('.')[1]))
 
     return R
 
