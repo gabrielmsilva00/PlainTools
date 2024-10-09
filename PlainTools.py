@@ -1,4 +1,4 @@
-##!python -m autopep8 -i -a -a -a
+##!python -m autopep8 -i
 """[||-Plain-Tools-||]
 ΛΛΛ Gabriel Maia @gabrielmsilva00 - UERJ - Electric Engineering Undergraduate.
 === Utilities, Constructors, Formatters, Debuggers.
@@ -27,10 +27,12 @@
 ∙∙∙ github.com/JetBrains/JetBrainsMono
 """
 # ---------------------------------------------------------------------------<
-__version__ = "1.2.241004.2"
+__title__ = "PlainTools"
+__version__ = "1.2.241008.0"
 __author__ = "gabrielmsilva00"
 __url__ = "https://gabrielmsilva00.github.io/PlainTools/"
 __repo__ = "https://github.com/gabrielmsilva00/PlainTools.git"
+__license__ = "Apache License 2.0"
 
 
 # IMPORTS ==> from <package> import <obj>
@@ -214,14 +216,14 @@ def pnumber(*objs: Any | Iterable[Any],
                 cls.string = repr(cls)
                 cls.id = id(obj)
                 cls.enot = False
-                
+
                 with Try:
                     cls.enot = int(repr(cls).split('e')[1])
 
                 if cls.enot < 0:
                     expo = int(cls.string.split('e-')[-1])
                     expo += len(cls.string.split('.')[-1].split('e')[0])
-                    cls.full = f"{cls:.{expo}f}"
+                    cls.full = f"{cls:.{expo}f}".rstrip('0')
 
                 elif cls.enot > 0:
                     intg, inte = repr(cls.value).split('e+')
@@ -237,7 +239,7 @@ def pnumber(*objs: Any | Iterable[Any],
                         inte -= 1
                         if inte <= 0:
                             break
-                    cls.full = str(intg + ('0' * inte))
+                    cls.full = str(intg + ('0' * inte)).rstrip('0')
                     cls.value = Seval(cls.full)
 
                 else:
@@ -259,7 +261,7 @@ def pnumber(*objs: Any | Iterable[Any],
                     return strint + strval[
                         :pstart + len(cls.period)] + f"{cls.period * 2}..."
                 if And(cls.type == Integer, len(
-                    repr(int(Seval(cls.full)))) > 12):
+                        repr(int(Seval(cls.full)))) > 12):
                     R, S = str("%.12e" % pround(cls.value, tol=cls.enot)
                                ).split('e')
                     return (R.rstrip('0') + 'e' + S)
@@ -317,6 +319,8 @@ def pnumber(*objs: Any | Iterable[Any],
                         R = pround(float(SR), dcm=16, tol=max(E, 14))
 
                         if isinstance(R, int):
+                            if E:
+                                R = Seval(f'{R}e{E}')
                             break
 
                         DP = SR.split('.')[-1]
@@ -383,7 +387,7 @@ def pnumber(*objs: Any | Iterable[Any],
                             P += 1
                     finally:
                         P += len(DP)
-                    
+
                     if P < 15:
                         return Null
 
@@ -404,7 +408,8 @@ def pnumber(*objs: Any | Iterable[Any],
                                             (PL == 4 and RC >= 3),
                                             (PL == 5 and RC >= 2),
                                             (PL >= 6 and RC >= 1)):
-                                        if not RS.strip('0') == '':
+                                        if not RS.strip('0') == '' and (
+                                                not RS.strip('9') == ''):
                                             if len(RS) > 1 and (
                                                     RS.strip(RS[0]) == ''):
                                                 break
@@ -482,7 +487,7 @@ def punit(*its: Iterable[Any],
             | ([1, 2], 3, 4)
 
         punit([[7, 8]], {9})
-            | ([7, 8], 9)
+            | (7, 8, 9)
 
     :Args:
         *its: Iterable[Any]
@@ -783,7 +788,7 @@ def prange(*args: Real,
            start: Real = None,
            stop: Real = None,
            step: Real = None,
-           type: String = None,
+           type: Type | String = None,
            ) -> Iterable[Real]:
     """
     Plain Range.
@@ -791,6 +796,7 @@ def prange(*args: Real,
     Simulates the 'range()' function from Python 2.x.
 
     Instead of a *range* object, returns a plain *Iterable* of specified type.
+    Default *Iterable* type is 'list'. The 'chain' type is also available.
 
     Stop argument is the de-facto stop, being the last value of list.
 
@@ -800,10 +806,10 @@ def prange(*args: Real,
         prange(5)
             | [0, 1, 2, 3, 4, 5]
 
-        prange(5, 2.5, 0.5, 'tuple')
+        prange(5, 2.5, 0.5, tuple)
             | (5, 4.5, 4, 3.5, 3, 2.5)
 
-        prange(0, 15, 4, 'dict')
+        prange(0, 15, 4, dict)
             | {0: 0, 1: 4, 2: 8, 3: 12}
 
     :Args:
@@ -825,7 +831,7 @@ def prange(*args: Real,
             | Step value of the iterable.
 
         type: String = None
-            | Return type ('list', 'tuple', 'set', 'dict').
+            | Return type ('tuple', 'list', 'set', 'dict', 'chain').
 
 
     :Returns:
@@ -837,19 +843,19 @@ def prange(*args: Real,
             stop = stop or args[0]
             start = 0
             step = 1
-            type = 'list'
+            type = list
 
         case 2:
             start = start or args[0]
             stop = stop or args[1]
             step = 1
-            type = 'list'
+            type = list
 
         case 3:
             start = start or args[0]
             stop = stop or args[1]
             step = step or args[2]
-            type = 'list'
+            type = list
 
         case 4:
             start = start or args[0]
@@ -860,35 +866,23 @@ def prange(*args: Real,
         case Z:
             raise TypeError(f"prange expected at most 4 arguments, got {Z}")
 
-    R: Iterable[Real] = []
-    C: Real = pnumber(start)
-    D: Integer = max(pdecimals(step), 16)
+    if stop < start and step > 0:
+        step = -step
 
-    if step == 0:
-        raise ValueError('prange() step must not be zero')
+    R: Chain[Real] = psequence(start, start + step, ..., stop)
 
-    if start <= stop:
-
-        while C <= stop:
-            R.append(C)
-            C += abs(step)
-
+    if isinstance(type, str):
+        type = type.lower()
     else:
+        type = type.__name__
 
-        while C >= stop:
-            R.append(C)
-            C -= abs(step)
-    
-    if math.isclose(R[-1], stop):
-        R = R[:-1] + [stop]
-    
-    elif R[-1] != stop:
-        R.append(stop)
+    match type:
 
-    match type.lower():
+        case 'chain':
+            return R
 
         case 'list':
-            return R
+            return list(R)
 
         case 'tuple':
             return tuple(R)
@@ -1254,7 +1248,7 @@ def pabs(*nums: Real | Iterable[Real | String],
             | Dict-subclass with min, max, original min and original max.
     """
     R: Container[String: Real]
-    nums = pnumber(plist(nums))
+    nums = plist(pnumber(nums))
 
     return Container(min=min([abs(num) for num in nums]),
                      max=max([abs(num) for num in nums]),
@@ -1628,12 +1622,15 @@ def const(**kwargs) -> Container[Constant: Any]:
         R: Container[Constant: Any]
             | A Container with the relationed objects assigned as Constants.
     """
-    R: Container[Any: Any] = Container(kwargs)
+    R: Container[Any: Any] = {}
     C: Frame = pframe(2)
+    
+    for kwarg in kwargs:
+        R[kwarg] = Constant(kwargs[kwarg])
 
-    C.f_locals.update((kwarg, Constant(kwargs[kwarg])) for kwarg in kwargs)
+    C.f_locals.update(R)
 
-    return R
+    return Container(R)
 
 
 def timeout(secs: Real,
@@ -1986,14 +1983,15 @@ def showcall(func: Function) -> Function:
     return wrapper
 
 
-def moduleview(module: Module | String) -> Container:
+def namespace(name: Module | String | Frame = None,
+              ) -> Container:
     """
-    Module View.
+    Namespace Viewer.
 
-    Returns a Container of a module's attributes and values.
+    Returns a Container of a module's or frame's attributes and values.
 
     Note that, as the return type is a Container, you can do such as:
-        | calc = moduleview('math')
+        | calc = namespace('math')
         | calc.pi # the exact same as math.pi
 
     :Args:
@@ -2005,14 +2003,26 @@ def moduleview(module: Module | String) -> Container:
             | View of the module as k:v pairs.
     """
     R: Container = {}
-    if isinstance(module, str):
-        module = pimport(module)
-    RL = dir(module)
 
-    for i, j in enumerate(RL):
-        R[j] = getattr(module, j)
+    if name is None:
+        name = pframe(2)
 
-    return Container(R)
+    elif isinstance(name, str):
+        name = pimport(name)
+
+    if isinstance(name, Module):
+        RL = dir(name)
+
+        for i, j in enumerate(RL):
+            R[j] = getattr(name, j)
+
+        return Container(R)
+
+    elif isinstance(name, Frame):
+        for i, j in enumerate(name.f_locals):
+            R[j] = name.f_locals[j]
+
+        return Container(R)
 
 
 def attempt(fallback: Any, operator: Any, *args, **kwargs) -> Any:
@@ -3078,7 +3088,7 @@ class SEVAL:
                  ) -> Class:
         cls.namespace = collections.ChainMap(pframe(2).f_locals,
                                              pframe(outer=True).f_locals,
-                                             moduleview('builtins'),
+                                             namespace('builtins'),
                                              )
         cls.operators = {ast.Add: operator.add,
                          ast.Sub: operator.sub,
@@ -3891,7 +3901,7 @@ def doc(*objs: callable,
         Prints the current frame's module docstring if no object is given.
     """
     R: List[String] = []
-    L: List[String] = ('__kmodule__', '__class__', '__name__', '__doc__')
+    L: List[String] = ('__module__', '__class__', '__name__', '__doc__')
     objs = list(objs)
 
     if objs:
@@ -3931,7 +3941,7 @@ def site(module: Module | str = '__main__',
     import webbrowser
     if isinstance(module, str):
         module = pimport(module)
-        
+
     if hasattr(module, '__url__'):
         # https://stackoverflow.com/a/29854274/26469850
         import http.client
@@ -3946,10 +3956,10 @@ def site(module: Module | str = '__main__',
             conn.close()
             if not err:
                 return
-    
+
     name = os.path.basename(module.__file__).split('.')[0] if hasattr(
         module, '__file__') else module.__name__
-    
+
     sites = glob.glob('**/*.html', recursive=True)
 
     for site in sites:
@@ -3964,6 +3974,59 @@ def site(module: Module | str = '__main__',
         )
 
 
+def moduleview(module: Module | str = '__main__',
+               verbose: Bool = False,
+               ) -> None:
+    """
+    Module Viewer.
+
+    This function will resolve & return every attribute related 
+    to documentation of the analyzed module.
+    """
+    R: Container[String: Any] = {}
+    M: Module = pimport(module) if isinstance(module, str) else module
+
+    attrs = ('__name__',
+             '__title__',
+             '__version__',
+             '__author__',
+             '__license__',
+             '__url__',
+             '__repo__',
+             '__file__',
+             '__doc__',)
+
+    for att in attrs:
+        R[att.strip('__')] = getattr(M, att, "---")
+
+    R['contents'] = namespace(M)
+
+    R = Container(R)
+    C = R.val()
+
+    if verbose:
+        printnl(
+            "[‼-MODULE-VIEW-START-‼]",
+            '',
+            f"[Name]: {C[0]}",
+            f"[Title]: {C[1]}",
+            f"[Version]: {C[2]}",
+            f"[Author]: {C[3]}",
+            f"[License]: {C[4]}",
+            f"[URL]: {C[5]}",
+            f"[Repository]: {C[6]}",
+            f"[File]: {C[7]}",
+            '',
+            f"[Description]:\n{C[8]}",
+            '',
+            "[‼-MODULE-VIEW-END-‼]"
+        )
+
+    return R
+
+
 with Main:
-    doc()
+    moduleview(verbose=True)
+    input("\nPress [Enter] to open the module documentation;\nPress [Ctrl+C] to exit...")
     site()
+    input("\nPress [Enter] to exit...")
