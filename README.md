@@ -88,7 +88,9 @@ This project would be ***impossible*** to make without the **support of my frien
     - A big thanks to my professor [Vitor Tocci](https://br.linkedin.com/in/vitor-tocci-79249164), who lectured [`Introduction to Data Proccessing`](https://www.ementario.uerj.br/ementa.php?cdg_disciplina=627) and introduced me into Python programming when I had little background experience in the matter.
     - Thanks to my beloved girlfriend **Ana Caroline**, who tirelessly heard me babble about Python through hours in these past few months where I was still learning and improving much of my understanding of the language. I love you!
     - Thanks to **all of my friends and family**, including **@CherryGM** who helped me revise this documentation and greatly encouraged me. And to everyone who helped me debug this documentation itself when I had zero `Sphinx` knowledge. I hope I did well enough and hope to do much more in the future!
+
 ؜
+
 - Disclaimer: **LLM (AI) Use**:
     - [ChatGPT](https://chat.openai.com), [Codeium](https://codeium.com) and [Gemini](https://gemini.google.com) (The later not credited as it did not "contribute" directly to the codebase) were used in this project development.
     - **If you, your university or your company (in general, if the target for this library's use) does have any restrictions, implicit or explicit, against the use of LLMs in production | academic coding, please avert from using this library.**
@@ -99,7 +101,9 @@ This project would be ***impossible*** to make without the **support of my frien
         - functools
         - multiprocessing
     - If any code comes across as sluggish, unnoptimized or just bad, please let me know by [raising an issue](https://github.com/gabrielmsilva00/PlainTools/issues) or DMing me at [GitHub @gabrielmsilva00](https://github.com/gabrielmsilva00), or by emailing me at [gabrielmaia.silva00@gmail.com](mailto:gabrielmaia.silva00@gmail.com?subject=PlainTools%20Python%20Library%20Feedback).
+
 ؜
+
 - References & Auxiliary Material:
     - [AutoPEP8](https://pypi.org/project/autopep8/), code formatting;
     - [Sphinx](https://www.sphinx-doc.org/en/master/index.html), documentation;
@@ -114,8 +118,8 @@ This project would be ***impossible*** to make without the **support of my frien
 
 ؜
 
-
-| <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" width=256 style="vertical-align:middle;margin:5px">
+| This project
 |:-:|
+| <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" width=256 style="vertical-align:middle;margin:5px">
 |<a href=https://github.com/gabrielmsilva00><img src="https://img.shields.io/badge/GitHub-Author-526E8C?logo=github" width=256 style="vertical-align:middle;margin:5px">
 | <img src=https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/pttail.png style="vertical-align:middle">
