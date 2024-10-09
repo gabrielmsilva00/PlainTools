@@ -28,7 +28,7 @@
 """
 # ---------------------------------------------------------------------------<
 __title__ = "PlainTools"
-__version__ = "1.2.241008.0"
+__version__ = "1.2.241008.1"
 __author__ = "gabrielmsilva00"
 __url__ = "https://gabrielmsilva00.github.io/PlainTools/"
 __repo__ = "https://github.com/gabrielmsilva00/PlainTools.git"
@@ -3934,9 +3934,10 @@ def site(module: Module | str = '__main__',
     """
     Documentation HTML Viewer.
 
-    This function will search for any .html files in the module's
-    directory that are named after the module itself, and attempt
-    to open it in the default browser of the user.
+    :Rationale:
+        This function will search for any .html files in the module's
+        directory that are named after the module itself, and attempt
+        to open it in the default browser of the user.
     """
     import webbrowser
     if isinstance(module, str):
@@ -3975,13 +3976,14 @@ def site(module: Module | str = '__main__',
 
 
 def moduleview(module: Module | str = '__main__',
-               verbose: Bool = False,
+               verbose: Bool = True,
                ) -> None:
     """
     Module Viewer.
 
-    This function will resolve & return every attribute related 
-    to documentation of the analyzed module.
+    :Rationale:
+        This function will resolve & return every attribute related 
+        to documentation of the analyzed module.
     """
     R: Container[String: Any] = {}
     M: Module = pimport(module) if isinstance(module, str) else module
@@ -4026,7 +4028,7 @@ def moduleview(module: Module | str = '__main__',
 
 
 with Main:
-    moduleview(verbose=True)
-    input("\nPress [Enter] to open the module documentation;\nPress [Ctrl+C] to exit...")
+    moduleview()
+    input("\nPress [Enter] to open the module documentation;\nClose the console to exit...")
     site()
     input("\nPress [Enter] to exit...")
