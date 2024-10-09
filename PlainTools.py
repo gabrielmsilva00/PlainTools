@@ -28,7 +28,7 @@
 """
 # ---------------------------------------------------------------------------<
 __title__ = "PlainTools"
-__version__ = "1.2.241008.1"
+__version__ = "1.2.241009.0"
 __author__ = "gabrielmsilva00"
 __url__ = "https://gabrielmsilva00.github.io/PlainTools/"
 __repo__ = "https://github.com/gabrielmsilva00/PlainTools.git"
@@ -39,6 +39,7 @@ __license__ = "Apache License 2.0"
 import __main__
 import os
 import sys
+import builtins
 import platform
 import shutil
 import glob
@@ -3086,9 +3087,12 @@ class SEVAL:
                  functions: Set = set(),
                  modules: Set = set(),
                  ) -> Class:
+        cls.builtins = {}
+        for i, j in enumerate(dir(builtins)):
+            cls.builtins[j] = getattr(builtins, j)
         cls.namespace = collections.ChainMap(pframe(2).f_locals,
                                              pframe(outer=True).f_locals,
-                                             namespace('builtins'),
+                                             cls.builtins,
                                              )
         cls.operators = {ast.Add: operator.add,
                          ast.Sub: operator.sub,
@@ -3127,6 +3131,8 @@ class SEVAL:
                                      'printc',
                                      'doc',
                                      'site',
+                                     'moduleview',
+                                     'namespace',
                                      'qfunc',
                                      'timeout',
                                      'let',
@@ -3165,7 +3171,8 @@ class SEVAL:
                                      'whitelist',
                                      'protocol',
                                      },
-                          modules={'os',
+                          modules={'__main__',
+                                   'os',
                                    'sys',
                                    'shutil',
                                    'pathlib',
@@ -3252,7 +3259,7 @@ class SEVAL:
                 raise cls.UnsafeError("Operation not allowed")
 
         elif isinstance(node, ast.Name):  # Variables
-            if node.id in local:
+            if node.id in local.keys():
                 func = local[node.id]
                 if callable(
                         func) and ((cls.protocol == 'blacklist' and (
