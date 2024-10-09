@@ -28,7 +28,7 @@
 """
 # ---------------------------------------------------------------------------<
 __title__ = "PlainTools"
-__version__ = "1.2.241009.1"
+__version__ = "1.2.241009.2"
 __author__ = "gabrielmsilva00"
 __url__ = "https://gabrielmsilva00.github.io/PlainTools/"
 __repo__ = "https://github.com/gabrielmsilva00/PlainTools.git"
@@ -83,8 +83,6 @@ NamedTuple = type(collections.namedtuple)
 List = typing.List
 Set = collections.abc.Set
 Dict = dict
-Container = type
-Constant = type
 Chain = itertools.chain
 
 Iterable = collections.abc.Iterable
@@ -103,11 +101,11 @@ Err = Exception
 
 Any = typing.Any
 Object = object
-Type = type
+Type = object
 Self = typing.Self
-Class = type
-Args = type
-Kwargs = type
+Class = object
+Args = object
+Kwargs = object
 
 
 # LOGIC ==> Logic gate operators:
@@ -119,6 +117,597 @@ Or = lambda *args: any(bool(arg) for arg in args)
 Nor = lambda *args: not any(bool(arg) for arg in args)
 Xor = lambda *args: sum(bool(arg) for arg in args) % 2 == 1
 Xnor = lambda *args: sum(bool(arg) for arg in args) % 2 == 0
+
+
+# CONSTRUCTOR CLASSES ==> Custom objects:
+class Container(Dict):
+    """
+    Container Class; dict Subclass.
+
+    A flexible dict-class that supports various operations and
+    transformations. Unlike a standard dictionary, a `Container`
+    is unpacked by its items rather than by its keys.
+
+    Note: Containers can't have numeric keys due to how their
+    keys are directly associated to its instance attributes.
+    However, any String type is a valid key type.
+    Attempting to update a Container instance with
+    enumerated dictionaries will raise a TypeError.
+
+
+    The Container supports basic arithmetic operations on a
+    per-key basis, meaning that you can operate an iterable
+    to a Container, where each ordered element operates each
+    key's value until exhaustion; Where as single, non-iterable
+    operations are performed on the entire Container.
+
+    Containers can have its values accessed as attributes
+    when calling for their keys. This means that assigned
+    attributes into this class are also added to the
+    Container's keys with the designated value.
+
+    :Example:
+        C1 = Container(a=1, b=2)
+            | Creates a Container as {'a': 1, 'b': 2}
+
+        C2 = Container('c')
+            | Creates a Container as {'c': None}
+
+        C1(C2) # Same as C1 += C2
+            | Aggregates C1 and C2 for {'a': 1, 'b': 2, 'c': None}
+
+        C1.fill(4)
+            | Alocates '4' to the first encounter of `None` value in C1.
+
+    :Methods:
+        .sort(*args, **kwargs): Self
+            | Sorts the keys (or values) of the Container; Optional lambda.
+
+        .shove(*vals): Self
+            | Adds the values to the keys following the current order of keys.
+
+        .fill(*vals, target=None, exhaust=True): Self
+            | Fills in any `target` vals in the Container with given vals.
+            | `target` argument can be a lambda|function|builtin|singleton.
+            | `exhaust` argument defines if fill is finite or cyclic infinite.
+
+        .order(*keys): Self
+            | Orders the keys of the Container as provided.
+        
+        .filter(*keys): Self
+            | Filters the keys of the Container as provided.
+        
+        .remove(*keys): Self
+            | Removes the keys of the Container as provided.
+
+        .only(*keys): Container
+            | Returns a Container copy containing only the specified keys.
+
+        .without(*keys): Container
+            | Returns a Container copy without the specified keys.
+
+        .keyval(): dict
+            | Returns a copy of the dictionary object as {keys: values}.
+
+        .key(*keys): list
+            | Returns a list of keys in Container; Optional filter for values.
+
+        .val(*vals): list
+            | Returns a list of values in Container; Optional filter for keys.
+
+        .sub(): Tuple[Container]
+            | Returns a tuple of each k: v pair in Container, as Containers.
+
+        .copy(): Container
+            | Returns a deepcopy of the current Container.
+
+    :Operators:
+        Any basic arithmetic operator is supported as in:
+        Container <> Container;
+        Container <> other (if the operation(value, other) is valid).
+
+        Operations with non-iterables are valid as long as the operation to
+        every Container[k:v] <> other is valid for all given (v).
+            | i.e. Container(f=1, g=2, h=3) * 2 == Container(f=2, g=4, h=6)
+            | i.e. Container(Bob='Foo') - 5 == Container(Bob='Foo', Bob_1=5)
+
+        Operations with iterables are valid as long as the operation to
+        every pair Container[k:v] <> other[i] is valid for the max possible (i).
+            | i.e. Container(R=5, S=10) * (2,3,4) == Container(R=10, S=30)
+            | i.e. Container(T=2,U=4,V=6) - {2,3} == Container(T=0, U=1, V=6)
+
+        Remainder of Container <> other[i] operations are ignored, as the result
+        is a Container type with the same keys as the involved Container.
+            | i.e. Container(i=2, j=3) * [2, 3, 4] == Container(i=4, j=9)
+
+        Remainer of Container <> Container operations aggregate non-similar
+        keys into the final result, unmodified, as no C1[k] <> C2[k] is valid.
+            | i.e. Container(f=5) - Container(g=10) == Container(f=5, g=10)
+
+        add (+)
+            | Adds the values of another Container, or from a sequence.
+            | i.e. Container(a=5) + (b=4) == Container(a=5, b=4)
+            | i.e. Container(a=5, b=4) + [3, 4] == Container(a=8, b=8)
+
+        sub (-)
+            | Subtracts the values of another Container or from a sequence.
+            | i.e. Container(x=5, y=10) - 3 == Container(x=2, y=7)
+            | i.e. Container(a=5, b=4) - Container(c=3, d=2)
+
+        mul (*)
+            | Multiplies the values of another Container or from a sequence.
+            | i.e. Container(x=5) * 2 == Container(x=10)
+            | i.e. Container(x=5, y=4) * (3, 4) == Container(x=15, y=16)
+
+        truediv (/)
+            | Divides the values of another Container or from a sequence.
+            | i.e.Container(T=2,U=4,V=6)/[1,2,3]==Container(T=2.0,U=2.0,V=2.0)
+
+        floordiv (//)
+            | Floor divides the values of another Cont. or from a sequence.
+            | i.e. Container(A=12.5) // Container(A=3.5) == Container(A=3.0)
+
+        mod (%)
+            | Modulo operates on the values of another Cont. or from a seq.
+            | i.e. Container(B=7.5) % Container(B=2) == Container(B=1.5)
+
+        pow (**)
+            | Raises the values of the Container to the power of.
+            | i.e. Container(C=5) ** Container(C=3) == Container(C=125)
+    """
+    def __init__(cls, *args, **kwargs):
+        cls(*args, **kwargs)  # Redirect to __call__
+
+    def __call__(cls, *args, **kwargs):
+        for arg in args:
+
+            if isinstance(arg, dict):
+                cls.update(arg)
+                continue
+
+            elif isinstance(arg, (list, tuple, set)):
+                cls.update(zip(
+                    cls.keys(), arg))
+
+            else:
+                cls.update(zip(
+                    args, kwargs.get('value', [None] * len(args))))
+
+        for kwarg in kwargs:
+            cls[kwarg] = kwargs[kwarg]
+
+        for key in cls.key():
+            if not hasattr(cls, key):
+                super().__setattr__(key, cls[key])
+
+        return cls
+
+    def __getitem__(cls, key):
+        if isinstance(key, int):
+
+            with Try:
+                item = tuple(cls.items())[key]
+                return item
+
+        else:
+            return super().__getitem__(key)
+
+    def __getattr__(cls, key):
+        with Try:
+            return cls[key]
+        with Try:
+            return super().__getattr__(key)
+
+    def __setattr__(cls, key, val):
+        if not hasattr(cls, key) or key in cls:
+            cls[key] = val
+
+        return cls
+
+    def __iter__(cls):
+        return iter(cls.items())
+
+    def sort(cls, *args, **kwargs):
+        items = list(cls.items())
+
+        items.sort(*args, **kwargs)
+
+        cls.clear()
+
+        for key, val in items:
+            cls[key] = val
+
+        return cls
+
+    # METHODS ─► Value Allocation:
+    def shove(cls, *vals):
+        for key, val in zip(cls.keys(), vals):
+            cls[key] = val
+
+        return cls
+
+    def fill(cls, *vals, target=None, exhaust=True):
+        vals = list(vals)
+
+        for key in cls.keys():
+
+            if any(pistype(target, Function, Builtin)):
+                if target((cls[key],)) or target(cls[key]):
+                    try:
+                        cls[key] = vals[0]
+                        if not exhaust:
+                            vals.append(vals[0])
+                        vals.pop(0)
+                    except IndexError:
+                        break
+
+            else:
+                if cls[key] == target:
+                    try:
+                        cls[key] = vals[0]
+                        if not exhaust:
+                            vals.append(vals[0])
+                        vals.pop(0)
+                    except IndexError:
+                        break
+
+        return cls
+
+    # METHODS ─► Key Allocations:
+    def order(cls, *keys):
+        items = list(cls.items())
+
+        cls.clear()
+
+        for key in keys:
+
+            for ikey, ival in items:
+
+                if ikey == key:
+                    cls[key] = ival
+                    break
+
+        for ikey, ival in items:
+
+            if ikey not in keys:
+                cls[ikey] = ival
+
+        return cls
+    
+    def filter(cls, *keys):
+        keys = list(keys)
+
+        for key in cls.key():
+            if key not in keys:
+                cls.pop(key)
+
+        return cls
+    
+    def remove(cls, *keys):
+        keys = list(keys)
+
+        for key in cls.key():
+            if key in keys:
+                cls.pop(key)
+
+        return cls
+
+    def only(cls, *keys):
+        keys = list(keys)
+        result = cls.copy()
+
+        for key in result.key():
+            if key not in keys:
+                result.pop(key)
+
+        return result
+
+    def without(cls, *keys):
+        keys = list(keys)
+        result = cls.copy()
+
+        for key in result.key():
+            if key in keys:
+                result.pop(key)
+
+        return result
+
+    # METHODS ─► Container Access:
+    def keyval(cls):
+        return dict(zip(cls.keys(), cls.values()))
+
+    def key(cls, *keys):
+        return list(cls.keys()) if not keys else punit([
+            cls[key] for key in keys])
+
+    def val(cls, *vals):
+        return list(cls.values()) if not vals else punit([
+            key for key in cls.keys() if cls[key] in vals])
+
+    def sub(cls):
+        return tuple(cls(key).shove(val) for key, val in cls)
+
+    def copy(cls):
+        return copy.deepcopy(cls)
+
+    def operate(cls, other, op):
+        result = cls.copy()
+        if isinstance(other, dict):
+            for key in other.keys():
+                if key in cls:
+                    try:
+                        if result[key] is not None:
+                            result[key] = op(cls[key], other[key])
+                        else:
+                            result[key] = other[key]
+                    except Exception:
+                        suffix_index = 1
+                        new_key = f"{key}_{suffix_index}"
+
+                        while new_key in result:
+                            suffix_index += 1
+                            new_key = f"{key}_{suffix_index}"
+
+                        result[new_key] = other[key]
+
+                else:
+                    result[key] = other[key]
+
+        elif isinstance(other, Iterable) and not isinstance(other, str):
+            other = plist(other)
+            for i, key in enumerate(cls.keyval()):
+                if i < len(other):
+                    try:
+                        result[key] = op(cls[key], other[i])
+                    except Exception:
+                        idx = 1
+                        ikey = f"{key}_{idx}"
+
+                        while ikey in result:
+                            idx += 1
+                            ikey = f"{key}_{idx}"
+
+                        result[ikey] = other[i]
+
+        else:
+            for key in cls.keyval():
+                try:
+                    result[key] = op(cls[key], other)
+
+                except TypeError:
+                    continue  # ie. NoneTypes
+
+                except Exception:
+                    idx = 1
+                    ikey = f"{key}_{idx}"
+
+                    while ikey in result:
+                        idx += 1
+                        ikey = f"{key}_{idx}"
+
+                    result[ikey] = other
+
+        return result
+
+    def convert(cls, x, y, op):
+        try:
+            return op(x, y)
+        except TypeError:
+            try:
+                return op(x, type(x)(y))
+            except (TypeError, ValueError):
+                try:
+                    return op(type(y)(x), y)
+                except (TypeError, ValueError):
+                    raise
+
+    def __add__(cls, other):
+        return cls.operate(other, lambda x, y: cls.convert(
+            x, y, lambda a, b: a + b))
+
+    def __sub__(cls, other):
+        return cls.operate(other, lambda x, y: cls.convert(
+            x, y, lambda a, b: a - b))
+
+    def __mul__(cls, other):
+        return cls.operate(other, lambda x, y: cls.convert(
+            x, y, lambda a, b: a * b))
+
+    def __truediv__(cls, other):
+        return cls.operate(other, lambda x, y: cls.convert(
+            x, y, lambda a, b: a / b))
+
+    def __floordiv__(cls, other):
+        return cls.operate(other, lambda x, y: cls.convert(
+            x, y, lambda a, b: a // b))
+
+    def __mod__(cls, other):
+        return cls.operate(other, lambda x, y: cls.convert(
+            x, y, lambda a, b: a % b))
+
+    def __pow__(cls, other):
+        return cls.operate(other, lambda x, y: cls.convert(
+            x, y, lambda a, b: a ** b))
+
+
+class Constant:
+    """
+    Immutable Constants.
+
+    Wraps a value and provides a constant, immutable interface to it.
+
+    Overrides most of the standard dunder methods to ensure immutability.
+
+    Non-dunder methods can be called, but will only return the Constant's
+    value and won't modify the Constant itself or it's value in any way.
+
+    :Proto-Code:
+        If a (Variable) is a (Value) wrapped as a (Constant):
+          | The (Variable)'s (Value) becomes an immutable (Constant).
+
+        The (Variable)'s (Name) can still be reassigned or deleted,
+        but the (Variable)'s (Value) cannot be changed.
+
+        Return the original (Value) of the (Constant).
+
+    :Examples:
+        x = Constant(5)
+            | Create an immutable constant with a value of 5
+            | i.e. x + 5 == 10
+            | i.e. x += 5 ; x == 5
+
+        pi = Constant(math.pi)
+            | Assign 'math.pi' to 'pi' as an immutable constant
+            | i.e. const(rpi=pi*2)
+
+    :Args:
+        value: Any
+          | The value to be wrapped as a Constant.
+
+    :Returns:
+        Constant
+          | An immutable Constant instance wrapping the provided value.
+    """
+
+    # Core methods
+    def __init__(cls, value): return object.__setattr__(cls, 'val', value)
+
+    def __getattr__(cls, name):
+        attr = getattr(cls.val, name)
+        if callable(attr):
+            def wrapper(*args, **kwargs):
+                return cls
+            return wrapper
+        return attr
+
+    def inplace(cls, *args, **kwargs):
+        return Constant(cls.val)
+
+    def other(signal):
+        def wrapper(cls, other):
+            try:
+                return eval(f"cls.val {signal} other")
+            except Exception:
+                return eval("cls.val")
+        return wrapper
+
+    # In-place operators
+    __setattr__ = inplace
+    __delattr__ = inplace
+    __iadd__ = inplace
+    __isub__ = inplace
+    __imul__ = inplace
+    __itruediv__ = inplace
+    __ifloordiv__ = inplace
+    __imod__ = inplace
+    __ipow__ = inplace
+    __imatmul__ = inplace
+    __iand__ = inplace
+    __ior__ = inplace
+    __ixor__ = inplace
+    __ilshift__ = inplace
+    __irshift__ = inplace
+
+    # Comparison operations
+    __eq__ = other('==')
+    __ne__ = other('!=')
+    __lt__ = other('<')
+    __le__ = other('<=')
+    __gt__ = other('>')
+    __ge__ = other('>=')
+
+    # Arithmetic
+    __add__ = __radd__ = other('+')
+    __sub__ = __rsub__ = other('-')
+    __mul__ = __rmul__ = other('*')
+    __truediv__ = __rtruediv__ = other('/')
+    __floordiv__ = __rfloordiv__ = other('//')
+    __mod__ = __rmod__ = other('%')
+    __pow__ = __rpow__ = other('**')
+    __matmul__ = __rmatmul__ = other('@')
+
+    # Binary
+    __and__ = __rand__ = other('&')
+    __or__ = __ror__ = other('|')
+    __xor__ = __rxor__ = other('^')
+    __lshift__ = __rlshift__ = other('<<')
+    __rshift__ = __rrshift__ = other('>>')
+
+    # Unary
+    def __pos__(cls): return Constant(+cls.val)
+    def __neg__(cls): return Constant(-cls.val)
+    def __invert__(cls): return Constant(~cls.val)
+
+    # Built-in math
+    def __abs__(cls): return abs(cls.val)
+    def __index__(cls): return int(cls.val) if isinstance(
+        cls.val, Number) else NotImplemented
+
+    def __round__(cls, ndigits=0): return round(cls.val, ndigits)
+
+    def __trunc__(cls): return int(cls.val) if isinstance(
+        cls.val, float) else NotImplemented
+
+    def __floor__(cls): return int(cls.val // 1) if isinstance(
+        cls.val, float) else NotImplemented
+    def __ceil__(cls): return int(cls.val // 1 + 1) if isinstance(
+        cls.val, float) and cls.val % 1 != 0 else int(cls.val)
+
+    def __divmod__(cls, other): return divmod(cls.val, other)
+    def __rdivmod__(cls, other): return divmod(other, cls.val)
+
+    # Numberic conversions
+    __complex__ = __int__ = __float__ = __index__ = (
+        lambda cls: type(cls.val)(cls.val))
+
+    # String | Text representation
+    def __repr__(cls): return repr(cls.val)
+    def __str__(cls): return str(cls.val)
+    def __format__(cls, format_spec): return format(cls.val, format_spec)
+    def __bytes__(cls): return bytes(cls.val)
+    def __bool__(cls): return bool(cls.val)
+
+    # Sequences
+    def __hash__(cls): return hash(cls.val)
+    def __len__(cls): return len(cls.val)
+    def __contains__(cls, item): return item in cls.val
+    __getitem__ = __setitem__ = lambda cls, key: cls.val[key]
+    def __iter__(cls): return iter(cls.val)
+    def __reversed__(cls): return reversed(cls.val)
+    def __next__(cls): return next(cls.val)
+    def __missing__(cls): return Constant(cls.val)
+    def __length_hint__(cls): return len(cls.val)
+
+    # Context
+    def __enter__(cls): return cls.val.__enter__()
+    __exit__ = lambda cls, *args: cls.val.__exit__(*args)
+
+    # Descriptors
+    def __dir__(cls): return dir(cls.val)
+    def __set_name__(cls, owner, name): return None
+    def __get__(cls, instance, owner=None): return cls.val
+    def __set__(cls, instance, value): return None
+    def __delete__(cls, instance): return None
+
+    # Class related methods
+    def __init_subclass__(cls): return None
+    def __mro_entries__(cls, bases): return tuple(bases)
+    def __class_getitem__(cls, item): return cls
+
+    # Metaclass checks
+    def __instancecheck__(cls, instance): return isinstance(instance, cls)
+    def __subclasscheck__(cls, subclass): return issubclass(subclass, cls)
+
+    # Async related methods
+    def __await__(cls): return cls.val.__await__()
+    def __aenter__(cls): return cls.val.__aenter__()
+    __aexit__ = lambda cls, *args: cls.val.__aexit__(*args)
+    def __aiter__(cls): return cls.val.__aiter__()
+    def __anext__(cls): return cls.val.__anext__()
+
+    # Buffer related methods
+    def __buffer__(cls, flags): return memoryview(cls.val)
+    def __release_buffer__(cls, view): return None
 
 
 # PLAIN NUMBER ==> Numeric constructor:
@@ -1548,7 +2137,7 @@ def evinput(*args, **kwargs) -> Any:
         return R
 
 
-def let(**kwargs) -> Container[Any: Any]:
+def let(**kwargs) -> Container[String: Any]:
     """
     Let 'Statement'.
 
@@ -1576,10 +2165,10 @@ def let(**kwargs) -> Container[Any: Any]:
             | Direct assignments to given kwarg variables.
 
     :Return:
-        R: Container[Any: Any]
+        R: Container[String: Any]
             | A Container with the relationed objects assigned.
     """
-    R: Container[Any: Any] = Container(kwargs)
+    R: Container[String: Any] = Container(kwargs)
     C: Frame = pframe(2)
 
     for k, v in R:
@@ -1623,7 +2212,7 @@ def const(**kwargs) -> Container[Constant: Any]:
         R: Container[Constant: Any]
             | A Container with the relationed objects assigned as Constants.
     """
-    R: Container[Any: Any] = {}
+    R: Container[String: Constant] = Container()
     C: Frame = pframe(2)
     
     for kwarg in kwargs:
@@ -1631,7 +2220,7 @@ def const(**kwargs) -> Container[Constant: Any]:
 
     C.f_locals.update(R)
 
-    return Container(R)
+    return R
 
 
 def timeout(secs: Real,
@@ -1985,7 +2574,7 @@ def showcall(func: Function) -> Function:
 
 
 def namespace(name: Module | String | Frame = None,
-              ) -> Container:
+              ) -> Container[String: Any]:
     """
     Namespace Viewer.
 
@@ -2003,7 +2592,7 @@ def namespace(name: Module | String | Frame = None,
         R: Container
             | View of the module as k:v pairs.
     """
-    R: Container = {}
+    R: Container[String: Any] = Container()
 
     if name is None:
         name = pframe(2)
@@ -2017,13 +2606,13 @@ def namespace(name: Module | String | Frame = None,
         for i, j in enumerate(RL):
             R[j] = getattr(name, j)
 
-        return Container(R)
+        return R
 
     elif isinstance(name, Frame):
         for i, j in enumerate(name.f_locals):
             R[j] = name.f_locals[j]
 
-        return Container(R)
+        return R
 
 
 def attempt(fallback: Any, operator: Any, *args, **kwargs) -> Any:
@@ -3087,12 +3676,9 @@ class SEVAL:
                  functions: Set = set(),
                  modules: Set = set(),
                  ) -> Class:
-        cls.builtins = {}
-        for i, j in enumerate(dir(builtins)):
-            cls.builtins[j] = getattr(builtins, j)
         cls.namespace = collections.ChainMap(pframe(2).f_locals,
                                              pframe(outer=True).f_locals,
-                                             cls.builtins,
+                                             namespace('builtins'),
                                              )
         cls.operators = {ast.Add: operator.add,
                          ast.Sub: operator.sub,
@@ -3334,571 +3920,6 @@ class SEVAL:
 Seval = SEVAL()
 
 
-# CONSTRUCTOR CLASSES ==> Custom objects:
-class Container(Dict):
-    """
-    Container Class; dict Subclass.
-
-    A flexible dict-class that supports various operations and
-    transformations. Unlike a standard dictionary, a `Container`
-    is unpacked by its items rather than by its keys.
-
-    Note: Containers can't have numeric keys due to how their
-    keys are directly associated to its instance attributes.
-    However, any String type is a valid key type.
-    Attempting to update a Container instance with
-    enumerated dictionaries will raise a TypeError.
-
-
-    The Container supports basic arithmetic operations on a
-    per-key basis, meaning that you can operate an iterable
-    to a Container, where each ordered element operates each
-    key's value until exhaustion; Where as single, non-iterable
-    operations are performed on the entire Container.
-
-    Containers can have its values accessed as attributes
-    when calling for their keys. This means that assigned
-    attributes into this class are also added to the
-    Container's keys with the designated value.
-
-    :Example:
-        C1 = Container(a=1, b=2)
-            | Creates a Container as {'a': 1, 'b': 2}
-
-        C2 = Container('c')
-            | Creates a Container as {'c': None}
-
-        C1(C2) # Same as C1 += C2
-            | Aggregates C1 and C2 for {'a': 1, 'b': 2, 'c': None}
-
-        C1.fill(4)
-            | Alocates '4' to the first encounter of `None` value in C1.
-
-    :Methods:
-        .sort(*args, **kwargs): Self
-            | Sorts the keys (or values) of the Container; Optional lambda.
-
-        .shove(*vals): Self
-            | Adds the values to the keys following the current order of keys.
-
-        .fill(*vals, target=None, exhaust=True): Self
-            | Fills in any `target` vals in the Container with given vals.
-            | `target` argument can be a lambda|function|builtin|singleton.
-            | `exhaust` argument defines if fill is finite or cyclic infinite.
-
-        .order(*keys): Self
-            | Orders the keys of the Container as provided.
-
-        .only(*keys): Self
-            | Returns a Container containing only the specified keys.
-
-        .without(*keys): Self
-            | Returns a Container without the specified keys.
-
-        .keyval(): dict
-            | Returns a copy of the dictionary object as {keys: values}.
-
-        .key(*keys): list
-            | Returns a list of keys in Container; Optional filter for values.
-
-        .val(*vals): list
-            | Returns a list of values in Container; Optional filter for keys.
-
-        .sub(): Tuple[Container]
-            | Returns a tuple of each k: v pair in Container, as Containers.
-
-        .copy(): Container
-            | Returns a deepcopy of the current Container.
-
-    :Operators:
-        Any basic arithmetic operator is supported as in:
-        Container <> Container;
-        Container <> other (if the operation(value, other) is valid).
-
-        Operations with non-iterables are valid as long as the operation to
-        every Container[N] <> other is valid for all given N.
-            | i.e. Container(f=1, g=2, h=3) * 2 == Container(f=2, g=4, h=6)
-            | i.e. Container(Bob='Foo') - 5 == Container(Bob='Foo', Bob_1=5)
-
-        Operations with iterables are valid as long as the operation to
-        every pair Container[N] <> other[N] is valid for the max possible N.
-            | i.e. Container(R=5, S=10) * (2,3,4) == Container(R=10, S=30)
-            | i.e. Container(T=2,U=4,V=6) - {2,3} == Container(T=0, U=1, V=6)
-
-        Remainder of Container <> Other operations are ignored, as the result
-        is a Container type with the same keys as the involved Container.
-            | i.e. Container(i=2, j=3) * [2, 3, 4] == Container(i=4, j=9)
-
-        Remainer of Container <> Container operations aggregate non-similar
-        keys into the final result, unmodified, as no C1[K] <> C2[K] is valid.
-            | i.e. Container(f=5) - Container(g=10) == Container(f=5, g=10)
-
-        add (+)
-            | Adds the values of another Container, or from a sequence.
-            | i.e. Container(a=5) + (b=4) == Container(a=5, b=4)
-            | i.e. Container(a=5, b=4) + [3, 4] == Container(a=8, b=8)
-
-        sub (-)
-            | Subtracts the values of another Container or from a sequence.
-            | i.e. Container(x=5, y=10) - 3 == Container(x=2, y=7)
-            | i.e. Container(a=5, b=4) - Container(c=3, d=2)
-
-        mul (*)
-            | Multiplies the values of another Container or from a sequence.
-            | i.e. Container(x=5) * 2 == Container(x=10)
-            | i.e. Container(x=5, y=4) * (3, 4) == Container(x=15, y=16)
-
-        truediv (/)
-            | Divides the values of another Container or from a sequence.
-            | i.e.Container(T=2,U=4,V=6)/[1,2,3]==Container(T=2.0,U=2.0,V=2.0)
-
-        floordiv (//)
-            | Floor divides the values of another Cont. or from a sequence.
-            | i.e. Container(A=12.5) // Container(A=3.5) == Container(A=3.0)
-
-        mod (%)
-            | Modulo operates on the values of another Cont. or from a seq.
-            | i.e. Container(B=7.5) % Container(B=2) == Container(B=1.5)
-
-        pow (**)
-            | Raises the values of the Container to the power of.
-            | i.e. Container(C=5) ** Container(C=3) == Container(C=125)
-    """
-    def __init__(cls, *args, **kwargs):
-        cls(*args, **kwargs)  # Redirect to __call__
-
-    def __call__(cls, *args, **kwargs):
-        for arg in args:
-
-            if isinstance(arg, dict):
-                cls.update(arg)
-                continue
-
-            elif isinstance(arg, (list, tuple, set)):
-                cls.update(zip(
-                    cls.keys(), arg))
-
-            else:
-                cls.update(zip(
-                    args, kwargs.get('value', [None] * len(args))))
-
-        for kwarg in kwargs:
-            cls[kwarg] = kwargs[kwarg]
-
-        for key in cls.key():
-            if not hasattr(Container, key):
-                super().__setattr__(key, cls[key])
-
-        return cls
-
-    def __getitem__(cls, key):
-        if isinstance(key, int):
-
-            with Try:
-                item = tuple(cls.items())[key]
-                return item
-
-        else:
-            return super().__getitem__(key)
-
-    def __getattr__(cls, key):
-        with Try:
-            return cls[key]
-        with Try:
-            return super().__getattr__(key)
-
-    def __setattr__(cls, key, val):
-        if not hasattr(Container, key) or key in cls:
-            cls[key] = val
-
-        return cls
-
-    def __iter__(cls):
-        return iter(cls.items())
-
-    def sort(cls, *args, **kwargs):
-        items = list(cls.items())
-
-        items.sort(*args, **kwargs)
-
-        cls.clear()
-
-        for key, val in items:
-            cls[key] = val
-
-        return cls
-
-    # METHODS ─► Value Allocation:
-    def shove(cls, *vals):
-        for key, val in zip(cls.keys(), vals):
-            cls[key] = val
-
-        return cls
-
-    def fill(cls, *vals, target=None, exhaust=True):
-        vals = list(vals)
-
-        for key in cls.keys():
-
-            if any(pistype(target, Function, Builtin)):
-                if target((cls[key],)) or target(cls[key]):
-                    try:
-                        cls[key] = vals[0]
-                        if not exhaust:
-                            vals.append(vals[0])
-                        vals.pop(0)
-                    except IndexError:
-                        break
-
-            else:
-                if cls[key] == target:
-                    try:
-                        cls[key] = vals[0]
-                        if not exhaust:
-                            vals.append(vals[0])
-                        vals.pop(0)
-                    except IndexError:
-                        break
-
-        return cls
-
-    # METHODS ─► Key Allocations:
-    def order(cls, *keys):
-        items = list(cls.items())
-
-        cls.clear()
-
-        for key in keys:
-
-            for ikey, ival in items:
-
-                if ikey == key:
-                    cls[key] = ival
-                    break
-
-        for ikey, ival in items:
-
-            if ikey not in keys:
-                cls[ikey] = ival
-
-        return cls
-
-    def only(cls, *keys):
-        keys = list(keys)
-
-        for key in cls.key:
-            if key not in keys:
-                cls.pop(key)
-
-        return cls
-
-    def without(cls, *keys):
-        keys = list(keys)
-
-        for key in cls.key:
-            if key in keys:
-                cls.pop(key)
-
-        return cls
-
-    # METHODS ─► Container Access:
-    def keyval(cls):
-        return dict(zip(cls.keys(), cls.values()))
-
-    def key(cls, *keys):
-        return list(cls.keys()) if not keys else punit([
-            cls[key] for key in keys])
-
-    def val(cls, *vals):
-        return list(cls.values()) if not vals else punit([
-            key for key in cls.keys() if cls[key] in vals])
-
-    def sub(cls):
-        return tuple(Container(key).shove(val) for key, val in cls)
-
-    def copy(cls):
-        return Container(cls.keyval())
-
-    def operate(cls, other, op):
-        result = Container(cls.copy())
-        if isinstance(other, dict):
-            for key in other.keys():
-                if key in cls:
-                    try:
-                        if result[key] is not None:
-                            result[key] = op(cls[key], other[key])
-                        else:
-                            result[key] = other[key]
-                    except Exception:
-                        suffix_index = 1
-                        new_key = f"{key}_{suffix_index}"
-
-                        while new_key in result:
-                            suffix_index += 1
-                            new_key = f"{key}_{suffix_index}"
-
-                        result[new_key] = other[key]
-
-                else:
-                    result[key] = other[key]
-
-        elif isinstance(other, Iterable) and not isinstance(other, str):
-            other = plist(other)
-            for i, key in enumerate(cls.keyval()):
-                if i < len(other):
-                    try:
-                        result[key] = op(cls[key], other[i])
-                    except Exception:
-                        idx = 1
-                        ikey = f"{key}_{idx}"
-
-                        while ikey in result:
-                            idx += 1
-                            ikey = f"{key}_{idx}"
-
-                        result[ikey] = other[i]
-
-        else:
-            for key in cls.keyval():
-                try:
-                    result[key] = op(cls[key], other)
-
-                except TypeError:
-                    continue  # ie. NoneTypes
-
-                except Exception:
-                    idx = 1
-                    ikey = f"{key}_{idx}"
-
-                    while ikey in result:
-                        idx += 1
-                        ikey = f"{key}_{idx}"
-
-                    result[ikey] = other
-
-        return result
-
-    def convert(cls, x, y, op):
-        try:
-            return op(x, y)
-        except TypeError:
-            try:
-                return op(x, type(x)(y))
-            except (TypeError, ValueError):
-                try:
-                    return op(type(y)(x), y)
-                except (TypeError, ValueError):
-                    raise
-
-    def __add__(cls, other):
-        return cls.operate(other, lambda x, y: cls.convert(
-            x, y, lambda a, b: a + b))
-
-    def __sub__(cls, other):
-        return cls.operate(other, lambda x, y: cls.convert(
-            x, y, lambda a, b: a - b))
-
-    def __mul__(cls, other):
-        return cls.operate(other, lambda x, y: cls.convert(
-            x, y, lambda a, b: a * b))
-
-    def __truediv__(cls, other):
-        return cls.operate(other, lambda x, y: cls.convert(
-            x, y, lambda a, b: a / b))
-
-    def __floordiv__(cls, other):
-        return cls.operate(other, lambda x, y: cls.convert(
-            x, y, lambda a, b: a // b))
-
-    def __mod__(cls, other):
-        return cls.operate(other, lambda x, y: cls.convert(
-            x, y, lambda a, b: a % b))
-
-    def __pow__(cls, other):
-        return cls.operate(other, lambda x, y: cls.convert(
-            x, y, lambda a, b: a ** b))
-
-
-class Constant:
-    """
-    Immutable Constants.
-
-    Wraps a value and provides a constant, immutable interface to it.
-
-    Overrides most of the standard dunder methods to ensure immutability.
-
-    Non-dunder methods can be called, but will only return the Constant's
-    value and won't modify the Constant itself or it's value in any way.
-
-    :Proto-Code:
-        If a (Variable) is a (Value) wrapped as a (Constant):
-          | The (Variable)'s (Value) becomes an immutable (Constant).
-
-        The (Variable)'s (Name) can still be reassigned or deleted,
-        but the (Variable)'s (Value) cannot be changed.
-
-        Return the original (Value) of the (Constant).
-
-    :Examples:
-        x = Constant(5)
-            | Create an immutable constant with a value of 5
-            | i.e. x + 5 == 10
-            | i.e. x += 5 ; x == 5
-
-        pi = Constant(math.pi)
-            | Assign 'math.pi' to 'pi' as an immutable constant
-            | i.e. const(rpi=pi*2)
-
-    :Args:
-        value: Any
-          | The value to be wrapped as a Constant.
-
-    :Returns:
-        Constant
-          | An immutable Constant instance wrapping the provided value.
-    """
-
-    # Core methods
-    def __init__(cls, value): return object.__setattr__(cls, 'val', value)
-
-    def __getattr__(cls, name):
-        attr = getattr(cls.val, name)
-        if callable(attr):
-            def wrapper(*args, **kwargs):
-                return cls
-            return wrapper
-        return attr
-
-    def inplace(cls, *args, **kwargs):
-        return Constant(cls.val)
-
-    def other(signal):
-        def wrapper(cls, other):
-            try:
-                return eval(f"cls.val {signal} other")
-            except Exception:
-                return eval("cls.val")
-        return wrapper
-
-    # In-place operators
-    __setattr__ = inplace
-    __delattr__ = inplace
-    __iadd__ = inplace
-    __isub__ = inplace
-    __imul__ = inplace
-    __itruediv__ = inplace
-    __ifloordiv__ = inplace
-    __imod__ = inplace
-    __ipow__ = inplace
-    __imatmul__ = inplace
-    __iand__ = inplace
-    __ior__ = inplace
-    __ixor__ = inplace
-    __ilshift__ = inplace
-    __irshift__ = inplace
-
-    # Comparison operations
-    __eq__ = other('==')
-    __ne__ = other('!=')
-    __lt__ = other('<')
-    __le__ = other('<=')
-    __gt__ = other('>')
-    __ge__ = other('>=')
-
-    # Arithmetic
-    __add__ = __radd__ = other('+')
-    __sub__ = __rsub__ = other('-')
-    __mul__ = __rmul__ = other('*')
-    __truediv__ = __rtruediv__ = other('/')
-    __floordiv__ = __rfloordiv__ = other('//')
-    __mod__ = __rmod__ = other('%')
-    __pow__ = __rpow__ = other('**')
-    __matmul__ = __rmatmul__ = other('@')
-
-    # Binary
-    __and__ = __rand__ = other('&')
-    __or__ = __ror__ = other('|')
-    __xor__ = __rxor__ = other('^')
-    __lshift__ = __rlshift__ = other('<<')
-    __rshift__ = __rrshift__ = other('>>')
-
-    # Unary
-    def __pos__(cls): return Constant(+cls.val)
-    def __neg__(cls): return Constant(-cls.val)
-    def __invert__(cls): return Constant(~cls.val)
-
-    # Built-in math
-    def __abs__(cls): return abs(cls.val)
-    def __index__(cls): return int(cls.val) if isinstance(
-        cls.val, Number) else NotImplemented
-
-    def __round__(cls, ndigits=0): return round(cls.val, ndigits)
-
-    def __trunc__(cls): return int(cls.val) if isinstance(
-        cls.val, float) else NotImplemented
-
-    def __floor__(cls): return int(cls.val // 1) if isinstance(
-        cls.val, float) else NotImplemented
-    def __ceil__(cls): return int(cls.val // 1 + 1) if isinstance(
-        cls.val, float) and cls.val % 1 != 0 else int(cls.val)
-
-    def __divmod__(cls, other): return divmod(cls.val, other)
-    def __rdivmod__(cls, other): return divmod(other, cls.val)
-
-    # Numberic conversions
-    __complex__ = __int__ = __float__ = __index__ = (
-        lambda cls: type(cls.val)(cls.val))
-
-    # String | Text representation
-    def __repr__(cls): return repr(cls.val)
-    def __str__(cls): return str(cls.val)
-    def __format__(cls, format_spec): return format(cls.val, format_spec)
-    def __bytes__(cls): return bytes(cls.val)
-    def __bool__(cls): return bool(cls.val)
-
-    # Sequences
-    def __hash__(cls): return hash(cls.val)
-    def __len__(cls): return len(cls.val)
-    def __contains__(cls, item): return item in cls.val
-    __getitem__ = __setitem__ = lambda cls, key: cls.val[key]
-    def __iter__(cls): return iter(cls.val)
-    def __reversed__(cls): return reversed(cls.val)
-    def __next__(cls): return next(cls.val)
-    def __missing__(cls): return Constant(cls.val)
-    def __length_hint__(cls): return len(cls.val)
-
-    # Context
-    def __enter__(cls): return cls.val.__enter__()
-    __exit__ = lambda cls, *args: cls.val.__exit__(*args)
-
-    # Descriptors
-    def __dir__(cls): return dir(cls.val)
-    def __set_name__(cls, owner, name): return None
-    def __get__(cls, instance, owner=None): return cls.val
-    def __set__(cls, instance, value): return None
-    def __delete__(cls, instance): return None
-
-    # Class related methods
-    def __init_subclass__(cls): return None
-    def __mro_entries__(cls, bases): return tuple(bases)
-    def __class_getitem__(cls, item): return cls
-
-    # Metaclass checks
-    def __instancecheck__(cls, instance): return isinstance(instance, cls)
-    def __subclasscheck__(cls, subclass): return issubclass(subclass, cls)
-
-    # Async related methods
-    def __await__(cls): return cls.val.__await__()
-    def __aenter__(cls): return cls.val.__aenter__()
-    __aexit__ = lambda cls, *args: cls.val.__aexit__(*args)
-    def __aiter__(cls): return cls.val.__aiter__()
-    def __anext__(cls): return cls.val.__anext__()
-
-    # Buffer related methods
-    def __buffer__(cls, flags): return memoryview(cls.val)
-    def __release_buffer__(cls, view): return None
-
-
 # DOCUMENTATION ==> Module documentation access:
 def doc(*objs: callable,
         verbose: bool = True,
@@ -3997,7 +4018,7 @@ def moduleview(module: Module | str = '__main__',
         This function will resolve & return every attribute related 
         to documentation of the analyzed module.
     """
-    R: Container[String: Any] = {}
+    R: Container[String: Any] = Container()
     M: Module = pimport(module) if isinstance(module, str) else module
 
     attrs = ('__name__',
@@ -4013,9 +4034,8 @@ def moduleview(module: Module | str = '__main__',
     for att in attrs:
         R[att.strip('__')] = getattr(M, att, "---")
 
-    R['contents'] = namespace(M)
+    R(contents=namespace(M))
 
-    R = Container(R)
     C = R.val()
 
     if verbose:
