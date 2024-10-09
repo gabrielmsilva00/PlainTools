@@ -5,15 +5,15 @@
 
 ## Installation
 
-This package can be installed & upgraded using `pip`:
+This package is **Python 3.11+** compatible and can be installed & upgraded using `pip`:
 
 ```sh
 pip install -U plaintools
 ```
 ## Introduction
 
-PlainTools is a Python 3 library designed to introduce new features and 
-fix awkward common interactions present in the Python 3 native ecosystem.
+**PlainTools is a Python 3.11+ library** designed to introduce new features and 
+fix awkward common interactions present in the Python native ecosystem.
 
 Most functions are prefixed with `p` (as in `pt.plist` or `pt.pround`) 
 to avoid homonyms. The `p` stands for `Plain` and are the namesake of this package.
