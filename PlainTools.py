@@ -28,7 +28,7 @@
 """
 # ---------------------------------------------------------------------------<
 __title__ = "PlainTools"
-__version__ = "1.2.241009.2"
+__version__ = "1.2.241009.3"
 __author__ = "gabrielmsilva00"
 __url__ = "https://gabrielmsilva00.github.io/PlainTools/"
 __repo__ = "https://github.com/gabrielmsilva00/PlainTools.git"
@@ -3676,10 +3676,8 @@ class SEVAL:
                  functions: Set = set(),
                  modules: Set = set(),
                  ) -> Class:
-        cls.namespace = collections.ChainMap(pframe(2).f_locals,
-                                             pframe(outer=True).f_locals,
-                                             namespace('builtins'),
-                                             )
+        cls.namespace = collections.ChainMap(pframe(outer=True).f_locals,
+                                             namespace('builtins'))
         cls.operators = {ast.Add: operator.add,
                          ast.Sub: operator.sub,
                          ast.Mult: operator.mul,
@@ -3698,9 +3696,9 @@ class SEVAL:
         # 'blacklist' | 'whitelist'
         cls.protocol = protocol if protocol == 'whitelist' else 'blacklist'
         cls.permitlist = dict(functions=functions, modules=modules)
-        cls.blacklist = dict(cls.permitlist if all(
+        cls.blacklist = Container(cls.permitlist if all(
             cls.permitlist.values()) else ()) or (
-                dict(functions={'eval',
+                Container(functions={'eval',
                                      'exec',
                                      'exit',
                                      'compile',
