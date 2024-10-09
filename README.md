@@ -79,3 +79,4 @@ Countless more examples can be found in the [Library's Documentation Page](https
 |:--:|
 | **Thank you for your attention!** |
 | <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" width=256>
+| <img src=https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/pttail.png>
