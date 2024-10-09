@@ -1,8 +1,7 @@
 |![Image](https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/pthead.png)
-|:--:|
-<a href=https://pypi.org/project/PlainTools><img src="https://img.shields.io/pypi/v/plaintools.svg?logo=pypi" alt="Version" width=256 > <br/> <a href=https://github.com/gabrielmsilva00/PlainTools/releases><img src="https://img.shields.io/pypi/dm/plaintools?logo=pypi" alt="Version" width=256 >
-| - [GitHub Repo](https://github.com/gabrielmsilva00/PlainTools) <br/> - [Author's GitHub Profile](https://github.com/gabrielmsilva00)
-[<img src=https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/ptqrdoc.png?>](https://gabrielmsilva00.github.io/PlainTools)
+|:-:|
+<a href=https://pypi.org/project/PlainTools><img src="https://img.shields.io/pypi/v/plaintools.svg?logo=pypi" alt="Version" width=256 style="vertical-align:middle;margin:5px"><br/><a href=https://github.com/gabrielmsilva00/PlainTools/releases><img src="https://img.shields.io/pypi/dm/plaintools?logo=pypi" alt="Version" width=256 style="vertical-align:middle;margin:5px"><br/><a href=https://github.com/gabrielmsilva00/PlainTools><img src="https://img.shields.io/badge/GitHub-Repository-2A3746?logo=github" width=256 style="vertical-align:middle;margin:5px">
+[<img src=https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/ptqrdoc.png?>](https://gabrielmsilva00.github.io/PlainTools)<br/>[![pages-build-deployment](https://github.com/gabrielmsilva00/PlainTools/actions/workflows/pages/pages-build-deployment/badge.svg?branch=main)](https://github.com/gabrielmsilva00/PlainTools/actions/workflows/pages/pages-build-deployment)
 
 # Installation
 
@@ -75,8 +74,7 @@ Simple, right?
 
 Countless more examples can be found in the [Library's Documentation Page](https://gabrielmsilva00.github.io/PlainTools), so please check it out!
 
-| **GitHub Repo & Pages is a constant WIP!!** |
-|:--:|
-| **Thank you for your attention!** |
-| <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" width=256>
-| <img src=https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/pttail.png>
+| <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" width=256 style="vertical-align:middle;margin:5px">
+|:-:|
+|<a href=https://github.com/gabrielmsilva00><img src="https://img.shields.io/badge/GitHub-Author-526E8C?logo=github" width=256 style="vertical-align:middle;margin:5px">
+| <img src=https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/pttail.png style="vertical-align:middle">
