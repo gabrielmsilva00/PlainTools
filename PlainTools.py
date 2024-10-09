@@ -28,7 +28,7 @@
 """
 # ---------------------------------------------------------------------------<
 __title__ = "PlainTools"
-__version__ = "1.2.241009.0"
+__version__ = "1.2.241009.1"
 __author__ = "gabrielmsilva00"
 __url__ = "https://gabrielmsilva00.github.io/PlainTools/"
 __repo__ = "https://github.com/gabrielmsilva00/PlainTools.git"
@@ -3112,9 +3112,9 @@ class SEVAL:
         # 'blacklist' | 'whitelist'
         cls.protocol = protocol if protocol == 'whitelist' else 'blacklist'
         cls.permitlist = dict(functions=functions, modules=modules)
-        cls.blacklist = Container(cls.permitlist if all(
+        cls.blacklist = dict(cls.permitlist if all(
             cls.permitlist.values()) else ()) or (
-                Container(functions={'eval',
+                dict(functions={'eval',
                                      'exec',
                                      'exit',
                                      'compile',
@@ -3261,15 +3261,17 @@ class SEVAL:
         elif isinstance(node, ast.Name):  # Variables
             if node.id in local.keys():
                 func = local[node.id]
-                if callable(
-                        func) and ((cls.protocol == 'blacklist' and (
-                            func.__name__ in cls.blacklist['functions']) or (
-                                cls.protocol == 'whitelist' and (
-                                    func.__name__ not in cls.whitelist[
-                                        'functions'])))):
-                    raise cls.UnsafeError(
-                        f"Function '{node.id}' is not allowed")
+                
+                if callable(func):
+                    if (cls.protocol == 'blacklist' and (
+                        func.__name__ in cls.blacklist['functions'])) or (
+                            cls.protocol == 'whitelist' and (
+                                func.__name__ not in cls.whitelist[
+                                    'functions'])):
+                        raise cls.UnsafeError(
+                            f"Function '{node.id}' is not allowed")
                 return func
+            
             elif node.id in {
                 'getattr', '__class__', '__bases__', '__globals__',
                     '__code__', '__closure__'}:
@@ -3279,15 +3281,15 @@ class SEVAL:
 
         elif isinstance(node, ast.Attribute):  # Attrs
             value = cls.ndeval(node.value, local)
-            if isinstance(
-                    node.value,
-                    ast.Name) and ((cls.protocol == 'blacklist' and (
+            if isinstance(node.value,ast.Name):
+                if (cls.protocol == 'blacklist' and (
                         node.value.id in cls.blacklist['modules'])) or (
                             cls.protocol == 'whitelist' and (
                                 node.value.id not in cls.whitelist['modules']
-                            ))):
-                raise cls.UnsafeError(
-                    f"Access to module '{node.value.id}' is not allowed")
+                                )):
+                            raise cls.UnsafeError(
+                                "Access to module"+(
+                                    f"'{node.value.id}' is not allowed"))
             if node.attr in {
                 '__class__',
                 '__bases__',
@@ -3299,27 +3301,30 @@ class SEVAL:
             return getattr(value, node.attr)
 
         elif isinstance(node, ast.Call):  # Calls
-            if isinstance(
-                    node.func,
-                    ast.Name) and (cls.protocol == 'blacklist' and (
-                        node.func.id in cls.blacklist['functions']) or (
+            if isinstance(node.func,ast.Name):
+                if (cls.protocol == 'blacklist' and (
+                        node.func.id in cls.blacklist['functions'])) or (
                             cls.protocol == 'whitelist' and (
                                 node.func.id not in cls.whitelist['functions']
-                            ))):
-                raise cls.UnsafeError(
-                    f"Function '{node.func.id}' is not allowed")
+                            )):
+                            raise cls.UnsafeError(
+                                f"Function '{node.func.id}' is not allowed")
+                            
             func_name = cls.ndeval(node.func, local)
-            if ((cls.protocol == 'blacklist' and (
+            
+            if (cls.protocol == 'blacklist' and (
                 func_name.__name__ in cls.blacklist['functions'])) or (
                     cls.protocol == 'whitelist' and (
                         func_name.__name__ not in cls.whitelist['functions']
-                    ))):
-                raise cls.UnsafeError(
-                    f"Function '{func_name.__name__}' is not allowed")
+                    )):
+                    raise cls.UnsafeError(
+                        f"Function '{func_name.__name__}' is not allowed")
+                    
             if not callable(func_name):
                 raise cls.UnsafeError("Calling non-callable")
 
             args = [cls.ndeval(arg, local) for arg in node.args]
+            
             return func_name(*args)
 
         else:  # None case
