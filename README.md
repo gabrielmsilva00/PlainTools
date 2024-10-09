@@ -1,9 +1,8 @@
 |![Image](https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/pthead.png)
 |:--:|
-[![Version: 1.2.241008.1](https://badge.fury.io/py/plaintools.svg)](https://github.com/gabrielmsilva00/PlainTools/releases) <br/> [![Downloads](https://img.shields.io/pypi/dm/plaintools.svg)](https://pypistats.org/packages/plaintools)
-| - [GitHub Repo](https://github.com/gabrielmsilva00/PlainTools) \| [PyPi Repo](https://pypi.org/project/PlainTools)
-| - [Author's GitHub Profile](https://github.com/gabrielmsilva00)
-[<img src="https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/ptqrdoc.png?">](https://gabrielmsilva00.github.io/PlainTools)
+<a href=https://pypi.org/project/PlainTools><img src="https://img.shields.io/pypi/v/plaintools.svg?logo=pypi" alt="Version" width=256 > <br/> <a href=https://github.com/gabrielmsilva00/PlainTools/releases><img src="https://img.shields.io/pypi/dm/plaintools?logo=pypi" alt="Version" width=256 >
+| - [GitHub Repo](https://github.com/gabrielmsilva00/PlainTools) <br/> - [Author's GitHub Profile](https://github.com/gabrielmsilva00)
+[<img src=https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/ptqrdoc.png?>](https://gabrielmsilva00.github.io/PlainTools)
 
 # Installation
 
@@ -77,5 +76,6 @@ Simple, right?
 Countless more examples can be found in the [Library's Documentation Page](https://gabrielmsilva00.github.io/PlainTools), so please check it out!
 
 | **GitHub Repo & Pages is a constant WIP!!** |
-|-|
+|:--:|
 | **Thank you for your attention!** |
+| <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" width=256>
