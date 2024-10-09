@@ -3,21 +3,22 @@
 <a href=https://pypi.org/project/PlainTools><img src="https://img.shields.io/pypi/v/plaintools.svg?logo=pypi" alt="Version" width=256 style="vertical-align:middle;margin:5px"><br/><a href=https://github.com/gabrielmsilva00/PlainTools><img src="https://img.shields.io/badge/GitHub-Repository-2A3746?logo=github" width=256 style="vertical-align:middle;margin:5px"><br/><a href=https://github.com/gabrielmsilva00/PlainTools/releases><img src="https://img.shields.io/pypi/dm/plaintools?logo=pypi" alt="Version" width=256 style="vertical-align:middle;margin:5px">
 [<img src=https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/ptqrdoc.png?>](https://gabrielmsilva00.github.io/PlainTools)<br/>[![pages-build-deployment](https://github.com/gabrielmsilva00/PlainTools/actions/workflows/pages/pages-build-deployment/badge.svg?branch=main)](https://github.com/gabrielmsilva00/PlainTools/actions/workflows/pages/pages-build-deployment)
 
-# Installation
+## Installation
 
 This package can be installed & upgraded using `pip`:
 
 ```sh
 pip install -U plaintools
 ```
-
-# Introduction
+## Introduction
 
 PlainTools is a Python 3 library designed to introduce new features and 
 fix awkward common interactions present in the Python 3 native ecosystem.
 
 Most functions are prefixed with `p` (as in `pt.plist` or `pt.pround`) 
 to avoid homonyms. The `p` stands for `Plain` and are the namesake of this package.
+
+## Examples
 
 Some simple, yet relevant examples using the **Plain Number**(`pt.pnumber`) function are:
 
