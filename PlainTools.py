@@ -1539,27 +1539,27 @@ def pinterval(*args: Real,
     match len(args):
 
         case 1:
-            start = 0
-            stop = 100
-            divs = pnumber(stop / max(args[0] - 1, 1))
-            type = 'list'
+            start = start or 0
+            stop = stop or 100
+            divs = divs or pnumber(stop / max(args[0] - 1, 1))
+            type = type or 'list'
 
         case 2:
-            start = 0
+            start = start or 0
             stop = stop or args[1]
-            divs = pnumber(stop / max(args[0] - 1, 1))
-            type = 'list'
+            divs = divs or pnumber(stop / max(args[0] - 1, 1))
+            type = type or 'list'
 
         case 3:
             start = start or args[1]
             stop = stop or args[2]
-            divs = pnumber((stop - start) / max(args[0] - 1, 1))
-            type = 'list'
+            divs = divs or pnumber((stop - start) / max(args[0] - 1, 1))
+            type = type or 'list'
 
         case 4:
             start = start or args[1]
             stop = stop or args[2]
-            divs = pnumber((stop - start) / max(args[0] - 1, 1))
+            divs = divs or pnumber((stop - start) / max(args[0] - 1, 1))
             type = type or args[3]
 
         case Z:
@@ -1646,21 +1646,7 @@ def psequence(*nums: Real | Iterable[Real],
         else:
             limit = float('inf')
 
-    rnd = 0
-    nums = [x for x in N if x != ...]
-    nums.append(limit)
-
-    for i in nums:
-        try:
-            if 'e-' in repr(i):
-                rnd = max(rnd, int((repr(i).split('.')[-1].split('e-')[-1])
-                                   .lstrip('0')))
-            else:
-                rnd = max(rnd, len(repr(i).split('.')[-1]))
-        except BaseException:
-            continue
-
-    rnd = int(rnd)
+    nums = pnumber([x for x in N if x != ...] + [limit])
 
     for i, num in enumerate(N):
         if num == ...:
@@ -1675,7 +1661,7 @@ def psequence(*nums: Real | Iterable[Real],
             if i == len(N) - 1:
                 if S is None:
                     S = start
-                L.append(pround(round(x, rnd)) for x in itertools.takewhile(
+                L.append(pnumber(x) for x in itertools.takewhile(
                     lambda x: x >= limit if S < 0 else (
                         x <= limit or abs(x - limit) < S / 10),
                     itertools.count(start + S, S)))
@@ -1683,12 +1669,12 @@ def psequence(*nums: Real | Iterable[Real],
                 end = N[i + 1]
                 if S is None:
                     S = end - start
-                L.append(pround(round(x, rnd)) for x in itertools.takewhile(
+                L.append(pnumber(x) for x in itertools.takewhile(
                     lambda x: x <= limit if S < 0 else (
                         x >= limit or abs(x - limit) < S / 10),
                     itertools.count(start + S, S)))
         else:
-            L.append([pround(num)])
+            L.append([num])
 
     return itertools.chain.from_iterable(L)
 
