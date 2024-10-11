@@ -1,0 +1,39 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+exclude = [
+  "/.*",
+  "/docs",
+  "/imgs",
+  "/tests",
+  "/dist",
+  "/README.md",
+  "/Test.py",
+]
+
+include= [
+  "/PlainTools.py",
+  "/__init__.py",
+  "/PlainToolsDocs.html",
+]
+
+[project]
+name = "PlainTools"
+version = "1.2.241011.0"
+authors = [
+  { name="Gabriel Maia", email="gabrielmaia.silva00@gmail.com" },
+]
+description = "A library designed to streamline simple operations, loops and contexts."
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/gabrielmsilva00/PlainTools"
+Issues = "https://github.com/gabrielmsilva00/PlainTools/issues"
