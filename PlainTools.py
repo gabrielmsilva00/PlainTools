@@ -28,7 +28,7 @@
 """
 # ---------------------------------------------------------------------------<
 __title__ = "PlainTools"
-__version__ = "1.2.241011.0"
+__version__ = "1.2.241017.0"
 __author__ = "gabrielmsilva00"
 __url__ = "https://gabrielmsilva00.github.io/PlainTools/"
 __repo__ = "https://github.com/gabrielmsilva00/PlainTools.git"
@@ -284,19 +284,14 @@ class Container(Dict):
 
     def __getitem__(cls, key):
         if isinstance(key, int):
+            try: return tuple(cls.items())[key]
+            except BaseException: pass
 
-            with Try:
-                item = tuple(cls.items())[key]
-                return item
-
-        else:
-            return super().__getitem__(key)
+        return super().__getitem__(key)
 
     def __getattr__(cls, key):
-        with Try:
-            return cls[key]
-        with Try:
-            return super().__getattr__(key)
+        try: return cls[key]
+        except BaseException: return super().__getattr__(key)
 
     def __setattr__(cls, key, val):
         if not hasattr(cls, key) or key in cls:
@@ -306,6 +301,19 @@ class Container(Dict):
 
     def __iter__(cls):
         return iter(cls.items())
+
+    def __enter__(cls):
+        super().__setattr__("_namespace", pframe(2).f_locals.copy())
+        pframe(2).f_locals.update(cls)
+        return cls
+    
+    def __exit__(cls, *args):
+        for key in cls.keys():
+            if key in pframe(2).f_locals:
+                cls[key] = pframe(2).f_locals[key]
+        
+        pframe(2).f_locals.clear()
+        pframe(2).f_locals.update(cls._namespace)
 
     def sort(cls, *args, **kwargs):
         items = list(cls.items())

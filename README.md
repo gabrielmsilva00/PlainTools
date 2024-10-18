@@ -118,8 +118,7 @@ This project would be ***impossible*** to make without the **support of my frien
 
 ؜
 
-| This project
-|:-:|
 | <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" width=256 style="vertical-align:middle;margin:5px">
+|:-:|
 |<a href=https://github.com/gabrielmsilva00><img src="https://img.shields.io/badge/GitHub-Author-526E8C?logo=github" width=256 style="vertical-align:middle;margin:5px">
 | <img src=https://raw.githubusercontent.com/gabrielmsilva00/PlainTools/refs/heads/main/imgs/pttail.png style="vertical-align:middle">
