@@ -1037,10 +1037,6 @@ def pnumber(*objs: Any | Iterable[Any],
             - `<class 'float'>`
             - The `x` object dynamically inherited from the `float` class.
 
-        x.id
-            - `2667619486224` :grey:`# This is an example`
-            - The direct assigned `id()` of the object `float(1/3)`.
-
     :Args:
         obj: Any | Iterable[Any]
             - Object(s) to `pt.SEVAL(obj)` into a numeric type.

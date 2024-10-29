@@ -52,7 +52,7 @@ Some simple, yet relevant examples using the **Plain Number**(`pt.pnumber`) func
 0.9999999999999988
 
 >>> pt.pnumber(0.9999999999991234)
-0.99999999999912 # No loss of precision up to 14 literal digits.
+0.999999999999123 # No loss of precision up to 15 literal digits.
 ؜
 
 >>> 0.00000000001 ** 3
@@ -63,7 +63,7 @@ Some simple, yet relevant examples using the **Plain Number**(`pt.pnumber`) func
 ؜
 
 >>> pt.pnumber("math.pi") # A safe variation of 'eval()' is used, as shown below!
-3.141592653589793
+3.14159265358979
 
 # https://stackoverflow.com/a/1933463/26469850
 >>> pt.pnumber("import shutil; shutil.rmtree('/.')") # Example of malicious use.
