@@ -10,6 +10,9 @@ This package is **Python 3.11+** compatible and can be installed & upgraded usin
 ```sh
 pip install -U plaintools
 ```
+
+The latest release and its changelog can also be found [here.](https://github.com/gabrielmsilva00/PlainTools/releases)
+
 ---
 ## Introduction
 
