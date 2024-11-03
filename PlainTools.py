@@ -3,7 +3,7 @@
 ΛΛΛ Gabriel Maia @gabrielmsilva00 - UERJ - Electric Engineering Undergraduate.
 === Utilities, Constructors, Formatters, Debuggers.
 ‼‼‼ Tooling:
-==> AutoPEP8: Code formatting by Python's extension autopep8 -i -a*3.
+==> AutoPEP8: Code formatting by Python's extension autopep8 -i.
 ==> Sphinx: Code has modular, Sphinx-ready (.rst) documentation and typing.
 
 ○○○ References and auxiliary material:
@@ -28,7 +28,7 @@
 """
 # ---------------------------------------------------------------------------<
 __title__ = "PlainTools"
-__version__ = "1.3.241029.0"
+__version__ = "1.3.241103.0"
 __author__ = "gabrielmsilva00"
 __url__ = "https://gabrielmsilva00.github.io/PlainTools/"
 __repo__ = "https://github.com/gabrielmsilva00/PlainTools.git"
@@ -3574,6 +3574,8 @@ class SEVAL:
                                      'main',
                                      'Main',
                                      'MAIN',
+                                     'Test',
+                                     'TEST',
                                      'seval',
                                      'Seval',
                                      'SEVAL',
@@ -3742,6 +3744,95 @@ class SEVAL:
 
 
 Seval = SEVAL()
+
+
+class TEST:
+    """
+    Test Utility Class.
+
+    Provides a context manager and callable functionality for running tests, 
+    checking conditions, and generating pass/fail reports.
+    
+    The test is based on assert statements and checks for equality of the 
+    first element with the remaining elements for each tuple provided.
+
+    :Methods:
+        name(name)
+            | Sets a new title for the test context.
+            | Returns the TEST instance to allow method chaining.
+
+    :Examples:
+        with Test.name("Sample Test") as t:
+            t((5, 5), (10, 10))   # Passes
+            t((1, 2))             # Fails and reports
+        
+        Test((3, 3), (2, 1))     # Runs the tests and outputs results inline
+
+    :Instances:
+        Test = TEST()
+
+    :Notes:
+        - Boolean tests should pass if the value is `True`, and fail if `False`.
+        - Tuple tests are evaluated by comparing the first element to subsequent 
+          elements as a tuple. If they are not equal, the test fails.
+        - Upon context exit or function call, a summary of results is printed.
+        - LLM used: ChatGPT 4o
+    """
+    def __init__(self, title=None):
+        self.title, self.fail, self.ln_no = title, None, None
+
+    def __enter__(self):
+        self.ln_no, self.fail = pframe(2).f_lineno, []
+        return self
+
+    def __exit__(self, *exc):
+        title_part = f"({self.title})" if self.title else ""
+        print(
+            f"|Test @{self.ln_no}{title_part} = " + (
+                f"{'PASS' if (
+                    not self.fail) else f'FAIL({len(self.fail)})'}") + (
+                "\n" + "\n".join(self.fail) if self.fail else "") + "\n")
+        self.fail = None
+        return True
+
+    def __call__(self, *tests):
+        if self.fail is None:
+            self.ln_no, self.fail = pframe(2).f_lineno, []
+            for index, test in enumerate(tests):
+                if (isinstance(test, bool) and not test) or (
+                    isinstance(test, tuple) and test[0] != (
+                        test[1] if len(test[1:]) == 1 else tuple(test[1:]))):
+                    self.fail.append(
+                        f"|Test @{self.ln_no}({self.title or ''}) " + (
+                            f"{'bool' if isinstance(
+                                test, bool) else 'tuple'}") + (
+                            f"[{index}]: {test[0] if isinstance(
+                                test, tuple) else 'False'} != {test[
+                                    1] if isinstance(
+                                        test, tuple) else 'True'}"))
+            title_part = f"({self.title})" if self.title else ""
+            print(f"|Test @{self.ln_no}{title_part} = {'PASS' if (
+                not self.fail) else f'FAIL({len(self.fail)})'}" +
+                ("\n" + "\n".join(self.fail) if self.fail else "") + "\n")
+            assert not self.fail, self.fail[0]
+        else:
+            for index, test in enumerate(tests):
+                if (isinstance(test, bool) and not test) or (isinstance(
+                    test, tuple) and test[0] != (test[1] if len(
+                        test[1:]) == 1 else tuple(test[1:]))):
+                    self.fail.append(
+                        f"|Test @{self.ln_no}({self.title or ''}) {'bool' if (
+                            isinstance(test, bool)) else 'tuple'}" + (
+                                f"[{index}]: {test[0] if isinstance(
+                                    test, tuple) else 'False'} != {test[
+                                        1] if isinstance(
+                                            test, tuple) else 'True'}"))
+
+    def name(self, name):
+        self.title = name
+        return self
+
+Test = TEST()
 
 
 # DOCUMENTATION ==> Module documentation access:
