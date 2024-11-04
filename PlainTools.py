@@ -28,7 +28,7 @@
 """
 # ---------------------------------------------------------------------------<
 __title__ = "PlainTools"
-__version__ = "1.3.241103.0"
+__version__ = "1.3.241103.1"
 __author__ = "gabrielmsilva00"
 __url__ = "https://gabrielmsilva00.github.io/PlainTools/"
 __repo__ = "https://github.com/gabrielmsilva00/PlainTools.git"
@@ -3792,7 +3792,7 @@ class TEST:
                 f"{'PASS' if (
                     not self.fail) else f'FAIL({len(self.fail)})'}") + (
                 "\n" + "\n".join(self.fail) if self.fail else "") + "\n")
-        self.fail = None
+        self.title, self.fail, self.ln_no = None, None, None
         return True
 
     def __call__(self, *tests):
