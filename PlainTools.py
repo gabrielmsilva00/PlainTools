@@ -3815,6 +3815,7 @@ class TEST:
                 not self.fail) else f'FAIL({len(self.fail)})'}" +
                 ("\n" + "\n".join(self.fail) if self.fail else "") + "\n")
             assert not self.fail, self.fail[0]
+            self.title, self.fail, self.ln_no = None, None, None
         else:
             for index, test in enumerate(tests):
                 if (isinstance(test, bool) and not test) or (isinstance(
