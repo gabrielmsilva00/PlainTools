@@ -28,7 +28,7 @@
 """
 # ---------------------------------------------------------------------------<
 __title__ = "PlainTools"
-__version__ = "1.3.241103.1"
+__version__ = "1.3.241202.0"
 __author__ = "gabrielmsilva00"
 __url__ = "https://gabrielmsilva00.github.io/PlainTools/"
 __repo__ = "https://github.com/gabrielmsilva00/PlainTools.git"
@@ -2842,7 +2842,7 @@ class NULL:
 Null = NULL()
 
 
-class ERROR(NULL, Exception):
+class ERROR(NULL, BaseException):
     """
     Error Object.
 
@@ -3804,16 +3804,15 @@ class TEST:
                         test[1] if len(test[1:]) == 1 else tuple(test[1:]))):
                     self.fail.append(
                         f"|Test @{self.ln_no}({self.title or ''}) " + (
-                            f"{'bool' if isinstance(
-                                test, bool) else 'tuple'}") + (
-                            f"[{index}]: {test[0] if isinstance(
-                                test, tuple) else 'False'} != {test[
-                                    1] if isinstance(
-                                        test, tuple) else 'True'}"))
+                        f"{'bool'if isinstance(test,bool)else'tuple'}")+(
+                        f"[{index}]: ")+(
+                        f"{test[0]if isinstance(test,tuple)else'False'}")+(
+                        f" != {test[1]if isinstance(test,tuple) else 'True'}")
+                        )
             title_part = f"({self.title})" if self.title else ""
-            print(f"|Test @{self.ln_no}{title_part} = {'PASS' if (
-                not self.fail) else f'FAIL({len(self.fail)})'}" +
-                ("\n" + "\n".join(self.fail) if self.fail else "") + "\n")
+            print(f"|Test @{self.ln_no}{title_part} = "+(
+                f"{'PASS'if(not self.fail)else f'FAIL({len(self.fail)})'}")+(
+                    "\n" + "\n".join(self.fail) if self.fail else "") + "\n")
             assert not self.fail, self.fail[0]
             self.title, self.fail, self.ln_no = None, None, None
         else:
@@ -3822,16 +3821,17 @@ class TEST:
                     test, tuple) and test[0] != (test[1] if len(
                         test[1:]) == 1 else tuple(test[1:]))):
                     self.fail.append(
-                        f"|Test @{self.ln_no}({self.title or ''}) {'bool' if (
-                            isinstance(test, bool)) else 'tuple'}" + (
-                                f"[{index}]: {test[0] if isinstance(
-                                    test, tuple) else 'False'} != {test[
-                                        1] if isinstance(
-                                            test, tuple) else 'True'}"))
+                        f"|Test @{self.ln_no}({self.title or ''}) "+(
+                        f"{'bool'if(isinstance(test,bool))else'tuple'}")+(
+                        f"[{index}]: ")+(
+                        f"{test[0]if isinstance(test,tuple)else'False'}")+(
+                        f" != {test[1]if isinstance(test,tuple)else'True'}")
+                        )
 
     def name(self, name):
         self.title = name
         return self
+
 
 Test = TEST()
 
