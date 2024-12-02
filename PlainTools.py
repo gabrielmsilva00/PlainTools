@@ -28,7 +28,7 @@
 """
 # ---------------------------------------------------------------------------<
 __title__ = "PlainTools"
-__version__ = "1.3.241202.0"
+__version__ = "1.3.241202.1"
 __author__ = "gabrielmsilva00"
 __url__ = "https://gabrielmsilva00.github.io/PlainTools/"
 __repo__ = "https://github.com/gabrielmsilva00/PlainTools.git"
@@ -3789,9 +3789,8 @@ class TEST:
         title_part = f"({self.title})" if self.title else ""
         print(
             f"|Test @{self.ln_no}{title_part} = " + (
-                f"{'PASS' if (
-                    not self.fail) else f'FAIL({len(self.fail)})'}") + (
-                "\n" + "\n".join(self.fail) if self.fail else "") + "\n")
+            f"{'PASS' if (not self.fail) else f'FAIL({len(self.fail)})'}") + (
+            "\n" + "\n".join(self.fail) if self.fail else "") + "\n")
         self.title, self.fail, self.ln_no = None, None, None
         return True
 
