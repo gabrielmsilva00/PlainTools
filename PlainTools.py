@@ -28,7 +28,7 @@
 """
 # ---------------------------------------------------------------------------<
 __title__ = "PlainTools"
-__version__ = "1.3.241202.1"
+__version__ = "1.3.241226.0"
 __author__ = "gabrielmsilva00"
 __url__ = "https://gabrielmsilva00.github.io/PlainTools/"
 __repo__ = "https://github.com/gabrielmsilva00/PlainTools.git"
@@ -100,8 +100,8 @@ Queue = multiprocessing.Queue
 Err = Exception
 
 Any = typing.Any
+Optional = typing.Optional
 Object = object
-Type = object
 Self = typing.Self
 Class = object
 Args = object
